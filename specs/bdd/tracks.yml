@@ -1,0 +1,36 @@
+tracks:
+  - id: value_forge_core_code_agent_execution
+    type: VALUE
+    name: "CodeAgent CLI execution and multi-provider swap"
+    owner: "forgeCodeAgent / forge_core"
+    metrics:
+      - adoption_dev             # number of teams using CodeAgent in automation flows
+      - provider_swap_without_refactor   # count of flows that changed provider without code changes
+      - success_rate_cli_exec    # percentage of successful CLI executions
+    features:
+      - specs/bdd/10_forge_core/10_code_agent_execution.feature
+    notes: "Core ability to execute code prompts via CLI and switch providers without refactoring automations."
+
+  - id: value_forge_core_tools_and_files
+    type: VALUE
+    name: "Tool calling and workspace file persistence"
+    owner: "forgeCodeAgent / forge_core"
+    metrics:
+      - successful_tool_calls        # number/% of successful tool executions
+      - file_persistence_reliability # % of runs where expected files are created/updated correctly
+    features:
+      - specs/bdd/10_forge_core/11_code_agent_tools_and_files.feature
+    notes: "Enables materializing code changes in the workspace via tool calling and safe file writes."
+
+  - id: support_observability_code_agent_resilience
+    type: SUPPORT
+    name: "Provider and CLI resilience for CodeAgent"
+    owner: "forgeCodeAgent / observability"
+    metrics:
+      - provider_config_error_rate   # % of runs failing due to misconfiguration
+      - cli_failure_visibility       # clarity and richness of CLI failure diagnostics
+      - parsing_failure_rate         # % of runs failing due to malformed JSON
+    features:
+      - specs/bdd/50_observabilidade/50_code_agent_resilience.feature
+    notes: "Support track that ensures failures are explicit, diagnosable and do not compromise automation stability."
+

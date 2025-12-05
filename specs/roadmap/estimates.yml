@@ -1,0 +1,120 @@
+estimates:
+  # VALUE Track: value_forge_core_code_agent_execution
+  - id: T1
+    track: value_forge_core_code_agent_execution
+    size: S
+    depends_on: []
+    description: "Domain models and basic contracts (ProviderId, ExecutionRequest, ExecutionResult)"
+
+  - id: T2
+    track: value_forge_core_code_agent_execution
+    size: S
+    depends_on:
+      - T1
+    description: "ProviderAdapter protocol and in-memory registry"
+
+  - id: T3
+    track: value_forge_core_code_agent_execution
+    size: M
+    depends_on:
+      - T1
+      - T2
+    description: "Synchronous run() execution using subprocess.run and mapping to ExecutionResult"
+
+  - id: T4
+    track: value_forge_core_code_agent_execution
+    size: M
+    depends_on:
+      - T1
+      - T2
+    description: "Streaming execution via subprocess.Popen and incremental events"
+
+  - id: T5
+    track: value_forge_core_code_agent_execution
+    size: S
+    depends_on:
+      - T2
+      - T3
+      - T4
+    description: "Provider swap behavior with unchanged automation flows"
+
+  # VALUE Track: value_forge_core_tools_and_files
+  - id: T6
+    track: value_forge_core_tools_and_files
+    size: M
+    depends_on:
+      - T1
+    description: "ToolCallingEngine for registering and executing Python tools"
+
+  - id: T7
+    track: value_forge_core_tools_and_files
+    size: M
+    depends_on:
+      - T3
+      - T4
+      - T6
+    description: "Integration of tool calling into run()/stream() flows"
+
+  - id: T8
+    track: value_forge_core_tools_and_files
+    size: M
+    depends_on:
+      - T1
+    description: "FilesystemWorkspaceAdapter for file writes inside the workspace"
+
+  - id: T9
+    track: value_forge_core_tools_and_files
+    size: S
+    depends_on:
+      - T8
+    description: "Workspace sandboxing (path traversal protection and errors)"
+
+  # SUPPORT Track: support_observability_code_agent_resilience
+  - id: T10
+    track: support_observability_code_agent_resilience
+    size: S
+    depends_on:
+      - T1
+    description: "Error model (ProviderNotSupportedError, ProviderExecutionError, ParsingError, WorkspaceSecurityError, ToolExecutionError, ProviderTimeoutError)"
+
+  - id: T11
+    track: support_observability_code_agent_resilience
+    size: XS
+    depends_on:
+      - T10
+    description: "Handling of unsupported providers"
+
+  - id: T12
+    track: support_observability_code_agent_resilience
+    size: S
+    depends_on:
+      - T3
+      - T10
+    description: "ProviderExecutionError for CLI failures and stderr mapping"
+
+  - id: T13
+    track: support_observability_code_agent_resilience
+    size: S
+    depends_on:
+      - T4
+      - T10
+    description: "Handling of interrupted streaming with partial results"
+
+  - id: T14
+    track: support_observability_code_agent_resilience
+    size: S
+    depends_on:
+      - T3
+      - T4
+      - T10
+    description: "Handling of malformed JSON output from providers"
+
+  - id: T15
+    track: support_observability_code_agent_resilience
+    size: S
+    depends_on:
+      - T3
+      - T4
+      - T10
+    description: "Timeouts for provider execution and safe stderr capture for diagnostics"
+
