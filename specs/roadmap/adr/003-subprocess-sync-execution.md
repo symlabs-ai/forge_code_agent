@@ -20,4 +20,3 @@ O forgeCodeAgent precisa executar CLIs de providers em modos `run` e `stream`, m
 - Reduz complexidade inicial e dependências externas.
 - Pode limitar a concorrência de execuções simultâneas, mas é aceitável no MVP.
 - Deixa espaço para um adapter assíncrono futuro sem quebrar contratos de domínio.
-

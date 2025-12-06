@@ -40,10 +40,10 @@ Com ele, você pode experimentar novas engines sem reescrever seu sistema de aut
 
 ## 🌟 Benefícios
 
-✅ Menos acoplamento às CLIs e mais foco em valor de negócio.  
-🚀 Liberdade para trocar de engine sem reescrever automações inteiras.  
-🔒 Compatível com ambientes com restrições de rede e políticas de segurança rígidas.  
-🧩 Pensado para trabalhar em conjunto com ForgeBase e ForgeProcess.  
+✅ Menos acoplamento às CLIs e mais foco em valor de negócio.
+🚀 Liberdade para trocar de engine sem reescrever automações inteiras.
+🔒 Compatível com ambientes com restrições de rede e políticas de segurança rígidas.
+🧩 Pensado para trabalhar em conjunto com ForgeBase e ForgeProcess.
 
 ---
 
@@ -71,5 +71,4 @@ Quer testar essa camada de runtime no seu contexto?
 ---
 
 ## 📎 Rodapé / Créditos
-_Versão C do site de validação do forgeCodeAgent, focada em liberdade de escolha de engine e governança de automação._ 
-
+_Versão C do site de validação do forgeCodeAgent, focada em liberdade de escolha de engine e governança de automação._

@@ -38,6 +38,38 @@ estimates:
       - T4
     description: "Provider swap behavior with unchanged automation flows"
 
+  - id: T16
+    track: value_forge_core_code_agent_execution
+    size: M
+    depends_on:
+      - T5
+    description: "Provider selection from external configuration (e.g. YAML file) without changing automation code"
+
+  - id: T17
+    track: value_forge_core_code_agent_execution
+    size: M
+    depends_on:
+      - T3
+      - T4
+      - T5
+      - T16
+    description: "Official CLI interface (forge-code-agent run/stream/config) wired to CodeAgent API"
+
+  - id: T18
+    track: value_forge_core_code_agent_execution
+    size: M
+    depends_on:
+      - T17
+    description: "Minimum integration path to at least one real provider (CLI/SDK) with @e2e scenario"
+
+  - id: T19
+    track: value_forge_core_code_agent_execution
+    size: S
+    depends_on:
+      - T17
+      - T18
+    description: "CLI-based demo scripts per sprint and per ValueTrack in examples/"
+
   # VALUE Track: value_forge_core_tools_and_files
   - id: T6
     track: value_forge_core_tools_and_files
@@ -117,4 +149,3 @@ estimates:
       - T4
       - T10
     description: "Timeouts for provider execution and safe stderr capture for diagnostics"
-

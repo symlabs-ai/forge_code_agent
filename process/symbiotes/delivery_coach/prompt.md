@@ -58,4 +58,3 @@ Coordenar a fase **Delivery** do ForgeProcess:
 - Sinalizar riscos de processo (falta de review, ausência de retrospectiva, etc.).
 - Atualizar `current_phase`, `last_completed_step` e `next_recommended_step`
   em `process/process_execution_state.md` quando há mudanças de fase.
-

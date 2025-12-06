@@ -10,8 +10,8 @@
 
 ## ValueTrack: Execução de Agentes de Código via CLI
 
-**Tipo:** VALUE  
-**Domínio:** 10_forge_core  
+**Tipo:** VALUE
+**Domínio:** 10_forge_core
 **Referência MDD:** `docs/visao.md`
 
 ---
@@ -20,15 +20,15 @@
 
 #### 1. Executar prompt de código com um provider configurado (sucesso)
 
-**Ação (O QUÊ o usuário faz):**  
+**Ação (O QUÊ o usuário faz):**
 O desenvolvedor configura um `CodeAgent` com um provider de código (por exemplo, `codex`) e um `workdir`, envia um prompt de código para `run()` e espera a conclusão da execução.
 
-**Resultado esperado (O QUÊ ele vê):**  
+**Resultado esperado (O QUÊ ele vê):**
 O runtime chama a CLI correspondente, a engine de código gera a resposta e o desenvolvedor recebe o resultado de forma estruturada (texto/código), com um campo explícito de status (sucesso/erro).
 
-**Critério de validação (COMO validar):**  
-- A CLI é invocada com os parâmetros esperados para o provider configurado.  
-- A chamada retorna sem erro de subprocesso.  
+**Critério de validação (COMO validar):**
+- A CLI é invocada com os parâmetros esperados para o provider configurado.
+- A chamada retorna sem erro de subprocesso.
 - O objeto de resposta do `CodeAgent` indica sucesso de forma explícita e contém o conteúdo gerado.
 
 **Cenário BDD futuro:**
@@ -44,16 +44,16 @@ SCENARIO: Run code prompt with configured provider
 
 #### 2. Executar prompt com streaming incremental (sucesso)
 
-**Ação (O QUÊ o usuário faz):**  
+**Ação (O QUÊ o usuário faz):**
 O desenvolvedor chama `stream()` em um `CodeAgent` configurado para acompanhar a saída da engine de código em tempo real.
 
-**Resultado esperado (O QUÊ ele vê):**  
+**Resultado esperado (O QUÊ ele vê):**
 O runtime expõe um fluxo incremental de eventos/mensagens, permitindo que o desenvolvedor consuma o código gerado aos poucos, sem esperar o término completo da execução, e sinaliza de forma inequívoca o fim do stream.
 
-**Critério de validação (COMO validar):**  
-- A CLI é invocada em modo compatível com streaming.  
-- O runtime entrega mais de um chunk de saída, preservando a ordem.  
-- Há um evento ou flag explícito indicando conclusão do stream.  
+**Critério de validação (COMO validar):**
+- A CLI é invocada em modo compatível com streaming.
+- O runtime entrega mais de um chunk de saída, preservando a ordem.
+- Há um evento ou flag explícito indicando conclusão do stream.
 - Não há perda de dados entre o que veio da CLI e o que foi entregue ao chamador.
 
 **Cenário BDD futuro:**
@@ -70,18 +70,18 @@ SCENARIO: Consume streamed code response incrementally
 
 #### 3. Trocar de provider sem alterar o código de automação
 
-**Ação (O QUÊ o usuário faz):**  
-O desenvolvedor muda a configuração de provider (por exemplo, de `"codex"` para `"claude"`) mantendo o mesmo fluxo de automação (mesmo código que usa `CodeAgent`).
+**Ação (O QUÊ o usuário faz):**
+O desenvolvedor muda a configuração de provider (por exemplo, de `"codex"` para `"claude"` ou `"gemini"`) mantendo o mesmo fluxo de automação (mesmo código que usa `CodeAgent`). Essa configuração pode ser feita via variável de ambiente, arquivo de configuração (ex.: YAML) ou outro mecanismo externo ao código.
 
-**Resultado esperado (O QUÊ ele vê):**  
+**Resultado esperado (O QUÊ ele vê):**
 O mesmo código de orquestração continua funcionando, agora chamando a CLI do novo provider, sem necessidade de refatorações estruturais.
 
-**Critério de validação (COMO validar):**  
-- O fluxo de automação (scripts/tests) permanece idêntico.  
-- O `CodeAgent` passa a invocar a CLI do novo provider.  
+**Critério de validação (COMO validar):**
+- O fluxo de automação (scripts/tests) permanece idêntico.
+- O `CodeAgent` passa a invocar a CLI do novo provider.
 - Os resultados indicam que o prompt foi processado pela engine correta, sem erros de integração.
 
-**Cenário BDD futuro:**
+**Cenário BDD futuro (configuração sem refatoração de código):**
 ```gherkin
 SCENARIO: Switch provider while keeping the same automation flow
   GIVEN there is an automation flow that uses a CodeAgent with provider "codex"
@@ -93,17 +93,44 @@ SCENARIO: Switch provider while keeping the same automation flow
 
 ---
 
+#### 6. Carregar configuração de provider a partir de arquivo YAML (configuração avançada)
+
+**Ação (O QUÊ o usuário faz):**
+O desenvolvedor mantém um arquivo de configuração (por exemplo, `forge_code_agent.yml`) que define o provider padrão e, opcionalmente, parâmetros específicos de CLI por provider. O código de automação cria o `CodeAgent` a partir desse arquivo, sem precisar codificar o provider diretamente no código Python.
+
+**Resultado esperado (O QUÊ ele vê):**
+O mesmo fluxo de automação continua funcionando, e o provider ativo (e sua CLI) passa a ser determinado pelo arquivo YAML. Alterar o provider no YAML (por exemplo, de `"codex"` para `"claude"`) muda o comportamento da execução sem necessidade de alterar o código de automação.
+
+**Critério de validação (COMO validar):**
+- Existe um arquivo de configuração YAML legível pelo runtime.
+- O `CodeAgent` consegue ser instanciado “from config” usando esse arquivo.
+- Com o YAML apontando para provider `"codex"`, o fluxo executa usando `"codex"`.
+- Ao alterar o YAML para `"claude"`, o mesmo fluxo passa a executar com `"claude"`, sem mudanças no código Python.
+
+**Cenário BDD futuro:**
+```gherkin
+SCENARIO: Select provider from YAML configuration file
+  GIVEN there is an automation flow that creates a CodeAgent from a configuration file
+  AND the YAML configuration sets the provider to "codex"
+  WHEN the developer runs the automation flow
+  THEN the provider "codex" is used to execute the CLI
+  AND when the YAML configuration is changed to set the provider to "claude" without changing the automation code
+  THEN the same automation flow executes successfully using the "claude" provider CLI
+```
+
+---
+
 #### 4. Executar tool calling com função Python registrada (sucesso)
 
-**Ação (O QUÊ o usuário faz):**  
+**Ação (O QUÊ o usuário faz):**
 O desenvolvedor registra uma tool Python (por exemplo, `gerar_arquivo`) no `CodeAgent` e envia um prompt que faz a engine disparar um tool calling para essa função.
 
-**Resultado esperado (O QUÊ ele vê):**  
+**Resultado esperado (O QUÊ ele vê):**
 O runtime recebe a chamada de tool no JSON da engine, executa a função Python correspondente com os argumentos corretos e devolve o resultado para a engine, que incorpora a saída na resposta final.
 
-**Critério de validação (COMO validar):**  
-- O JSON de tool calling é recebido e interpretado corretamente.  
-- A função Python registrada é chamada com argumentos coerentes.  
+**Critério de validação (COMO validar):**
+- O JSON de tool calling é recebido e interpretado corretamente.
+- A função Python registrada é chamada com argumentos coerentes.
 - A resposta final da engine reflete o resultado produzido pela tool.
 
 **Cenário BDD futuro:**
@@ -119,15 +146,15 @@ SCENARIO: Execute tool calling with registered Python function
 
 #### 5. Persistir arquivos gerados no workspace (sucesso)
 
-**Ação (O QUÊ o usuário faz):**  
+**Ação (O QUÊ o usuário faz):**
 O desenvolvedor chama `run()` com um prompt que instrui a engine a criar ou atualizar arquivos de código no projeto.
 
-**Resultado esperado (O QUÊ ele vê):**  
+**Resultado esperado (O QUÊ ele vê):**
 Ao final da execução, os arquivos esperados existem dentro do `workdir`, com conteúdo correspondente ao código gerado pela engine, sem escrever fora do workspace.
 
-**Critério de validação (COMO validar):**  
-- Os arquivos esperados são criados/atualizados dentro do diretório de trabalho configurado.  
-- O conteúdo dos arquivos corresponde ao que foi gerado pela engine.  
+**Critério de validação (COMO validar):**
+- Os arquivos esperados são criados/atualizados dentro do diretório de trabalho configurado.
+- O conteúdo dos arquivos corresponde ao que foi gerado pela engine.
 - Não há escrita em caminhos fora do workspace (ex.: diretórios pai).
 
 **Cenário BDD futuro:**
@@ -144,8 +171,8 @@ SCENARIO: Persist generated files in the workspace
 
 ## ValueTrack: Confiabilidade e Resiliência de Execução
 
-**Tipo:** SUPPORT  
-**Domínio:** 50_observabilidade  
+**Tipo:** SUPPORT
+**Domínio:** 50_observabilidade
 **Referência MDD:** `docs/visao.md`
 
 ---
@@ -156,15 +183,15 @@ SCENARIO: Persist generated files in the workspace
 
 ---
 
-**Condição (QUANDO ocorre):**  
+**Condição (QUANDO ocorre):**
 O desenvolvedor configura o `CodeAgent` com um provider que não está implementado ou não é suportado pelo runtime.
 
-**Tratamento esperado (COMO o sistema reage):**  
+**Tratamento esperado (COMO o sistema reage):**
 O runtime falha de forma explícita e controlada, retornando um erro claro (ex.: exceção específica) indicando provider inválido, sem tentar invocar nenhuma CLI.
 
-**Critério de validação:**  
-- Nenhum subprocesso é disparado.  
-- A mensagem de erro indica o nome do provider inválido.  
+**Critério de validação:**
+- Nenhum subprocesso é disparado.
+- A mensagem de erro indica o nome do provider inválido.
 - O status de erro é fácil de capturar nos testes automatizados.
 
 **Cenário BDD futuro:**
@@ -180,15 +207,15 @@ SCENARIO: Fail to configure unsupported provider
 
 #### 2. Falha na execução da CLI (erro de subprocesso)
 
-**Condição (QUANDO ocorre):**  
+**Condição (QUANDO ocorre):**
 O runtime tenta executar a CLI de um provider válido, mas há erro de execução (comando não encontrado, saída de erro, timeouts).
 
-**Tratamento esperado (COMO o sistema reage):**  
+**Tratamento esperado (COMO o sistema reage):**
 O runtime captura o erro, sinaliza falha com informação suficiente para diagnóstico (mensagem e, se possível, stdout/stderr relevantes), sem travar ou ficar em estado inconsistente.
 
-**Critério de validação:**  
-- O erro de subprocesso é traduzido para uma exceção/resultado específico do runtime (por exemplo, um tipo `ProviderExecutionError`).  
-- Logs ou mensagens incluem detalhes mínimos (comando, código de saída).  
+**Critério de validação:**
+- O erro de subprocesso é traduzido para uma exceção/resultado específico do runtime (por exemplo, um tipo `ProviderExecutionError`).
+- Logs ou mensagens incluem detalhes mínimos (comando, código de saída).
 - O chamador consegue diferenciar erro de engine de erro de runtime.
 
 **Cenário BDD futuro:**
@@ -206,10 +233,10 @@ SCENARIO: Handle failure while executing provider CLI
 
 #### 1. Saída parcial com interrupção
 
-**Descrição:**  
+**Descrição:**
 Durante uma execução em streaming, a CLI é interrompida (ex.: cancelamento, erro de rede local ou time-out), resultando em saída parcial.
 
-**Comportamento esperado:**  
+**Comportamento esperado:**
 O runtime deve sinalizar claramente que a resposta é incompleta, expondo o que foi gerado até o momento e o motivo da interrupção, para permitir decisões conscientes do chamador (repetir, retomar, descartar).
 
 **Cenário BDD:**
@@ -226,10 +253,10 @@ SCENARIO: Indicate that streamed response was interrupted
 
 #### 2. JSON de saída malformado vindo da CLI
 
-**Descrição:**  
+**Descrição:**
 Durante uma execução, a CLI retorna um JSON inválido ou malformado, impossibilitando o parsing direto da resposta.
 
-**Comportamento esperado:**  
+**Comportamento esperado:**
 O runtime detecta o problema de parsing, registra informação suficiente para diagnóstico e retorna um erro claro, sem mascarar o problema nem corromper o estado interno.
 
 **Cenário BDD:**
@@ -247,10 +274,10 @@ SCENARIO: Handle malformed JSON output from CLI
 
 | ValueTrack | Tipo | Comportamentos | Cenários BDD |
 |-----------|------|----------------|--------------|
-| Execução de Agentes de Código via CLI | VALUE | 5 | 5 |
+| Execução de Agentes de Código via CLI | VALUE | 6 | 6 |
 | Confiabilidade e Resiliência de Execução | SUPPORT | 4 | 4 |
 
-**Total:** 9 comportamentos → 9 cenários BDD
+**Total:** 10 comportamentos → 10 cenários BDD
 
 ---
 
@@ -262,6 +289,6 @@ SCENARIO: Handle malformed JSON output from CLI
 
 ---
 
-**Autor:** bdd_coach  
-**Revisado por:** _a definir_  
+**Autor:** bdd_coach
+**Revisado por:** _a definir_
 **Data de aprovação:** _a definir_

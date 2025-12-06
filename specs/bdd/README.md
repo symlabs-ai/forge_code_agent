@@ -22,4 +22,3 @@ Este diretório contém as especificações BDD de alto nível do forgeCodeAgent
   - Outras tags (`@tools`, `@workspace`, `@security`, etc.) refinam foco.
 
 Os tracks e sua ligação com as features são definidos em `specs/bdd/tracks.yml`.
-

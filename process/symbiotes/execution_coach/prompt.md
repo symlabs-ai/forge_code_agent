@@ -47,4 +47,3 @@ Coordenar o macro-processo **Execution**:
   - de `execution.tdd` → `delivery.sprint`.
 - Ajudar a identificar bloqueios (falta de decisões arquiteturais, backlog incompleto, etc.).
 - Orientar quando chamar `mark_arc`, `roadmap_coach` ou `tdd_coder` em cada subetapa.
-

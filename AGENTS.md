@@ -14,7 +14,7 @@ O modulo python forgeCodeAgent encapsula as CLIs de motores locais (Codex-like, 
 - Regras do ForgeBase: `docs/guides/forgebase_guides/usuarios/forgebase-rules.md` (Clean/Hex, CLI-first, offline, persistência YAML + auto-commit Git).
 - Prompts de cada symbiota: `process/symbiotes/<nome>/prompt.md`.
 - Contexto MDD/BDD: `docs/`, `specs/bdd/`, `specs/adr/`. #pode ainda não existir
-- Execucao do processo: `/process/process_execution_state.md` 
+- Execucao do processo: `/process/process_execution_state.md`
 
 ## Defaults para qualquer symbiota
 

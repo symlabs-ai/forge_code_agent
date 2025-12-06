@@ -74,4 +74,3 @@ Os experimentos indicaram tração clara para a proposta de um **runtime Python 
 - Selecionar 1–2 projetos piloto onde o forgeCodeAgent será exercitado em fluxos reais (por exemplo, geração de módulos, refatorações assistidas ou PR assistido).
 
 Esta aprovação autoriza formalmente o início do trabalho de especificação comportamental (BDD) e planejamento técnico (Execution) do forgeCodeAgent.
-

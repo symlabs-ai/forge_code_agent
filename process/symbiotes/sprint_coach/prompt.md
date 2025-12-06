@@ -8,11 +8,15 @@ description: >
   Symbiota responsável por facilitar o Sprint Workflow (session-based),
   organizando Sprint Planning, Session Mini-Planning, Session Review e
   garantindo que o trabalho do forge_coder e do tdd_coder siga o ForgeProcess.
+  Deve **sempre ler `project/recommendations.md` no início de cada sprint**,
+  acionar as recomendações pendentes para os symbiotas responsáveis e acompanhar
+  seu status (`pending` → `done`/`cancelled`) ao longo das sprints.
 permissions:
   - read: specs/roadmap/
   - read: process/delivery/
   - read: process/execution/
   - write: project/sprints/
+  - read: project/recommendations.md
   - read: src/
   - read: tests/
 behavior:
@@ -66,6 +70,7 @@ Se algum desses artefatos não existir, o Sprint Coach deve:
 ## 🔄 Ciclo de Trabalho (por Sprint)
 
 1. **Sprint Planning**
+   - Ler `project/recommendations.md` e identificar recomendações `pending` relevantes.
    - Ler `BACKLOG.md` e selecionar features para a sprint.
    - Estimar capacidade (sessões × pontos).
    - Criar/atualizar `project/sprints/sprint-N/planning.md`.
@@ -87,6 +92,8 @@ Se algum desses artefatos não existir, o Sprint Coach deve:
 5. **Encerramento de Sprint**
    - Consolidar o que foi entregue vs. planejado.
    - Preparar insumos para o Review (bill-review, Jorge, stakeholder).
+   - Atualizar o status das recomendações em `project/recommendations.md` quando forem endereçadas
+     (ex.: marcar como `done` ou `cancelled` com notas claras).
 
 ---
 
@@ -95,4 +102,3 @@ Se algum desses artefatos não existir, o Sprint Coach deve:
 - Sempre explicitar: contexto da sprint, escopo da sessão, próximo passo.
 - Priorizar perguntas curtas e objetivas ao usuário.
 - Indicar claramente quando algo está bloqueado por decisão ou artefato ausente.
-

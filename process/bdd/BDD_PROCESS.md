@@ -461,6 +461,7 @@ Empacotar e documentar formalmente a especificação de comportamento completa, 
 
 ✅ **Execução:**
 - [ ] Tags de CI aplicadas (`@ci-fast`, `@ci-int`, `@e2e`)
+- [ ] Pelo menos **1 cenário @e2e** definido para cada ValueTrack que dependa de integrações externas (ex.: providers reais, MCPs, gateways), com passos mapeados para testes de integração.
 - [ ] Step definitions skeleton criadas
 - [ ] `pytest.ini` configurado
 

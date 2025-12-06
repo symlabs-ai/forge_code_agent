@@ -56,22 +56,24 @@ trabalhando em conjunto com o `roadmap_coach`, stakeholder e tech lead.
 
 ---
 
-## 2️⃣ TDD Workflow – "COMO implementar com prova?"
+## 2️⃣ TDD Workflow – "COMO preparar testes com prova?"
 
-- Detalha o ciclo **Red → Green → Refactor** por feature:
+- Detalha o ciclo **Red → Green → Refactor** por feature, focado em **testes**:
   - partir de cenários BDD e itens do backlog,
   - escrever testes antes do código,
-  - implementar o mínimo para passar,
-  - refatorar com segurança.
+  - garantir que os testes sejam estáveis, significativos e rastreáveis ao backlog.
 - Documento de referência:
   `process/execution/tdd/TDD_PROCESS.md`
 
 Nesta fase, o symbiota **tdd_coder** (`process/symbiotes/tdd_coder/prompt.md`)
-atua como executor principal de código dentro do Execution, aplicando TDD
-Red-Green-Refactor em cima da arquitetura definida no Roadmap Planning.
+atua apenas sobre **features BDD e arquivos de teste** (tests/**), preparando e refinando
+os testes que servirão de base para a implementação. A implementação/refatoração de
+`src/**` fica a cargo do **forge_coder** na fase de Delivery (sprints), usando esses
+testes como contrato.
 
-**Pergunta central:**
-> Como transformar especificações BDD em código confiável, com testes guiando cada passo?
+**Pergunta central em Execution/TDD:**
+> Como transformar especificações BDD em uma suíte de testes confiável, que o forge_coder
+> possa usar depois para implementar/refatorar código em Delivery?
 
 ---
 

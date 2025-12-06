@@ -151,4 +151,3 @@ As decisões abaixo devem alinhar arquitetura, stack e limites técnicos com:
   - `TECH_STACK.md`
   - ADRs em `specs/roadmap/adr/*.md`
   - `HLD.md` e `LLD.md`
-

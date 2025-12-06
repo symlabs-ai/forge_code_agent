@@ -46,11 +46,11 @@ No contexto deste projeto (forgeCodeAgent), o mínimo necessário é que **`forg
 
 ## 2. Setup de Git / Pre-commit / Ruff
 
-Este diretório contém o arquivo `git-dev.zip` e o texto original de instruções `setup-git.txt` (copiado de `temp/`), que definem o setup padrão de Git/pre-commit usado no ForgeBase.
+Este diretório contém o arquivo `git-dev.zip`, cujo conteúdo e instruções originais (documentadas em `temp/setup-git.txt`) definem o setup padrão de Git/pre-commit usado no ForgeBase.
 
 ### 2.1 Conteúdo de `git-dev.zip`
 
-De acordo com `setup-git.txt`, o zip inclui:
+De acordo com `temp/setup-git.txt`, o zip inclui:
 
 - `pre-commit-config.yaml`:
   - define hooks como:
@@ -67,16 +67,18 @@ De acordo com `setup-git.txt`, o zip inclui:
 - `install_precommit.sh`:
   - script para instalar dependências de dev, registrar hooks e rodar baseline.
 - `dev-requirements.txt`:
-  - dependências mínimas para rodar os hooks:
+  - dependências mínimas para rodar os hooks e a suíte de testes:
     - `pre-commit`,
     - `ruff`,
+    - `pytest`, `pytest-bdd`,
+    - `pytest-cov` (para medir cobertura de testes por sprint),
     - (e demais ferramentas opcionais conforme repo principal).
 
 ### 2.2 Passo a passo para usar em outro projeto (como este)
 
 Dentro do diretório do projeto (este repo), faça:
 
-1. **Extrair os arquivos do zip**  
+1. **Extrair os arquivos do zip**
    - Descompacte `process/env/git-dev.zip` em um local apropriado (por exemplo, na raiz ou em `scripts/`), preservando:
      - `pre-commit-config.yaml`,
      - `ruff.toml`,
@@ -92,7 +94,7 @@ Dentro do diretório do projeto (este repo), faça:
    source .venv/bin/activate  # Windows: .venv\Scripts\activate
    ```
 
-3. **Instalar dependências de hooks**
+3. **Instalar dependências de hooks e testes**
 
    Na raiz onde está `dev-requirements.txt`:
 
@@ -137,5 +139,72 @@ No `process/process_execution_state.md`, na fase **Execution**:
   - ForgeBase instalado;
   - ambiente de testes + pre-commit configurados (`pytest`, `pytest-bdd`, `pre-commit`, `ruff`).
 
-Em resumo:  
+Em resumo:
 **este README.md ensina a montar o ambiente (ForgeBase + testes + pre-commit) necessário para que symbiotas como `tdd_coder` e `forge_coder` possam trabalhar com segurança e dentro das regras do ForgeProcess.**
+
+---
+
+## 4. Checklist rápido de verificação do ambiente
+
+Depois de seguir os passos acima, execute localmente (na raiz do projeto, com `.venv` ativado):
+
+```bash
+# 1) Verificar se o ForgeBase está instalável/importável
+python -c "import forgebase; print('forgebase OK:', forgebase.__version__)"
+
+# 2) Verificar se pytest está disponível (incluindo plugins como pytest-bdd/pytest-cov)
+pytest --version
+
+# 3) Rodar coleta de testes BDD (apenas coleta, sem executar)
+pytest --collect-only tests/bdd -q
+
+# 4) Rodar pre-commit em modo baseline (opcional, mas recomendado)
+pre-commit run --config pre-commit-config.yaml --all-files
+```
+
+Se todos os comandos acima rodarem sem erro, o ambiente está pronto para a fase **Execution.tdd** e para o trabalho do `tdd_coder`.
+
+> 💡 **Dica sobre imports em projetos com layout `src/`**
+>
+> Para evitar erros de `ModuleNotFoundError` ao rodar `pytest` antes de instalar
+> o pacote via `pip`, é recomendável configurar o `pytest.ini` para incluir:
+>
+> ```ini
+> [pytest]
+> testpaths = tests
+> pythonpath = src
+> ```
+>
+> Isso permite que módulos como `forge_code_agent.*` sejam importados
+> diretamente do diretório `src/` durante o TDD, sem exigir instalação prévia
+> do pacote.
+
+---
+
+## 5. Script de automação: `setup_env.sh`
+
+Para facilitar, existe um script na raiz do repositório que executa grande parte dos passos acima automaticamente:
+
+```bash
+bash setup_env.sh
+```
+
+O que ele faz:
+
+- descompacta `process/env/git-dev.zip` na raiz (se `pre-commit-config.yaml` ainda não existir e se `unzip` estiver disponível);
+- cria `.venv` na raiz, se ainda não existir;
+- instala dependências de desenvolvimento a partir de `dev-requirements.txt` (se presente);
+- instala o ForgeBase a partir do repositório oficial do GitHub;
+- roda verificações rápidas:
+  - import de `forgebase`,
+  - `pytest --version` e coleta de testes BDD (se `tests/bdd` existir),
+  - instalação e execução inicial de `pre-commit` se `pre-commit-config.yaml` e `pre-commit` estiverem disponíveis no `.venv`.
+
+Após rodar o script, basta ativar o ambiente:
+
+```bash
+source .venv/bin/activate       # Linux/macOS
+.venv\Scripts\activate          # Windows
+```
+
+E seguir normalmente com o ForgeProcess (Execution.tdd).

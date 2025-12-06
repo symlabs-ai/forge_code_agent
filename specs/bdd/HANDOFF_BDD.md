@@ -115,4 +115,3 @@ Resumo derivado de `docs/aprovacao_mvp.md` e dos tracks em `specs/bdd/tracks.yml
 ---
 
 Este documento sinaliza que a fase BDD do forgeCodeAgent está completa para o escopo de MVP e que o próximo passo recomendado é iniciar a fase **Execution / Roadmap Planning**, conforme `process/execution/PROCESS.yml`.
-

@@ -33,4 +33,3 @@ tracks:
     features:
       - specs/bdd/50_observabilidade/50_code_agent_resilience.feature
     notes: "Support track that ensures failures are explicit, diagnosable and do not compromise automation stability."
-

@@ -1,7 +1,7 @@
 # 🧠 forgeCodeAgent — Automatize suas CLIs de IA de Código
 _Transforme qualquer CLI de IA de código em um runtime Python plugável, testável e sem custo por token._
 
-> Pare de escrever scripts frágeis em torno de CLIs de IA.  
+> Pare de escrever scripts frágeis em torno de CLIs de IA.
 > Uso local. Sem dependência de APIs remotas. Sem vazamento de código.
 
 ---
@@ -66,10 +66,10 @@ gemini code --json --prompt "gere testes para esta API"
 
 ## 🌟 Benefícios
 
-✅ Menos scripts frágeis e código colado em CLIs específicas.  
-🚀 Automação de agentes de código plugada em CI/CD, CLIs e ferramentas internas.  
-🔒 Uso local, sem dependência de APIs remotas nem envio de código para fora quando você usa engines locais.  
-🧩 Integração nativa com processos ForgeBase/ForgeProcess (YAML + Git, Clean/Hex, CLI-first).  
+✅ Menos scripts frágeis e código colado em CLIs específicas.
+🚀 Automação de agentes de código plugada em CI/CD, CLIs e ferramentas internas.
+🔒 Uso local, sem dependência de APIs remotas nem envio de código para fora quando você usa engines locais.
+🧩 Integração nativa com processos ForgeBase/ForgeProcess (YAML + Git, Clean/Hex, CLI-first).
 
 ---
 
@@ -94,10 +94,10 @@ Em vez de scripts ad hoc por engine, tudo passa a depender de uma única API Pyt
 ## 📩 Chamada à Ação (CTA)
 Quer transformar suas CLIs de IA de código em infraestrutura de automação?
 
-👉 Quer ser um dos primeiros times a rodar agentes de código 100% locais?  
+👉 Quer ser um dos primeiros times a rodar agentes de código 100% locais?
 **Participe dos pilotos e receba suporte direto da equipe do ForgeBase.**
 
 ---
 
 ## 📎 Rodapé / Créditos
-_Visão e hipótese derivadas de `docs/hipotese.md` e `docs/visao.md` do projeto forgeCodeAgent, dentro do ForgeProcess (MDD)._ 
+_Visão e hipótese derivadas de `docs/hipotese.md` e `docs/visao.md` do projeto forgeCodeAgent, dentro do ForgeProcess (MDD)._

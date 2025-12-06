@@ -112,7 +112,7 @@ specs/
 ### Objetivo
 **Apresentar propostas técnicas e obter validação/aprovação ANTES de tomar decisões definitivas.**
 
-> Symbiota de arquitetura responsável: **Mark Arc**  
+> Symbiota de arquitetura responsável: **Mark Arc**
 > Papel: conduzir a análise arquitetural ForgeBase (Clean/Hex, CLI-first, observability-first),
 > preparar propostas técnicas e apoiar stakeholder/tech lead nas decisões.
 

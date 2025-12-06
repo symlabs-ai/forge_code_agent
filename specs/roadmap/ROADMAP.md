@@ -1,9 +1,9 @@
 # TDD Roadmap — forgeCodeAgent
 
-> **Status**: Draft  
-> **Versão**: 0.1  
-> **Data**: 2025-12-05  
-> **Aprovador**: _a definir_
+> **Status**: Approved (Execution – Phase 5 concluída)
+> **Versão**: 0.1
+> **Data**: 2025-12-05
+> **Aprovador**: Tech Lead / Stakeholder (via Execution)
 
 ---
 
@@ -24,7 +24,7 @@ Tudo isso guiado pelas features BDD e pelo feature breakdown T1–T15.
 
 ### Sprint 1 (Semanas 1–2): Núcleo de Execução via CLI
 
-**Track**: `value_forge_core_code_agent_execution` + partes de `support_observability_code_agent_resilience`  
+**Track**: `value_forge_core_code_agent_execution` + partes de `support_observability_code_agent_resilience`
 **Objetivo**: ter `CodeAgent.run()` e `CodeAgent.stream()` funcionando com um provider de referência (Codex-like), com contrato de resultado e erros básicos.
 
 **Tasks (T1–T5, T10–T12)**:
@@ -41,18 +41,18 @@ Tudo isso guiado pelas features BDD e pelo feature breakdown T1–T15.
 - `10_code_agent_execution.feature`
 - parte de `50_code_agent_resilience.feature` (provider inválido, falha de CLI).
 
-**Milestone 1**:  
+**Milestone 1**:
 `CodeAgent` executa prompts via CLI com status explícito e troca de provider configurável, e falhas de provider/CLI são sinalizadas corretamente.
 
 **Riscos**:
-- Interações sutis entre parsing de saída e erros de CLI.  
+- Interações sutis entre parsing de saída e erros de CLI.
   → Mitigação: priorizar cenários de resiliência BDD desde o início.
 
 ---
 
 ### Sprint 2 (Semanas 3–4): Tool Calling, Arquivos e Resiliência Completa
 
-**Track**: `value_forge_core_tools_and_files` + restante de `support_observability_code_agent_resilience`  
+**Track**: `value_forge_core_tools_and_files` + restante de `support_observability_code_agent_resilience`
 **Objetivo**: habilitar tool calling, escrita segura de arquivos em workspace e cobrir os casos de resiliência restantes.
 
 **Tasks (T6–T9, T13–T15)**:
@@ -68,11 +68,11 @@ Tudo isso guiado pelas features BDD e pelo feature breakdown T1–T15.
 - `11_code_agent_tools_and_files.feature`
 - restante de `50_code_agent_resilience.feature` (interrupção, JSON malformado, timeout, stderr).
 
-**Milestone 2**:  
+**Milestone 2**:
 Tool calling funcional, arquivos gerados/atualizados no workspace com sandbox, e todas as situações de erro previstas na feature de resiliência cobertas.
 
 **Riscos**:
-- Complexidade na interface entre parsing, tool calling e workspace.  
+- Complexidade na interface entre parsing, tool calling e workspace.
   → Mitigação: manter responsabilidades separadas entre domínio, adapters de CLI e workspace.
 
 ---
@@ -141,4 +141,3 @@ Este roadmap deve ser revisado:
 - quando novos ValueTracks/Features forem adicionados ao forgeCodeAgent.
 
 **Última atualização**: 2025-12-05 por mark_arc
-

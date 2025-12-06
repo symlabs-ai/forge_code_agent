@@ -1,7 +1,7 @@
 # TECH_STACK — forgeCodeAgent
 
-> Versão: 0.1  
-> Responsável: mark_arc  
+> Versão: 0.1
+> Responsável: mark_arc
 > Fonte: `specs/roadmap/ARCHITECTURAL_DECISIONS_APPROVED.md`
 
 ---

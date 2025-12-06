@@ -1,6 +1,6 @@
 # LLD — Low Level Design — forgeCodeAgent
 
-> Versão: 0.1 (draft)  
+> Versão: 0.1 (draft)
 > Responsável: mark_arc
 
 ---
@@ -23,7 +23,7 @@ class ExecutionResult:
     status: Literal["success", "error", "partial"]
     provider: ProviderId
     content: str | None
-    raw_events: list[dict]
+    raw_events: list[dict]  # canonical AgentEvents (incluem campo `raw` com payload original)
     tool_calls: list[ToolCall]
     errors: list[ExecutionError]
     metadata: dict[str, Any]

@@ -87,6 +87,14 @@ Intenção (Valor) → Comportamento → Prova → Execução → Aprendizado �
 
 O ForgeProcess opera em **fases integradas**, cada uma representando um nível de refinamento do pensamento.
 
+> 💡 **Nota sobre “ciclo” no ForgeProcess**
+>
+> No contexto deste processo, consideramos **uma volta completa pelas fases**
+> MDD → BDD → Execution → Delivery → Feedback até o nó `end_ciclo_completo`
+> (ver `process/PROCESS.yml`) como **um “ciclo” do ForgeProcess**.
+> Cada ciclo coleta aprendizados em Feedback e pode iniciar uma nova volta,
+> expandindo ValueTracks existentes ou encerrando o produto.
+
 > **Nota Importante sobre estrutura:**
 > - Este repositório contém apenas a **documentação padrão** do ForgeProcess, em `processes/forgeprocess/...`.
 > - Referências a `process/...`, `specs/...` e `project/...` descrevem a **estrutura alvo** de um projeto que adota o ForgeProcess (por exemplo, criada via `symforge init -p forgeprocess myproject`).

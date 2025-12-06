@@ -38,7 +38,7 @@ Este processo ocorre ao final de cada sessão de implementação para garantir a
 Antes de apresentar qualquer resultado, o desenvolvedor/agente **deve** completar a validação técnica local, conforme **ADR-010**. O objetivo é garantir que a feature está funcional e estável.
 
 **Checklist de Pré-Voo (Resumo do ADR-010):**
-- **Execução da Demo:** O script de demo (`examples/...`) roda sem erros com credenciais reais.
+- **Execução da Demo (quando aplicável):** O script de demo (`examples/...`) roda sem erros com credenciais reais e cobre pelo menos um fluxo `@e2e` relevante. Para features puramente internas/mocks, a demo em `examples/` é opcional, e a validação pode ser feita apenas com testes automatizados.
 - **Testes BDD:** Os testes BDD para a feature passam (`pytest tests/bdd/...`).
 - **Qualidade do Código:** Sem erros de sintaxe ou import.
 - **Documentação:** A feature está documentada nos cenários BDD.

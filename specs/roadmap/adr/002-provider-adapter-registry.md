@@ -22,4 +22,3 @@ O runtime deve suportar múltiplos providers de código (Codex-like, Claude, Gem
 - Simplifica a escolha de provider em `CodeAgent`.
 - Permite adicionar novos providers sem mudar a interface pública.
 - Exige disciplina para manter adapters coerentes e bem testados.
-

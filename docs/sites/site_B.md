@@ -58,11 +58,11 @@ agent.run("gere o módulo de autenticação")
 
 ## 🌟 Benefícios
 
-✅ **Governança unificada**: logs, workspace controlado e padronização de fluxos.  
-✅ **Redução de lock-in**: troque de engine sem mudar o código de automação.  
-✅ **Custo previsível**: execução local, sem custo por token quando usado com engines locais.  
-✅ **DX melhorada**: menos tempo lutando com `subprocess` e parsing manual; mais tempo focado em valor de negócio.  
-🧪 Base sólida para TDD/automação em projetos que seguem ForgeBase/ForgeProcess.  
+✅ **Governança unificada**: logs, workspace controlado e padronização de fluxos.
+✅ **Redução de lock-in**: troque de engine sem mudar o código de automação.
+✅ **Custo previsível**: execução local, sem custo por token quando usado com engines locais.
+✅ **DX melhorada**: menos tempo lutando com `subprocess` e parsing manual; mais tempo focado em valor de negócio.
+🧪 Base sólida para TDD/automação em projetos que seguem ForgeBase/ForgeProcess.
 
 ---
 
@@ -86,10 +86,10 @@ Com o forgeCodeAgent:
 ## 📩 Chamada à Ação (CTA)
 Quer uma camada única para orquestrar engines de código na sua stack?
 
-👉 Quer unificar engines de código na sua empresa com uma única API?  
+👉 Quer unificar engines de código na sua empresa com uma única API?
 Inscreva seu time nos testes iniciais do forgeCodeAgent e avalie o impacto em cenários reais de desenvolvimento.
 
 ---
 
 ## 📎 Rodapé / Créditos
-_Conteúdo baseado na visão de produto e sumário executivo do projeto forgeCodeAgent (Fase MDD)._ 
+_Conteúdo baseado na visão de produto e sumário executivo do projeto forgeCodeAgent (Fase MDD)._

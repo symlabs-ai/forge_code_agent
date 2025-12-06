@@ -28,6 +28,10 @@
 - Persistência:
   - Artefatos em Markdown/YAML, versionados em Git.
   - Commits preferencialmente por etapa/fase, com mensagem clara.
+- CLI-first (para produtos CLI, como forgeCodeAgent):
+  - A interface primária de validação deve ser uma **CLI oficial** (ex.: `forge-code-agent ...`), não apenas a API Python.
+  - Para cada funcionalidade exposta em `src/**` que faça parte de um ValueTrack, deve existir um comando correspondente na CLI oficial.
+  - Scripts em `examples/` existem para **exercitar fluxos end-to-end via CLI oficial** (por sprint e por ValueTrack), não para testar apenas funções/mocks diretamente em Python.
 - Symbiotas relevantes:
   - `mdd_coach`, `mdd_publisher`
   - `bdd_coach`
@@ -43,11 +47,11 @@
 > Campo de **estado vivo** para ser atualizado pelos agentes/symbiotas.
 > Pode ser usado pelo orquestrador para saber onde o projeto está.
 
-- [x] `current_phase`: `execution.roadmap_planning`
-- [x] `current_cycle`: `cycle-01`
-- [ ] `current_sprint`: se aplicável, ex.: `sprint-01`.
-- [x] `last_completed_step`: `execution.roadmap_planning.etapa_05_roadmap_backlog`
-- [x] `next_recommended_step`: `execution.tdd.phase_1_selecao`
+- [x] `current_phase`: `feedback`
+- [x] `current_cycle`: `cycle-02`
+- [x] `current_sprint`: `sprint-03`
+- [x] `last_completed_step`: `feedback.feedback_analyze`
+- [x] `next_recommended_step`: `decisao_mudar_visao`
 
 > Convenção sugerida: atualizar este bloco ao final de cada etapa significativa
 > (pelo menos por fase) para facilitar handoffs entre agentes.
@@ -72,7 +76,7 @@
 
 Referência: `process/mdd/PROCESS.yml`
 
-> Symbiota responsável pela fase (etapas 3.1 a 3.6): `mdd_coach`.  
+> Symbiota responsável pela fase (etapas 3.1 a 3.6): `mdd_coach`.
 > Revisor de processo ao final da fase: `jorge_the_forge` (audita se o MDD seguiu o ForgeProcess).
 
 ### 3.1 Etapa 01 — Concepção da Visão
@@ -167,7 +171,7 @@ Referência: `process/mdd/PROCESS.yml`
 
 Referência: `process/bdd/PROCESS.yml`
 
-> Symbiota responsável pela fase (etapas 4.1 a 4.6): `bdd_coach`.  
+> Symbiota responsável pela fase (etapas 4.1 a 4.6): `bdd_coach`.
 > Revisor de processo ao final da fase: `jorge_the_forge` (audita se o BDD seguiu o ForgeProcess).
 
 ### 4.1 Etapa 01 — Mapeamento de Comportamentos
@@ -343,8 +347,8 @@ Referência: `process/execution/roadmap_planning/PROCESS.yml`
 
 Referência: `process/execution/tdd/PROCESS.yml`
 
-> Symbiota responsável pelas etapas 5.2.1–5.2.5: `tdd_coder` (executa TDD Red-Green-Refactor em cima da arquitetura definida no Roadmap Planning).  
-> Regra: **TDD SEMPRE parte de um item do `BACKLOG.md`.**
+> Symbiota responsável por esta fase: `tdd_coder` (seleciona tarefa, escreve e consolida testes/steps BDD, sem alterar `src/**`).
+> Regra: **TDD SEMPRE parte de um item do `BACKLOG.md` e entrega uma suíte de testes pronta para o forge_coder usar em Delivery.**
 
 #### 5.2.1 Phase 1 — Seleção da Tarefa e BDD Scenarios
 
@@ -361,38 +365,29 @@ Referência: `process/execution/tdd/PROCESS.yml`
 - Saídas:
   - [ ] `tests/bdd/test_*.py` com teste falhando (RED)
 
-#### 5.2.3 Phase 3 — Minimal Implementation (GREEN)
+#### 5.2.3 Phase 3 — Minimal Implementation (GREEN - Testes)
 
 - Entradas:
   - [ ] `tests/bdd/test_*.py`
 - Saídas:
-  - [ ] `src/**/*.py` (código mínimo para passar o teste)
+  - [ ] `tests/**/*.py` verdes para a tarefa selecionada (cobertura comportamental garantida pelo `tdd_coder`).
+  - Observação: qualquer implementação de código em `src/**` decorrente desses testes deve ser realizada pelo `forge_coder` na Fase 6 (Delivery/Sprint).
 
-#### 5.2.4 Phase 4 — Refactor
+> Revisor de processo ao final da fase 5 (Execution): `jorge_the_forge` (audita se Roadmap Planning + TDD seguiram o ForgeProcess, incluindo relação com BDD, backlog e limites de escopo entre tdd_coder e forge_coder).
 
-- Entradas:
-  - [ ] `src/**/*.py`
-- Saídas:
-  - [ ] `src/**/*.py` refatorado, testes ainda verdes
+### Handoff Execution → Delivery
 
-#### 5.2.5 Phase 5 — Commit e Próxima Tarefa
-
-- Entradas:
-  - [ ] `src/**/*.py`
-  - [ ] `tests/**/*.py`
-- Saídas:
-  - [ ] `specs/roadmap/BACKLOG.md` atualizado (tarefa marcada como concluída)
-- Critérios de laço:
-  - [ ] Se `backlog.has_pending_tasks()` → voltar à Phase 1 (próxima tarefa).
-  - [ ] Se não há tarefas → decidir se precisa `needs_roadmap_revision`.
-- Ao final do TDD para o ciclo:
-  - [ ] `return_complete` → Execution conclui e chama Delivery.
-  - Atualizar estado:
+- Critério para encerrar a Fase 5 (Execution) em um ciclo:
+  - [ ] `specs/roadmap/ROADMAP.md` e `specs/roadmap/BACKLOG.md` existentes e aprovados (5.1 concluída).
+  - [ ] Tarefas selecionadas do backlog cobertas por testes BDD/pytest verdes (`tests/bdd/**`) para o escopo deste ciclo (5.2.3 concluída para essas tarefas).
+  - [ ] Revisão de processo da Fase 5 realizada por `jorge_the_forge`, confirmando aderência ao ForgeProcess e limites de escopo entre `tdd_coder` e `forge_coder`.
+- Ao concluir Execution para o ciclo atual:
+  - Atualizar estado neste arquivo:
     - [ ] `current_phase = delivery.sprint`
-    - [ ] `last_completed_step = execution.tdd.phase_5_commit` (última tarefa do ciclo)
+    - [ ] `last_completed_step = execution.tdd.phase_3_minimal_implementation`
     - [ ] `next_recommended_step = delivery.sprint.sprint_planning`
-
-> Revisor de processo ao final da fase 5 (Execution): `jorge_the_forge` (audita se Roadmap Planning + TDD seguiram o ForgeProcess, incluindo relação com BDD e backlog).
+  - Orquestração:
+    - [ ] Carregar/ativar `sprint_coach` e `forge_coder` para iniciar a Fase 6 (Sprint Planning e Session Implementation).
 
 ---
 
@@ -404,7 +399,7 @@ Referência: `process/delivery/PROCESS.yml`
 
 Referência: `process/delivery/sprint/PROCESS.yml`
 
-> Symbiota responsável por facilitar a fase (etapas 6.1.1–6.1.5): `sprint_coach`.  
+> Symbiota responsável por facilitar a fase (etapas 6.1.1–6.1.5): `sprint_coach`.
 > Symbiota executor de código nas etapas de implementação/commit (6.1.3 e 6.1.5): `forge_coder`.
 
 #### 6.1.1 Sprint Planning
@@ -485,9 +480,46 @@ Referência: `process/delivery/review/PROCESS.yml`
   - [ ] `last_completed_step = delivery.review.stakeholder_review`
   - [ ] `next_recommended_step = feedback.feedback_collect`
 
-> Revisores ao final da fase 6 (Delivery):  
-> - `bill_review` — revisão técnica da sprint e do incremento entregue;  
+> Revisores ao final da fase 6 (Delivery):
+> - `bill_review` — revisão técnica da sprint e do incremento entregue;
 > - `jorge_the_forge` — revisão de processo da sprint (compliance com ForgeProcess).
+
+#### 6.2.4 Demo Script por Sprint (focado em E2E)
+
+- Antes ou durante a etapa de Review/Stakeholder Validation, o `forge_coder` deve:
+  - [ ] Criar (ou atualizar) um script de demo específico da sprint em `examples/` (ex.: `examples/sprint1_demo.sh`, `examples/sprint2_demo.sh`),
+        **apenas quando houver algo a demonstrar em termos de fluxo end-to-end** (por exemplo, integração com provider real, MCP, gateway externo).
+  - [ ] Garantir que o script:
+        - explique no início, via `echo`, o que será demonstrado;
+        - use o runtime atual do projeto (via instalação local ou `PYTHONPATH`) **para chamar a CLI oficial do produto** (ex.: `forge-code-agent run ...`, `forge-code-agent stream ...`), em vez de invocar diretamente funções Python internas;
+        - execute um cenário equivalente a pelo menos um teste `@e2e` (ou, na ausência de marcação explícita, um fluxo que dependa de integrações externas reais);
+        - seja simples de rodar para o stakeholder (`./examples/sprintN_demo.sh`).
+  - [ ] Em sprints que só entregam lógica interna/mocks (sem integrações externas), o uso de `examples/` é opcional; a validação pode ser feita exclusivamente via testes automatizados (`pytest`, BDD, etc.).
+  - [ ] Referenciar o script de demo em `project/sprints/sprint-N/review.md` e em `project/sprints/sprint-N/stakeholder-approval.md` como parte das demos executadas, quando aplicável.
+
+#### 6.2.5 Scripts de ValueTrack por Ciclo (CLI-first)
+
+- Ao concluir um ValueTrack em nível de ciclo (por exemplo, execução via CLI, tools/files, observabilidade), o time deve:
+  - [ ] Criar um script agregador em `examples/` (ex.: `examples/valuetrack_code_agent_execution.sh`) que:
+        - utilize **somente a CLI oficial** para demonstrar, em sequência, todas as funcionalidades cobertas por aquele ValueTrack;
+        - possa ser rodado pelo stakeholder como demo de “fechamento de ciclo” para aquele ValueTrack.
+  - [ ] Atualizar o feedback de ciclo correspondente (`project/docs/feedback/cycle-XX.md`) mencionando esse script como referência principal de demo E2E do ValueTrack.
+
+### Handoff Delivery → Feedback
+
+- Critério para encerrar a Fase 6 (Delivery) em um ciclo:
+  - [ ] `project/sprints/sprint-N/review.md` consolidado (bill-review técnico concluído).
+  - [ ] `project/sprints/sprint-N/jorge-process-review.md` consolidado (review de processo concluído).
+  - [ ] `project/sprints/sprint-N/stakeholder-approval.md` com decisão `approved`.
+  - [ ] `!backlog.has_pending_items()` para o escopo definido do ciclo/sprint.
+- Ao atingir esses critérios:
+  - Confirmar as checkboxes de “Atualizar estado” na seção 6.2.3:
+    - [ ] `current_phase = feedback`
+    - [ ] `last_completed_step = delivery.review.stakeholder_review`
+    - [ ] `next_recommended_step = feedback.feedback_collect`
+  - Orquestração:
+    - [ ] Encerrar a sprint corrente.
+    - [ ] Carregar/ativar `jorge_the_forge` (ou agente equivalente) para conduzir a Fase 7 (Feedback), registrando métricas, aprendizados e decisões de próximo ciclo.
 
 ---
 
@@ -498,33 +530,43 @@ Referência: macro em `process/PROCESS.yml` (phases.feedback)
 ### 7.1 Coletar Feedback
 
 - Entradas (exemplos):
-  - [ ] Métricas operacionais (logs, observabilidade)
-  - [ ] KPIs de valor definidos na visão / tracks
+  - [x] Métricas operacionais (logs, observabilidade) — neste ciclo, centradas em testes/verdes e entregas de sprint.
+  - [x] KPIs de valor definidos na visão / tracks — para o MVP atual (execução básica via CLI + tools/files + resiliência).
 - Saídas:
-  - [ ] Registro de métricas e observações (sugestão: `project/docs/feedback/cycle-N.md`)
+  - [x] Registro de métricas e observações (`project/docs/feedback/cycle-01.md`)
 
 ### 7.2 Analisar Feedback
 
 - Atividades:
-  - [ ] Analisar dados, comparar com KPIs
-  - [ ] Sugerir ajustes de visão, novos ValueTracks ou encerrar ciclo
+  - [x] Analisar dados, comparar com KPIs
+  - [x] Sugerir ajustes de visão, novos ValueTracks ou encerrar ciclo
+  - [x] Conduzir uma **revisão geral de ciclo** (liderada por `jorge_the_forge`), identificando melhorias de processo, gaps de artefatos e ajustes de papéis entre symbiotas.
 
 ### 7.3 Decisões de ciclo
 
-- [ ] Decisão 1 — Visão precisa mudar?
+- [x] Decisão 1 — Visão precisa mudar?
   - [ ] Se **sim**:
     - [ ] `current_phase = mdd`
     - [ ] `next_recommended_step = mdd.etapa_01_concepcao`
-  - [ ] Se **não**:
-    - [ ] Decisão 2 — Há mais ValueTracks a implementar?
+  - [x] Se **não**:
+    - [x] Decisão 2 — Há mais ValueTracks a implementar?
       - [ ] Se “continuar”:
         - [ ] `current_phase = bdd`
         - [ ] `next_recommended_step = bdd.etapa_01_mapeamento`
-      - [ ] Se “completo”:
-        - [ ] `end_ciclo_completo`
+      - [x] Se “completo”:
+        - [x] Antes de considerar o ciclo completo, verificar:
+          - [x] Para cada ValueTrack crítico que dependa de integrações externas (ex.: providers reais, MCPs, gateways), existe **pelo menos um cenário BDD marcado com `@e2e`** passando em ambiente controlado.
+          - [x] Os testes de integração correspondentes (`pytest -m e2e` ou suíte equivalente) foram executados com sucesso pelo menos uma vez neste ciclo.
+          - [x] Qualquer limitação conhecida (ex.: provider ainda simulado) está explicitamente registrada em `project/docs/feedback/cycle-XX.md` e **não** é mascarada como entrega completa.
+        - [x] Somente após esses critérios, marcar `end_ciclo_completo`.
+        - [x] Consolidar as melhorias de processo identificadas na revisão geral do ciclo em `project/recommendations.md`, com:
+          - `owner_symbiota` explícito,
+          - `status` inicial (`pending`),
+          - notas sobre a discussão/validação com stakeholders.
+        - [x] Garantir que o `sprint_coach` leia `project/recommendations.md` no planejamento da próxima sprint e acione as recomendações pertinentes.
 
-> Revisão e registro de aprendizados ao final da fase 7 (Feedback):  
-> - `jorge_the_forge` é responsável por consolidar aprendizados de processo e atualizar artefatos de feedback;  
+> Revisão e registro de aprendizados ao final da fase 7 (Feedback):
+> - `jorge_the_forge` é responsável por consolidar aprendizados de processo e atualizar artefatos de feedback;
 > - `bill_review` pode ser invocado para revisar implicações técnicas identificadas no feedback, mas o registro formal de aprendizados é conduzido por Jorge.
 
 ---
@@ -534,6 +576,7 @@ Referência: macro em `process/PROCESS.yml` (phases.feedback)
 - `tdd_coder`:
   - [ ] Nunca iniciar implementação se `specs/roadmap/BACKLOG.md` não existir.
   - [ ] Em caso de ausência, registrar no contexto: “É necessário rodar Roadmap Planning antes do TDD” e solicitar intervenção de `roadmap_coach`.
+  - [ ] **Escopo restrito a testes**: só criar/alterar `tests/**` (step definitions e testes); **nunca** alterar `src/**`. Se a implementação exigir mudanças em runtime/código de produção, registrar/usar item de backlog e acionar o `forge_coder` na fase 6 (Delivery/Sprint).
 - `forge_coder`:
   - [ ] Implementar e commitar código principalmente durante a fase de Delivery (sprints), seguindo TDD e a arquitetura definida em Execution.
   - [ ] Trabalhar sempre em cima de itens do backlog definidos e aprovados; não inventar escopo novo durante a sprint.

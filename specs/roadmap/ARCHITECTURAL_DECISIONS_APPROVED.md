@@ -1,7 +1,7 @@
 # ARCHITECTURAL_DECISIONS_APPROVED — forgeCodeAgent
 
-> Versão: 0.1  
-> Responsável: mark_arc + stakeholders  
+> Versão: 0.1
+> Responsável: mark_arc + stakeholders
 > Fonte: `specs/roadmap/ARCHITECTURAL_QUESTIONNAIRE.md`
 
 Decisões arquiteturais consolidadas para o MVP do forgeCodeAgent, alinhadas às features BDD e ao ForgeProcess.
@@ -135,7 +135,7 @@ Domínio nunca usa diretamente `subprocess`, `os` ou filesystem; tudo passa por 
       status: Literal["success", "error", "partial"]
       provider: ProviderId
       content: str | None
-      raw_events: list[dict]
+      raw_events: list[dict]  # eventos canônicos (AgentEvents) com campo `raw` preservando o payload original
       tool_calls: list[ToolCall]
       errors: list[ExecutionError]
       metadata: dict[str, Any]

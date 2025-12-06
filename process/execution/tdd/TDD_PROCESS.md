@@ -4,13 +4,19 @@
 
 **Project (exemplo)**: forgeLLMClient (SymClient + Forge SDK)
 **Team**: Agent Coders (Claude Code primary)
-**Symbiota de código (Execution/TDD)**: tdd_coder (`process/symbiotes/tdd_coder/prompt.md`)
+**Symbiota de código (Execution/TDD - TESTES)**: tdd_coder (`process/symbiotes/tdd_coder/prompt.md`)
 **Last Updated**: 2025-11-05
 **Methodology**: BDD → TDD (Behavior-Driven Development → Test-Driven Development)
 
 ---
 
-## 🎯 TDD Philosophy
+## 🎯 TDD Philosophy  (ajuste forgeCodeAgent)
+
+> Nota específica para este projeto (`forgeCodeAgent`):
+> Neste macroprocesso, o **tdd_coder** atua APENAS sobre testes (features BDD, step definitions e arquivos em `tests/**`).
+> A implementação e refatoração de código de produção em `src/**` é responsabilidade do **forge_coder** na Fase 6 (Delivery/Sprint).
+> O conteúdo abaixo descreve o ciclo TDD completo em termos conceituais; neste projeto, o tdd_coder aplica esses princípios
+> somente na camada de testes, e o forge_coder os aplica depois na camada de código.
 
 ### Red-Green-Refactor Cycle
 

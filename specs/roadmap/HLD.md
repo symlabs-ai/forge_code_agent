@@ -1,6 +1,6 @@
 # HLD — High Level Design — forgeCodeAgent
 
-> Versão: 0.1 (draft)  
+> Versão: 0.1 (draft)
 > Responsável: mark_arc
 
 ---

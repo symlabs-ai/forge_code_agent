@@ -247,3 +247,7 @@ quality_metrics:
   - name: kpi_achievement
     target: ">= 70% dos KPIs atingidos"
     description: "Taxa de KPIs de valor atingidos"
+
+  - name: e2e_coverage_minimum
+    target: ">= 1 cenário @e2e passando por ValueTrack crítico antes de encerrar o ciclo"
+    description: "Garantir que, para cada ValueTrack que dependa de integrações externas (providers reais, MCPs, etc.), exista pelo menos um cenário BDD marcado com @e2e passando com testes de integração antes de atingir o nó end_ciclo_completo"

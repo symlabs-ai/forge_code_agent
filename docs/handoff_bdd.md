@@ -109,4 +109,3 @@ Resumo derivado de `docs/aprovacao_mvp.md`.
 ---
 
 Este handoff encerra formalmente o ciclo MDD do forgeCodeAgent e inicia o trabalho de BDD, que deverá produzir `specs/bdd/**/*.feature` e artefatos correlatos com base neste contexto.
-

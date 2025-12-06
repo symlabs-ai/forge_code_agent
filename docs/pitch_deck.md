@@ -49,10 +49,10 @@ O forgeCodeAgent se posiciona como infraestrutura crítica nesse cenário: é a 
 ---
 
 ## 🧩 6. Diferenciais Competitivos
-✅ Unifica múltiplas CLIs de engines de código em uma única API Python.  
-✅ Focado em execução local e custo zero por token quando usado com motores locais.  
-✅ Tool calling nativo, com execução de funções Python e gravação de arquivos no workspace.  
-✅ Alinhado ao ForgeBase/ForgeProcess (Clean/Hex, CLI-first, offline, YAML + Git).  
+✅ Unifica múltiplas CLIs de engines de código em uma única API Python.
+✅ Focado em execução local e custo zero por token quando usado com motores locais.
+✅ Tool calling nativo, com execução de funções Python e gravação de arquivos no workspace.
+✅ Alinhado ao ForgeBase/ForgeProcess (Clean/Hex, CLI-first, offline, YAML + Git).
 ✅ Facilita trocar de provider sem reescrever automações.
 
 ---
@@ -92,4 +92,3 @@ Se sua equipe já usa CLIs de engines de código ou quer reduzir dependência de
 Participe dos pilotos iniciais, ajude a definir os primeiros providers suportados em profundidade e traga seus casos reais de automação de código.
 
 > “Vamos transformar CLIs de IA de código em infraestrutura padrão de desenvolvimento — com autonomia, governança e custo previsível.”
-

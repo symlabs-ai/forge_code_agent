@@ -1,7 +1,7 @@
 # feature_breakdown — forgeCodeAgent
 
-> Versão: 0.1 (draft)  
-> Responsável: roadmap_coach  
+> Versão: 0.1 (draft)
+> Responsável: roadmap_coach
 > Fonte: `specs/bdd/tracks.yml`, features BDD, `dependency_graph.md`
 
 ---
@@ -54,6 +54,31 @@
 - Garantir que `CodeAgent` use apenas `ProviderId` e registry, sem `if` específicos de provider.
 - Adicionar testes BDD que trocam provider em configuração, mantendo o mesmo código de automação.
 
+### T16. Seleção de provider a partir de configuração externa (YAML/env)
+
+- Permitir que o provider seja configurado via arquivo (ex.: `forge_code_agent.yml`) ou variável de ambiente, sem alterar o código de automação.
+- Implementar `CodeAgent.from_config(...)` e garantir que a troca no arquivo/config muda o provider efetivo.
+
+### T17. CLI oficial para execução (run/stream/config)
+
+- Implementar uma CLI oficial (`forge-code-agent` ou `python -m forge_code_agent`) com comandos:
+  - `run`: executar prompts de código;
+  - `stream`: executar prompts em modo streaming;
+  - suporte a `--provider`, `--workdir`, `--config`, `--timeout`.
+- Garantir que pelo menos um cenário BDD use a CLI oficial como ator principal (`@cli`).
+
+### T18. Integração mínima com provider real (E2E)
+
+- Permitir que, para pelo menos um provider (ex.: Codex real), o adapter utilize uma CLI/SDK real quando configurado (ex.: via env var `FORGE_CODE_AGENT_CODEX_CMD` ou similar).
+- Criar cenário BDD `@e2e` que, em ambiente controlado, exercita esse caminho real via CLI oficial.
+
+### T19. Scripts de demo por Sprint e por ValueTrack (CLI-first)
+
+- Padronizar scripts em `examples/`:
+  - `examples/sprintN_demo.sh`: demonstra as entregas da sprint usando apenas a CLI oficial.
+  - `examples/valuetrack_code_agent_execution.sh`: demonstra todas as funcionalidades do ValueTrack de execução via CLI oficial, como demo de fechamento de ciclo.
+/- Assegurar que esses scripts sejam referenciados em `project/sprints/sprint-N/review.md` e no feedback de ciclo correspondente.
+
 ---
 
 ## 3. Tarefas — Track: value_forge_core_tools_and_files
@@ -71,6 +96,7 @@
   - ProviderAdapter detecta tool calls;
   - `ToolCallingEngine` executa funções Python;
   - resultados são incorporados ao `ExecutionResult`.
+ - Incluir um exemplo de demonstração em CLI/API para stakeholders.
 
 ### T8. Adapter de workspace e persistência de arquivos
 
@@ -78,6 +104,7 @@
   - validação de paths contra o `workdir`;
   - escrita/atualização de arquivos gerados pela engine/tool.
 - Alinhar com cenário BDD de persistência de arquivos no workspace.
+ - Ter um script de demo em `examples/valuetrack_tools_and_files.sh` exercitando `--write-to-file` via CLI oficial.
 
 ### T9. Sandbox de workspace (path traversal)
 
@@ -135,4 +162,3 @@
 - T10–T15 são parte do **SupportTrack de resiliência**; algumas tarefas (como T11–T12) são pré-requisito para qualquer uso em CI.
 
 Estes IDs (T1...T15) devem ser reutilizados em `specs/roadmap/estimates.yml` e `specs/roadmap/BACKLOG.md` para manter rastreabilidade TASK → FEATURE → TRACK.
-

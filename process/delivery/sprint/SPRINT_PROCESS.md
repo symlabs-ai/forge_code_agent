@@ -250,7 +250,7 @@ Se o agente `Jorge the Forge` não estiver disponível, a auditoria de processo 
 5. **Demo para Stakeholder**
    - Apresentar bill-review findings (technical)
    - Apresentar Jorge findings (process)
-   - Executar demos interativas (ex: `examples/demo_*.py`)
+   - Executar demos interativas **apenas quando houver fluxos end-to-end relevantes** (ex: `examples/demo_*.py` rodando cenários `@e2e` com providers reais, MCPs, etc.). Para incrementos puramente internos/mocks, a validação pode ser feita só por testes automatizados, e a demo em `examples/` é opcional.
    - Validar BDD scenarios
    - Obter aprovação final
 

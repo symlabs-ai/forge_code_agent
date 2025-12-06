@@ -157,4 +157,3 @@ O forgeCodeAgent preenche um vazio claro entre CLIs de engines de código e auto
 4. integrar a peça ao ForgeProcess como runtime oficial de agentes de código.
 
 É a fundação natural para a próxima geração de automações em times que valorizam **autonomia, segurança e governança técnica**.
-

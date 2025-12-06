@@ -1,7 +1,7 @@
 # dependency_graph — forgeCodeAgent
 
-> Versão: 0.1 (draft)  
-> Responsável: roadmap_coach + mark_arc  
+> Versão: 0.1 (draft)
+> Responsável: roadmap_coach + mark_arc
 > Fonte: `specs/bdd/tracks.yml`, features BDD
 
 ---

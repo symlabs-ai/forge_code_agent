@@ -1,20 +1,11 @@
 @value @forge_core @tools @workspace
-Feature: Tool calling and workspace file persistence
+Feature: Workspace file persistence and boundaries
   As a developer using forgeCodeAgent
-  I want tool calling to execute Python functions and persist files in the workspace
+  I want the runtime to persist files safely in the workspace
   So that my automations can materialize code changes directly in the project
 
   Background:
     Given a clean working directory configured for the project
-
-  @happy_path @tool_calling
-  @ci-int
-  Scenario: Execute tool calling with registered Python function
-    Given there is a CodeAgent with a tool "generate_file" registered to a Python function
-    And the CodeAgent is configured in the working directory
-    When the code engine requests execution of the "generate_file" tool via JSON
-    Then the runtime executes the corresponding Python function with the provided arguments
-    And the final response from the engine includes the result of the tool execution
 
   @happy_path @files
   @ci-int
