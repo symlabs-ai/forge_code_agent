@@ -1,65 +1,64 @@
-# Current Plan — forgeCodeAgent (Streaming + Reasoning + Multi‑Provider)
+# Current Plan — MCP Fase 1 (Servidor Local Mínimo)
 
-> Escopo: próximos passos imediatos a partir dos demos Codex/Claude/Gemini (Tetris, streaming, reasoning).
-
----
-
-## 1. BDD e Integração para Streaming/Reasoning
-
-- [x] Adicionar cenários BDD para streaming por provider em `specs/bdd/10_forge_core/10_code_agent_execution.feature`:
-  - [x] `stream()` com provider `codex` via API (CodeAgent.stream).
-  - [x] `stream()` com provider `claude` via API.
-  - [x] `stream()` com provider `gemini` via API.
-- [x] Adicionar pelo menos um cenário `@cli @streaming`:
-  - [x] Streaming via CLI oficial (`python -m forge_code_agent.cli stream`) com provider `codex`.
-  - [ ] Opcional: marcar um cenário para ambientes que suportem provider real (`@e2e`).
+> Escopo imediato: implementar a Fase 1 do plano MCP (`docs/TOOL_CALLING_MCP_PLAN.md`) com um servidor MCP local mínimo,
+> tools básicas de filesystem e integração inicial com o `CodeAgent` (sem ainda plugar nos adapters dos providers).
 
 ---
 
-## 2. Testes para Flags de Reasoning da CLI
+## 1. Servidor MCP local mínimo
 
-- [x] Criar testes unitários/integração para `forge_code_agent.cli` cobrindo:
-  - [x] `--reasoning-only` com provider simulado (linha JSON contendo `item.type=="reasoning"`).
-  - [x] `--reasoning-with-output` com:
-    - [x] linhas com `item.type=="reasoning"`;
-    - [x] linhas com `item.type=="agent_message"`;
-    - [x] linhas JSON sem o shape esperado (devem ser ecoadas brutas).
-    - [x] linhas não JSON (texto puro).
-- [x] Garantir que esses testes não dependam de CLIs externas (usar providers simulados / fixtures).
-
----
-
-## 3. Demos Avançados de Tool Calling em Streaming
-
-- [x] Estender os demos para incluir tool calling combinado com streaming:
-  - [x] Codex:
-    - [x] Demo que combina `tools-demo` (tool calling Python) + `stream` com `--reasoning-with-output`.
-  - [x] Claude:
-    - [x] Demo equivalente usando `FORGE_CODE_AGENT_CLAUDE_CMD`/`FORGE_CODE_AGENT_CLAUDE_STREAM_CMD`.
-  - [x] Gemini:
-    - [x] Demo equivalente usando `FORGE_CODE_AGENT_GEMINI_CMD`/`FORGE_CODE_AGENT_GEMINI_STREAM_CMD`.
-- [x] Garantir que os demos continuem CLI‑first (sem lógica extra fora da CLI oficial).
+- [ ] Criar módulo `src/forge_code_agent/mcp_server/` com:
+  - [ ] entrypoint `python -m forge_code_agent.mcp_server` que inicia um servidor MCP local;
+  - [ ] configuração simples via flags/env (ex.: `--workdir`, `--socket` ou `--stdio`);
+  - [ ] ciclo de vida básico (run loop até EOF / sinal).
+- [ ] Implementar tools mínimas baseadas em `FilesystemWorkspaceAdapter`:
+  - [ ] `read_file(path)` — devolve conteúdo de arquivo dentro do workspace;
+  - [ ] `write_file(path, content)` — grava conteúdo respeitando sandbox de workspace;
+  - [ ] `list_dir(path)` — lista arquivos/pastas relativos ao workspace.
 
 ---
 
-## 4. Tour Multi‑Provider Tetris (Regressão Manual)
+## 2. Integração leve com CodeAgent
 
-- [x] Consolidar os runners:
-  - [x] `examples/run_codex.sh` — executar todos os demos em `examples/codex/`.
-  - [x] `examples/run_claude.sh` — executar todos os demos em `examples/claude/`.
-  - [x] `examples/run_gemini.sh` — executar todos os demos em `examples/gemini/`.
-- [ ] Definir este tour como checklist de regressão manual por sprint:
-  - [ ] Rodar os três scripts ao final da sprint.
-  - [ ] Verificar:
-    - [ ] geração/execução de Tetris (ou equivalente) por provider;
-    - [ ] streaming funcionando (sem “dump” único ao final);
-    - [ ] reasoning visível quando aplicável.
+- [ ] Adicionar helper `ensure_mcp_server(workdir: Path) -> MCPServerHandle` em módulo dedicado
+      (ex.: `src/forge_code_agent/mcp_server/integration.py`):
+  - [ ] calcular identificação única do servidor por `workdir`;
+  - [ ] (Fase 1) expor estrutura de handle com informações de conexão (mesmo que ainda não usadas);
+  - [ ] preparar ponto de extensão para iniciar o servidor em background em Fase 2.
+- [ ] Conectar `CodeAgent` ao conceito de MCP apenas via `ExecutionResult.metadata`:
+  - [ ] reservar campos como `mcp_enabled` / `mcp_endpoint` / `run_id` (sem preencher ainda, se não houver servidor ativo).
 
 ---
 
-## 5. Critérios de Conclusão do Ciclo Atual
+## 3. Testes e validação mínima
 
-- [ ] Pelo menos um cenário BDD `@cli @streaming` passando para provider real.
-- [ ] Tests cobrindo `--reasoning-only` e `--reasoning-with-output` verdes.
-- [ ] Demos de tool calling em streaming funcionando para pelo menos um provider (Codex).
-- [ ] Tour multi‑provider (`run_codex.sh`, `run_claude.sh`, `run_gemini.sh`) rodando sem erros em ambiente preparado.
+- [ ] Criar testes unitários para as tools MCP:
+  - [ ] `read_file` lendo arquivo existente no `tmp_path`;
+  - [ ] `write_file` criando/atualizando arquivo no workspace com proteção de path traversal;
+  - [ ] `list_dir` listando apenas caminhos dentro do workspace.
+- [ ] Adicionar teste simples de bootstrap:
+  - [ ] validar que `python -m forge_code_agent.mcp_server` consegue inicializar com um `workdir` de teste
+        (mesmo que o protocolo MCP ainda não seja exercitado de ponta a ponta).
+
+---
+
+## 4. Critérios de conclusão da Fase 1 (MCP)
+
+- [ ] Módulo `mcp_server` presente e importável.
+- [ ] Tools mínimas (`read_file`, `write_file`, `list_dir`) cobertas por testes automatizados.
+- [ ] Entry point `python -m forge_code_agent.mcp_server --workdir <dir>` executa sem erro fatal em ambiente de desenvolvimento.
+- [ ] `docs/TOOL_CALLING_MCP_PLAN.md` continua alinhado com a implementação (Fase 1 marcada como em progresso/concluída).
+
+---
+
+## 5. Configuração manual do Codex para usar o MCP local
+
+Para validar a integração com Codex na ponta a ponta, é necessário registrar o servidor MCP do forgeCodeAgent no Codex:
+
+- [ ] Rodar o script de registro:
+  - `./examples/mcp/codex_register_mcp_server.sh`
+- [ ] Confirmar, quando solicitado, que deseja adicionar a entrada MCP (isso atualiza `~/.codex/config.toml`).
+- [ ] Verificar que o servidor MCP está configurado:
+  - `codex mcp list` deve listar `forge-code-agent` apontando para `python -m forge_code_agent.mcp_server --workdir project/demo_workdir`.
+
+Essa configuração é pré‑requisito para os próximos demos Codex+MCP descritos em `docs/TOOL_CALLING_MCP_PLAN.md`.
