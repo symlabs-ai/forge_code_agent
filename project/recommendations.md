@@ -45,3 +45,36 @@ Cada recomendação deve ser registrada com:
 - `notes`:
   - Sprint 2 já incorpora datas/estimativas mais concretas em `planning.md` e `progress.md`.
   - Recomenda-se continuar refinando estes valores nas próximas sprints com base em histórico real.
+
+### R-003 — Implementar CodeManager + ContextSessionManager
+
+- `id`: R-003
+- `source`: sprint-4/mcp-review (Jorge + bill_review)
+- `description`: Implementar o `ContextSessionManager` e o `CodeManager` conforme `docs/CODE_MANAGER_PLAN.md`, centralizando o gerenciamento de contexto (histórico + resumo + sessões) e orquestração de providers/multi-sessão.
+- `owner_symbiota`: sprint_coach (coordena), forge_coder (implementa), tdd_coder (testes)
+- `status`: done
+- `notes`:
+  - Implementação concluída neste ciclo:
+    - `ContextSessionManager` + `CodeManager` criados em `src/forge_code_agent/context/`.
+    - Integração com CLI via `--use-code-manager` e `--auto-summarize`.
+    - Persistência de sessões em `logs/codeagent/session_*.json`.
+  - Coberto por testes unitários (`tests/test_context_session_manager.py`, `tests/test_code_manager.py`),
+    testes de CLI (`tests/test_cli_code_manager_summarize.py`) e BDD (`specs/bdd/41_context/41_code_manager_sessions.feature`).
+
+### R-004 — Centralizar MCP no CodeManager e estender para Claude/Gemini
+
+- `id`: R-004
+- `source`: sprint-4/mcp-review (Jorge + bill_review)
+- `description`: Mover a responsabilidade de orquestração de MCP para o `CodeManager` (em vez do runtime), mantendo as idiossincrasias de cada provider nos adapters, e estender a integração MCP para Claude e Gemini além do Codex.
+- `owner_symbiota`: sprint_coach (coordena), forge_coder (adapters/MCP), tdd_coder (BDD/tests)
+- `status`: done
+- `notes`:
+  - CodeManager passou a ser o único ponto de orquestração MCP (`ensure_mcp_server` + metadata `"mcp"`),
+    retirando essa responsabilidade do `CodeAgent`.
+  - Demos MCP criados para os três providers principais em `examples/mcp/`:
+    - Codex: `codex_register_mcp_server.sh`, `codex_read_file_demo.sh`;
+    - Claude: `claude_tools_demo.sh`;
+    - Gemini: `gemini_tools_demo.sh`.
+  - Hardening inicial e fluxo MCP básico estão cobertos por testes (`tests/test_mcp_server_tools.py`)
+    e pela feature BDD `specs/bdd/40_mcp/40_mcp_tools.feature`. Cenários adicionais `@mcp @e2e`
+    por ValueTrack (ex.: PR assistido, módulo+testes) seguirão nos próximos ciclos.

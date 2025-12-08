@@ -1,30 +1,33 @@
-forgeCodeAgent — MCP demos (Codex)
-==================================
+# MCP Demos — forgeCodeAgent
 
-Esta pasta contém scripts experimentais para integrar o forgeCodeAgent
-como **MCP server local** com o Codex CLI.
+Este diretório contém demos de uso de MCP (Model Context Protocol) com o forgeCodeAgent
+e CLIs de coding agents (Codex, Claude, Gemini).
 
-Scripts principais:
+## Pré-requisitos gerais
 
-- `examples/mcp/codex_register_mcp_server.sh`
-  - Registra o servidor MCP local do forgeCodeAgent no Codex:
-    - `forge-code-agent` apontando para `python -m forge_code_agent.mcp_server`.
-  - Afeta a configuração global em `~/.codex/config.toml`.
-  - Após rodar, `codex mcp list` deve mostrar a entrada `forge-code-agent`.
+- Ambiente Python do projeto configurado (`.venv` + `PYTHONPATH=src`).
+- CLIs instaladas e autenticadas, quando aplicável:
+  - `codex`
+  - `claude`
+  - `gemini`
+- MCP server local `forge-code-agent` registrado (via `codex mcp add`):
+  - use `examples/mcp/codex_register_mcp_server.sh` para registrar.
 
-Uso típico:
+## Demos disponíveis
 
-1. Ative o ambiente do projeto (`.venv`) se desejar.
-2. Rode:
+- `codex_read_file_demo.sh`
+  Demonstra `codex exec` usando a tool MCP `read_file` para ler um arquivo no workspace
+  `project/demo_workdir`.
 
-   ```bash
-   ./examples/mcp/codex_register_mcp_server.sh
-   ```
+- `claude_tools_demo.sh`
+  Pede explicitamente ao Claude para usar o servidor MCP `forge-code-agent` (se disponível)
+  e ler o arquivo `mcp_demo_file_claude.txt` no workspace `project/demo_workdir_claude_mcp`.
 
-3. Depois execute seus fluxos habituais com `codex exec ...` dentro de um
-   workspace que o servidor MCP conhece (por exemplo `project/demo_workdir`).
+- `gemini_tools_demo.sh`
+  Pede ao Gemini Code para usar o servidor MCP `forge-code-agent` (se disponível) e ler o
+  arquivo `mcp_demo_file_gemini.txt` no workspace `project/demo_workdir_gemini_mcp`.
 
-Nesta fase, o servidor MCP implementa apenas um protocolo JSON-RPC mínimo
-para tools de filesystem (`read_file`, `write_file`, `list_dir`) e **a
-integração completa com o protocolo MCP oficial ainda será evoluída**
-nas próximas fases do plano descrito em `docs/TOOL_CALLING_MCP_PLAN.md`.
+> Observação: a configuração de MCP para Claude/Gemini depende do ambiente local das CLIs.
+> Este repositório assume que a mesma configuração de MCP usada pelo Codex é compartilhada
+> pelas outras CLIs. Caso contrário, ajuste a configuração MCP das CLIs conforme sua
+> instalação local.

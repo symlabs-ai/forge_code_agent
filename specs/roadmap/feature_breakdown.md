@@ -162,3 +162,81 @@
 - T10–T15 são parte do **SupportTrack de resiliência**; algumas tarefas (como T11–T12) são pré-requisito para qualquer uso em CI.
 
 Estes IDs (T1...T15) devem ser reutilizados em `specs/roadmap/estimates.yml` e `specs/roadmap/BACKLOG.md` para manter rastreabilidade TASK → FEATURE → TRACK.
+
+---
+
+## 6. Tarefas futuras — Contexto/Sessões + MCP multi-provider + Fluxos de Valor
+
+### 6.1 Novos Tracks
+
+- VALUE Track 3: `value_context_manager_codeagent`
+  - Features BDD:
+    - `specs/bdd/40_mcp/40_mcp_tools.feature`
+    - `specs/bdd/41_context/41_code_manager_sessions.feature`
+- SUPPORT Track 2: `support_observability_code_agent_resilience` (extensões MCP)
+  - Features BDD futuras de segurança/observabilidade MCP.
+
+### 6.2 Tarefas — Contexto/Sessões
+
+#### T20. ContextSessionManager + persistência de sessões (DONE)
+
+- Implementar `ContextSessionManager` com:
+  - eventos de contexto (`ContextEvent`) e summaries (`ContextSummary`);
+  - `record_interaction(prompt, result)`, `get_context()`, `summarize_if_needed(...)`;
+  - `save()/load()` em `logs/codeagent/session_<SESSION>_*.json`.
+- Coberto por:
+  - `tests/test_context_session_manager.py`.
+
+#### T21. CodeManager — orquestração de sessões e MCP (DONE)
+
+- Implementar `CodeManager` com:
+  - cache de `CodeAgent`s por `(provider, workdir)`;
+  - cache de `ContextSessionManager` por `session_id`;
+  - métodos:
+    - `run(...)`, `stream(...)`, `switch_provider(...)`, `get_session_context(...)`;
+  - integração com MCP via `ensure_mcp_server(workdir)` em `run()`.
+- Coberto por:
+  - `tests/test_code_manager.py`;
+  - `specs/bdd/40_mcp/40_mcp_tools.feature` + `tests/bdd/test_mcp_tools_steps.py`.
+
+#### T24. BDD para sessões/contexto (CodeManager + summaries) (DONE)
+
+- Criar `specs/bdd/41_context/41_code_manager_sessions.feature` com cenários de:
+  - reuso de contexto em `session_id`;
+  - troca de provider numa sessão;
+  - summaries quando o contexto cresce além de limites.
+- Steps em `tests/bdd/test_code_manager_context_steps.py`, garantindo:
+  - snapshots em `logs/codeagent`;
+  - presença de summaries quando limites são excedidos.
+
+### 6.3 Tarefas — MCP multi-provider + Fluxos de Valor
+
+#### T22. MCP multi-provider (Codex/Claude/Gemini) (PARCIAL)
+
+- Codex:
+  - MCP server mínimo implementado em `src/forge_code_agent/mcp_server`;
+  - demos em `examples/mcp/codex_register_mcp_server.sh` e `codex_read_file_demo.sh`.
+- Claude/Gemini:
+  - demos iniciais em `examples/mcp/claude_tools_demo.sh` e `gemini_tools_demo.sh` mostrando leitura de arquivo via tools;
+  - dependem de configuração específica de MCP nas CLIs (fora deste repo).
+
+#### T23. ValueTrack — PR assistido (FUTURO)
+
+- Definir feature BDD futura (ex.: `specs/bdd/42_pr_assist/42_pr_assist.feature`) para:
+  - ler arquivos/diffs de PR (via MCP `read_file` / tools futuras);
+  - gerar comentários ou resumo de mudanças;
+  - rodar via script CLI (`examples/sprintX_pr_assist_demo.sh`) usando `forge-code-agent`.
+
+#### T25. ValueTrack — Geração de módulo + testes (FUTURO)
+
+- Definir feature BDD futura (ex.: `specs/bdd/43_module_and_tests/43_module_and_tests.feature`) para:
+  - gerar módulo Python + testes em um workspace;
+  - persistir arquivos com segurança (workspace adapter);
+  - (futuramente) rodar testes via MCP (`run_tests`).
+
+#### T26. Hardening de MCP (FUTURO)
+
+- Reforçar segurança e limites:
+  - paths maliciosos (`../`, absolutos) cobrindo todas as tools;
+  - timeouts por tool;
+  - modos read-only configuráveis.

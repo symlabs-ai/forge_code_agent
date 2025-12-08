@@ -34,7 +34,7 @@ Além das tarefas T1–T15 (núcleo do ciclo atual), o roadmap prevê um increme
 
 | ID  | Track                                   | Size | Prioridade | Status   | Feature BDD                                               |
 |-----|-----------------------------------------|------|-----------|----------|-----------------------------------------------------------|
-| T16 | value_forge_core_code_agent_execution   | M    | Média     | TODO     | 10_code_agent_execution.feature (cenário futuro via YAML) |
+| T16 | value_forge_core_code_agent_execution   | M    | Média     | DONE     | 10_code_agent_execution.feature (cenário futuro via YAML) |
 
 Notas:
 - T16 implementa o comportamento “Select provider from YAML configuration file” mapeado em `specs/bdd/drafts/behavior_mapping.md`.
@@ -66,11 +66,41 @@ Além das tarefas T1–T15 (núcleo do ciclo atual) e T16 (config via YAML), o r
 | ID  | Track                                   | Size | Prioridade | Status   | Feature BDD                                               |
 |-----|-----------------------------------------|------|-----------|----------|-----------------------------------------------------------|
 | T16 | value_forge_core_code_agent_execution   | M    | Média     | DONE     | 10_code_agent_execution.feature                           |
-| T17 | value_forge_core_code_agent_execution   | M    | Alta      | TODO     | 10_code_agent_execution.feature (@cli scenario)           |
-| T18 | value_forge_core_code_agent_execution   | M    | Alta      | TODO     | 10_code_agent_execution.feature (@e2e provider real)      |
-| T19 | value_forge_core_code_agent_execution   | S    | Média     | TODO     | 10_code_agent_execution.feature (demos via CLI/examples)  |
+| T17 | value_forge_core_code_agent_execution   | M    | Alta      | DONE     | 10_code_agent_execution.feature (@cli scenario)           |
+| T18 | value_forge_core_code_agent_execution   | M    | Alta      | DONE     | 10_code_agent_execution.feature (@e2e provider real)      |
+| T19 | value_forge_core_code_agent_execution   | S    | Média     | DONE     | 10_code_agent_execution.feature (demos via CLI/examples)  |
 
 Notas:
-- T17 deve introduzir uma CLI oficial (`forge-code-agent ...`) que exponha `run`/`stream`/`config` por cima da API `CodeAgent`.
-- T18 deve garantir ao menos um caminho E2E para provider real (CLI/SDK) com cenário BDD `@e2e`, mesmo que rodado apenas em ambiente controlado.
-- T19 cuida da padronização de scripts em `examples/` para demos por sprint e por ValueTrack, sempre via CLI oficial.
+- T17 foi implementada com a CLI oficial (`forge-code-agent ...`) expondo `run`/`stream`/`config` por cima da API `CodeAgent`.
+- T18 foi atendida com o caminho E2E para providers reais (Codex/Claude/Gemini) e cenário(s) `@cli @e2e`/scripts de demo.
+- T19 está coberta pela padronização de scripts em `examples/` (sprint demos, ValueTrack demos e MCP demos) sempre via CLI oficial.
+
+---
+
+## 4. Tarefas — ContextManager + MCP multi-provider
+
+| ID   | Track                                   | Size | Prioridade | Status | Feature BDD / Plano                                      |
+|------|-----------------------------------------|------|-----------|--------|----------------------------------------------------------|
+| T20  | value_context_manager_codeagent         | L    | Alta      | DONE   | (ver `docs/CODE_MANAGER_PLAN.md`)                       |
+| T21  | value_context_manager_codeagent         | M    | Alta      | DONE   | `40_mcp_tools.feature` (@mcp @e2e Codex)                |
+| T22  | support_observability_code_agent_resilience | M | Média | DONE   | Integração MCP multi-provider (Codex/Claude/Gemini) via CodeManager |
+
+Notas:
+- T20 contempla implementação do `ContextSessionManager` + `CodeManager` (persistência em `logs/codeagent`, resumo, troca de provider mantendo contexto).
+- T21 cobre os cenários BDD de MCP/tools (`40_mcp_tools.feature`), incluindo pelo menos um cenário `@mcp @e2e`.
+- T22 cuida da extensão MCP para Codex/Claude/Gemini e da centralização de MCP no CodeManager, mantendo observabilidade e segurança; demos em `examples/mcp/` mostram o fluxo com cada provider.
+
+## 5. Próximas tarefas — PR assistido, módulo+testes e hardening MCP
+
+| ID   | Track                                   | Size | Prioridade | Status | Feature BDD / Plano                                        |
+|------|-----------------------------------------|------|-----------|--------|------------------------------------------------------------|
+| T23  | value_context_manager_codeagent         | M    | Alta      | TODO   | PR assistido via CLI + MCP (`specs/bdd/42_pr_assist`)     |
+| T24  | value_context_manager_codeagent         | M    | Alta      | DONE   | `41_code_manager_sessions.feature` (contexto + summaries)  |
+| T25  | value_context_manager_codeagent         | S    | Média     | TODO   | Geração de módulo + testes (`specs/bdd/43_module_and_tests`) |
+| T26  | support_observability_code_agent_resilience | M | Média | TODO   | Hardening inicial de MCP (workspace + timeouts/fallback)   |
+
+Notas:
+- T23 foca no ValueTrack de PR assistido descrito em `docs/current_plan.md` e `specs/roadmap/feature_breakdown.md`.
+- T24 já está atendida pelos cenários de contexto/sessões (`41_code_manager_sessions.feature`).
+- T25 cobre o ValueTrack de geração de módulo + testes via CLI.
+- T26 estende o hardening de MCP além do mínimo já implementado.

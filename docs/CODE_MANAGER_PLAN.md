@@ -39,10 +39,9 @@ Responsabilidades:
 - Persistir e recuperar sessões de arquivos JSON em:
   - `logs/codeagent/sessionYYYYMMDD_HHMMSS.json`.
 
-API proposta:
+API implementada:
 
-- `__init__(session_id: str, logs_dir: Path, max_events: int = 200, max_summary_chars: int = 8000)`
-- `attach_agent(agent: CodeAgent) -> None`
+- `__init__(session_id: str, logs_dir: Path, max_events: int = 200, max_summary_chars: int = 128_000)`
 - `record_interaction(prompt: str, result: ExecutionResult) -> None`
 - `get_context() -> list[dict[str, Any]]`
   - mensagens em formato neutro (`role`, `text`, `provider`, `meta`).
@@ -88,7 +87,7 @@ Formato aproximado do JSON:
 
 ### 2.2 Summarizer (injeção de estratégia)
 
-Interface:
+Interface implementada:
 
 ```python
 class Summarizer(Protocol):
@@ -97,7 +96,7 @@ class Summarizer(Protocol):
 
 Implementação padrão:
 
-- Usa o `CodeAgent` atual para gerar o resumo:
+- `AgentSummarizer`, que usa o `CodeAgent` atual para gerar o resumo:
   - monta um prompt interno descrevendo o que deve ser preservado;
   - chama `agent.run(resumo_prompt)` e usa o `content` como resumo.
 
@@ -117,11 +116,15 @@ Responsabilidades:
   - registrar todas as interações (`record_interaction` + `save`).
 - Expor uma API de automação simples e provider-agnostic:
 
-API proposta:
+API implementada:
 
 ```python
 class CodeManager:
-    def __init__(self, logs_dir: Path = Path(\"logs/codeagent\")) -> None: ...
+    def __init__(
+        self,
+        logs_dir: Path = Path(\"logs/codeagent\"),
+        summarizer_factory: Callable[[CodeAgent, ContextSessionManager], Summarizer] | None = None,
+    ) -> None: ...
 
     def run(
         self,
@@ -130,6 +133,7 @@ class CodeManager:
         provider: str | None = None,
         session_id: str | None = None,
         workdir: Path | str | None = None,
+        timeout: float | None = None,
         **options: Any,
     ) -> ExecutionResult: ...
 
@@ -140,6 +144,7 @@ class CodeManager:
         provider: str | None = None,
         session_id: str | None = None,
         workdir: Path | str | None = None,
+        timeout: float | None = None,
         **options: Any,
     ): ...
 
@@ -165,6 +170,65 @@ Comportamento:
   - atualiza o provider preferido da sessão;
   - não altera o histórico; apenas as próximas chamadas de `run/stream`
     passarão a usar o novo provider.
+
+### 2.4 Diagrama de Classes (alto nível)
+
+```mermaid
+classDiagram
+    class CodeAgent {
+      +provider: str
+      +workdir: Path
+      +run(prompt, timeout, **options) ExecutionResult
+      +stream(prompt, timeout, **options) list[dict]
+    }
+
+    class ContextSessionManager {
+      +session_id: str
+      +current_provider: str
+      +workdir: Path
+      +events: list[ContextEvent]
+      +summaries: list[ContextSummary]
+      +record_interaction(prompt, result)
+      +get_context() list[dict]
+      +summarize_if_needed(summarizer)
+      +save() Path
+      +load(path) ContextSessionManager
+    }
+
+    class Summarizer {
+      <<interface>>
+      +summarize(messages) str
+    }
+
+    class AgentSummarizer {
+      +agent: CodeAgent
+      +summarize(messages) str
+    }
+
+    class CodeManager {
+      +logs_dir: Path
+      +summarizer_factory(agent, session) Summarizer
+      +run(prompt, provider, session_id, workdir, timeout, **options) ExecutionResult
+      +stream(prompt, provider, session_id, workdir, timeout, **options)
+      +switch_provider(session_id, new_provider)
+      +get_session_context(session_id) list[dict]
+    }
+
+    class MCPServerHandle {
+      +workdir: Path
+      +endpoint: str
+      +started: bool
+    }
+
+    CodeManager "1" --> "*" CodeAgent : gerencia
+    CodeManager "1" --> "*" ContextSessionManager : sessões
+    ContextSessionManager "1" --> "*" ContextEvent : agrega
+    ContextSessionManager "1" --> "*" ContextSummary : agrega
+    CodeManager "1" --> "0..1" Summarizer : cria via summarizer_factory
+    AgentSummarizer ..|> Summarizer
+    AgentSummarizer --> CodeAgent : usa
+    CodeManager --> MCPServerHandle : ensure_mcp_server()
+```
 
 
 ## 3. Persistência e Layout em Disco
@@ -205,14 +269,13 @@ Fase 2 (CLI-first):
 ## 5. Roadmap Técnico (Passos de Implementação)
 
 1. **ContextSessionManager**
-   - Criar módulo `src/forge_code_agent/context/session_manager.py`.
-   - Definir modelos simples de evento (`ContextEvent`) e resumo.
+   - Criar módulo `src/forge_code_agent/context/session_manager.py`. ✅
+   - Definir modelos simples de evento (`ContextEvent`) e resumo. ✅
    - Implementar:
-     - armazenamento em memória (`events`, `summaries`);
-     - `record_interaction(prompt, ExecutionResult)`;
-       - mapeando `ExecutionResult.raw_events` para eventos de contexto;
-     - `save()` / `load()` para `logs/codeagent/*.json`.
-   - Adicionar testes unitários específicos.
+     - armazenamento em memória (`events`, `summaries`); ✅
+     - `record_interaction(prompt, ExecutionResult)` mapeando `ExecutionResult.raw_events` para eventos de contexto; ✅
+     - `save()` / `load()` para `logs/codeagent/*.json`. ✅
+   - Adicionar testes unitários específicos (`tests/test_context_session_manager.py`). ✅
 
 2. **Summarizer padrão**
    - Definir o protocolo `Summarizer`.
@@ -220,16 +283,16 @@ Fase 2 (CLI-first):
    - Integrar com `ContextSessionManager.summarize_if_needed()`.
 
 3. **CodeManager (núcleo)**
-   - Criar módulo `src/forge_code_agent/context/manager.py`.
+   - Criar módulo `src/forge_code_agent/context/manager.py`. ✅
    - Implementar:
-     - cache de `CodeAgent`s por `(provider, workdir)`;
-     - cache de `ContextSessionManager` por `session_id`;
-     - método `run(...)` conforme API proposta;
-     - método `switch_provider(...)` e `get_session_context(...)`.
-   - Adicionar testes unitários para:
-     - múltiplas chamadas `run()` na mesma sessão;
-     - troca de provider mantendo contexto;
-     - persistência correta em `logs/codeagent`.
+     - cache de `CodeAgent`s por `(provider, workdir)`; ✅
+     - cache de `ContextSessionManager` por `session_id`; ✅
+     - método `run(...)` conforme API proposta; ✅
+     - método `switch_provider(...)` e `get_session_context(...)`. ✅
+   - Adicionar testes unitários (`tests/test_code_manager.py`) para:
+     - múltiplas chamadas `run()` na mesma sessão; ✅
+     - troca de provider mantendo contexto; ✅
+     - persistência correta em `logs/codeagent`. ✅
 
 4. **Integração CLI (opcional nesta fase)**
    - Avaliar se já incluímos flags de sessão no CLI atual ou deixamos para uma sprint futura.

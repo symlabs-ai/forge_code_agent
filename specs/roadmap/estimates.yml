@@ -149,3 +149,28 @@ estimates:
       - T4
       - T10
     description: "Timeouts for provider execution and safe stderr capture for diagnostics"
+
+  # VALUE Track: value_context_manager_codeagent (futuro)
+  - id: T20
+    track: value_context_manager_codeagent
+    size: L
+    depends_on:
+      - T5
+      - T6
+      - T9
+    description: "ContextSessionManager + CodeManager (sessões, resumo, troca de provider mantendo contexto)"
+
+  - id: T21
+    track: value_context_manager_codeagent
+    size: M
+    depends_on:
+      - T20
+    description: "BDD `40_mcp_tools.feature` e cenários @mcp @e2e (MCP + ferramentas/workspace)"
+
+  - id: T22
+    track: support_observability_code_agent_resilience
+    size: M
+    depends_on:
+      - T18
+      - T20
+    description: "Integração MCP multi-provider (Claude/Gemini) centralizada via CodeManager"

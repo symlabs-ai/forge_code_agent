@@ -312,3 +312,47 @@ Usar um **MCP server local** como backend de tools para os coding agents é, hoj
 - encaixa bem com a arquitetura atual (Clean/Hex, adapters, ValueTracks) e com a visão de longo prazo registrada em `docs/hipotese.md` e nos Roadmaps.
 
 Os próximos passos práticos são iniciar um spike de MCP server mínimo e ancorar essa evolução em um novo ValueTrack + BDD específico, garantindo que tool calling via MCP se torne critério explícito de encerramento de ciclo nos processos do projeto. +
+
+### 8.1 Diagrama de Componentes (MCP + CodeManager + Providers)
+
+```mermaid
+flowchart LR
+    subgraph Client
+      A[CLI / Script Python]\n(CodeManager.run/stream)
+    end
+
+    subgraph Core["forgeCodeAgent Core"]
+      CM[CodeManager]
+      CSM[ContextSessionManager]
+      CA[CodeAgent]
+    end
+
+    subgraph Providers["Provider CLIs"]
+      PC[Codex CLI]
+      PL[Claude CLI]
+      PG[Gemini CLI]
+    end
+
+    subgraph MCP["MCP Layer"]
+      MS[MCP Server\n(forge_code_agent.mcp_server)]
+      MT[MCP Tools Engine\n(read_file, write_file, list_dir, run_tests,...)]
+    end
+
+    subgraph Workspace["Workspace / Filesystem"]
+      WS[(FilesystemWorkspaceAdapter)]
+    end
+
+    A --> CM
+    CM --> CSM
+    CM --> CA
+    CA --> PC
+    CA --> PL
+    CA --> PG
+
+    PC <--> MS
+    PL <--> MS
+    PG <--> MS
+
+    MS --> MT
+    MT --> WS
+```

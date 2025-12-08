@@ -5,6 +5,8 @@ import sys
 from pathlib import Path
 from typing import Any
 
+from forge_code_agent.context.manager import CodeManager
+from forge_code_agent.context.summarizer import AgentSummarizer
 from forge_code_agent.domain.errors import ForgeCodeAgentError, ProviderExecutionError
 from forge_code_agent.domain.events import normalize_stream_line
 from forge_code_agent.runtime.agent import CodeAgent
@@ -54,6 +56,24 @@ def _build_parser() -> argparse.ArgumentParser:
 
     run_parser = subparsers.add_parser("run", help="Execute a code prompt and print the final result.")
     add_common_options(run_parser)
+    run_parser.add_argument(
+        "--session-id",
+        type=str,
+        help="Optional session identifier to enable context persistence via CodeManager.",
+    )
+    run_parser.add_argument(
+        "--use-code-manager",
+        action="store_true",
+        help="Use the CodeManager to manage sessions/context instead of a one-off CodeAgent.",
+    )
+    run_parser.add_argument(
+        "--auto-summarize",
+        action="store_true",
+        help=(
+            "When used with --use-code-manager, enable automatic context summarization "
+            "based on an internal prompt using the current provider."
+        ),
+    )
 
     stream_parser = subparsers.add_parser("stream", help="Execute a code prompt and stream partial results.")
     add_common_options(stream_parser)
@@ -111,7 +131,35 @@ def main(argv: list[str] | None = None) -> int:
             extra: dict[str, Any] = {}
             if write_to_file:
                 extra["write_to_file"] = write_to_file
-            result = agent.run(prompt, timeout=timeout, **extra)
+
+            # Integração opcional com CodeManager para sessões de contexto.
+            use_code_manager: bool = getattr(ns, "use_code_manager", False)
+            session_id: str | None = getattr(ns, "session_id", None)
+            auto_summarize: bool = getattr(ns, "auto_summarize", False)
+
+            if use_code_manager:
+                workdir_path = Path(ns.workdir)
+                if auto_summarize:
+                    # Criamos um CodeManager com uma fábrica de Summarizer baseada no
+                    # CodeAgent atual. O summarizer usa o próprio provider para gerar
+                    # resumos quando os limites de contexto forem ultrapassados.
+                    def _summarizer_factory(agent_for_sum: CodeAgent, _session) -> AgentSummarizer:
+                        return AgentSummarizer(agent=agent_for_sum)
+
+                    manager = CodeManager(summarizer_factory=_summarizer_factory)
+                else:
+                    manager = CodeManager()
+                result = manager.run(
+                    prompt,
+                    provider=ns.provider,
+                    session_id=session_id,
+                    workdir=workdir_path,
+                    timeout=timeout,
+                    **extra,
+                )
+            else:
+                result = agent.run(prompt, timeout=timeout, **extra)
+
             # Para o MVP, imprimimos apenas o conteúdo bruto gerado, precedido de metadata mínima.
             print(f"[forge-code-agent] provider={result.provider} status={result.status}")
             if result.content:
@@ -163,6 +211,10 @@ def main(argv: list[str] | None = None) -> int:
                         elif kind == "message" and text:
                             sys.stdout.write(f"[OUTPUT] {text}\n")
                             sys.stdout.flush()
+                        elif kind == "log" and text:
+                            # Eventos de log (system, tool_use, comandos, etc.) aparecem explicitamente.
+                            sys.stdout.write(f"[LOG] {text}\n")
+                            sys.stdout.flush()
                         elif kind == "raw":
                             # Para compatibilidade com os testes, linhas não JSON ou
                             # payloads sem shape esperado aparecem brutas.
@@ -177,7 +229,7 @@ def main(argv: list[str] | None = None) -> int:
                                 sys.stdout.write(_json.dumps(raw) + "\n")
                             sys.stdout.flush()
                         else:
-                            # Outros tipos (logs, system, etc.) são ignorados nos modos de reasoning.
+                            # Outros tipos permanecem silenciosos por enquanto.
                             continue
                 else:
                     full.append(chunk)

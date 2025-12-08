@@ -47,11 +47,11 @@
 > Campo de **estado vivo** para ser atualizado pelos agentes/symbiotas.
 > Pode ser usado pelo orquestrador para saber onde o projeto está.
 
-- [x] `current_phase`: `feedback`
-- [x] `current_cycle`: `cycle-02`
-- [x] `current_sprint`: `sprint-03`
-- [x] `last_completed_step`: `feedback.feedback_analyze`
-- [x] `next_recommended_step`: `decisao_mudar_visao`
+- [x] `current_phase`: `delivery.sprint`
+- [x] `current_cycle`: `cycle-03`
+- [x] `current_sprint`: `sprint-05`
+- [x] `last_completed_step`: `execution.tdd.phase_3_minimal_implementation`
+- [x] `next_recommended_step`: `delivery.sprint.sprint_planning`
 
 > Convenção sugerida: atualizar este bloco ao final de cada etapa significativa
 > (pelo menos por fase) para facilitar handoffs entre agentes.

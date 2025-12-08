@@ -16,7 +16,6 @@ from forge_code_agent.domain.errors import (
 )
 from forge_code_agent.domain.events import normalize_stream_line
 from forge_code_agent.domain.models import ExecutionRequest, ExecutionResult
-from forge_code_agent.mcp_server.integration import ensure_mcp_server
 
 
 @dataclass
@@ -100,22 +99,6 @@ class CodeAgent:
                 content=simulated_content,
                 metadata={"workdir": str(self.workdir)},
             )
-
-        # Metadata mínima de MCP: Fase 1 apenas reserva campos, sem iniciar servidor.
-        try:
-            mcp_handle = ensure_mcp_server(self.workdir)
-            result.metadata.setdefault(
-                "mcp",
-                {
-                    "workdir": str(mcp_handle.workdir),
-                    "endpoint": mcp_handle.endpoint,
-                    "started": mcp_handle.started,
-                },
-            )
-        except Exception:
-            # Em Fase 1, falhas de MCP não devem impactar a execução principal.
-            # Qualquer erro de integração é silenciosamente ignorado.
-            pass
 
         if write_to_file and result.content is not None:
             # Persistimos o conteúdo gerado dentro do workspace configurado.

@@ -33,3 +33,16 @@ tracks:
     features:
       - specs/bdd/50_observabilidade/50_code_agent_resilience.feature
     notes: "Support track that ensures failures are explicit, diagnosable and do not compromise automation stability."
+
+  - id: value_context_manager_codeagent
+    type: VALUE
+    name: "CodeManager + Context sessions + MCP tools"
+    owner: "forgeCodeAgent / forge_core"
+    metrics:
+      - sessions_with_persisted_context       # number of sessions persisted in logs/codeagent
+      - provider_switch_with_context          # count of flows that switched provider keeping context
+      - mcp_tool_usage                        # number/% of runs using MCP tools successfully
+    features:
+      - specs/bdd/40_mcp/40_mcp_tools.feature
+      - specs/bdd/41_context/41_code_manager_sessions.feature
+    notes: "ValueTrack para orquestração de contexto (ContextSessionManager + CodeManager) e uso de MCP/tools em múltiplos providers."
