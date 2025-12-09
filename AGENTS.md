@@ -2,11 +2,12 @@
 
 ## Sobre o repositório
 
-Este é o repositorio do projeto forgeCodeAgent
+Este é o repositório do projeto forgeCodeAgent.
+Repositório GitHub: https://github.com/symlabs-ai/forge_code_agent
 
 Desenvolvedores precisam executar agentes de IA de forma programática, local e sem custo por token, mas os motores disponíveis (Codex-like, Claude, Gemini, etc.) funcionam apenas via CLI interativa e não oferecem API, streaming ou tool calling integrável ao Python.
 
-O modulo python forgeCodeAgent encapsula as CLIs de motores locais (Codex-like, Claude, Gemini, com suporte futuro a Grok Code) via subprocesso, oferecendo uma API Python simples (`run()`, `stream()`), parsing de JSON emitido pelo stdout, suporte a tool calling executando funções Python registradas e gravação automática dos arquivos gerados no workspace informado.
+O módulo Python `forge_code_agent` encapsula as CLIs de motores locais (Codex-like, Claude, Gemini, com suporte futuro a Grok Code) via subprocesso, oferecendo uma API Python simples (`run()`, `stream()`), parsing de JSON emitido pelo stdout e gravação automática dos arquivos gerados no workspace informado.
 
 ## Referências Obrigatórias
 

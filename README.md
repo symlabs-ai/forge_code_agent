@@ -1,6 +1,10 @@
 forgeCodeAgent
 ==============
 
+Repositório GitHub: https://github.com/symlabs-ai/forge_code_agent
+Pacote Python: `forge_code_agent`
+CLI: `python -m forge_code_agent.cli`
+
 Runtime Python e CLI oficial para orquestrar CLIs de **coding agents** (Codex, Claude Code, Gemini Code) de forma unificada, com:
 
 - execução `run`/`stream` via `python -m forge_code_agent.cli`
