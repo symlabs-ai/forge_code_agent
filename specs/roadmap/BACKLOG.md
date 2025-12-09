@@ -81,7 +81,7 @@ Notas:
 
 | ID   | Track                                   | Size | Prioridade | Status | Feature BDD / Plano                                      |
 |------|-----------------------------------------|------|-----------|--------|----------------------------------------------------------|
-| T20  | value_context_manager_codeagent         | L    | Alta      | DONE   | (ver `docs/CODE_MANAGER_PLAN.md`)                       |
+| T20  | value_context_manager_codeagent         | L    | Alta      | DONE   | (ver `docs/product/CODE_MANAGER_PLAN.md`)                       |
 | T21  | value_context_manager_codeagent         | M    | Alta      | DONE   | `40_mcp_tools.feature` (@mcp @e2e Codex)                |
 | T22  | support_observability_code_agent_resilience | M | Média | DONE   | Integração MCP multi-provider (Codex/Claude/Gemini) via CodeManager |
 
@@ -94,13 +94,13 @@ Notas:
 
 | ID   | Track                                   | Size | Prioridade | Status | Feature BDD / Plano                                        |
 |------|-----------------------------------------|------|-----------|--------|------------------------------------------------------------|
-| T23  | value_context_manager_codeagent         | M    | Alta      | TODO   | PR assistido via CLI + MCP (`specs/bdd/42_pr_assist`)     |
+| T23  | value_pr_assist_cli_mcp                | M    | Alta      | DONE   | PR assistido via CLI + MCP (`specs/bdd/42_pr_assist`)     |
 | T24  | value_context_manager_codeagent         | M    | Alta      | DONE   | `41_code_manager_sessions.feature` (contexto + summaries)  |
-| T25  | value_context_manager_codeagent         | S    | Média     | TODO   | Geração de módulo + testes (`specs/bdd/43_module_and_tests`) |
-| T26  | support_observability_code_agent_resilience | M | Média | TODO   | Hardening inicial de MCP (workspace + timeouts/fallback)   |
+| T25  | value_module_and_tests_cli             | S    | Média     | DONE   | Geração de módulo + testes (`specs/bdd/43_module_and_tests`) |
+| T26  | support_observability_code_agent_resilience | M | Média | DONE   | Hardening inicial de MCP (workspace + modo read-only/fallback)   |
 
 Notas:
-- T23 foca no ValueTrack de PR assistido descrito em `docs/current_plan.md` e `specs/roadmap/feature_breakdown.md`.
+- T23 foca no ValueTrack de PR assistido descrito em `docs/product/current_plan.md` e `specs/roadmap/feature_breakdown.md`.
 - T24 já está atendida pelos cenários de contexto/sessões (`41_code_manager_sessions.feature`).
 - T25 cobre o ValueTrack de geração de módulo + testes via CLI.
 - T26 estende o hardening de MCP além do mínimo já implementado.

@@ -5,7 +5,7 @@ Renderiza `project/docs/pitch_deck.md` em HTML específico de pitch.
 Uso:
   python symbiotas/mdd_publisher/scripts/export_pitch_html.py \
          --input project/docs/pitch_deck.md \
-         [--output project/output/docs/pitch_deck.html]
+         [--output project/output/docs/product/pitch_deck.html]
 """
 from __future__ import annotations
 
@@ -18,7 +18,7 @@ UTILS_DIR = SCRIPT_DIR / "utils"
 if str(UTILS_DIR) not in sys.path:
     sys.path.insert(0, str(UTILS_DIR))
 
-from helpers import (
+from helpers import (  # noqa: E402
     log_export,
     md_to_html_basic,
     read_text,
@@ -41,7 +41,7 @@ def export_pitch_html(input_md: Path, output_html: Path | None = None) -> Path:
     # Simples: encapsula em um container .slide
     slide_wrapped = f"<div class=\"slide\">\n{body}\n</div>"
     html = wrap_html(title="Pitch de Valor", body_html=slide_wrapped, extra_css=PITCH_CSS)
-    out_path = output_html or Path("project/output/docs/pitch_deck.html")
+    out_path = output_html or Path("project/output/docs/product/pitch_deck.html")
     write_text(out_path, html)
     log_export(f"Pitch HTML exportado: {input_md} -> {out_path}")
     return out_path

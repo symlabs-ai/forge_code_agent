@@ -20,6 +20,11 @@ def _build_parser() -> argparse.ArgumentParser:
         default=".",
         help="Diretório de trabalho (workspace raiz) para as tools MCP.",
     )
+    parser.add_argument(
+        "--read-only",
+        action="store_true",
+        help="Modo read-only: desabilita tools MCP que escrevem no workspace (ex.: write_file).",
+    )
     return parser
 
 
@@ -28,7 +33,7 @@ def main(argv: list[str] | None = None) -> int:
     ns = parser.parse_args(argv)
 
     workdir = Path(ns.workdir).resolve()
-    config = MCPServerConfig(workdir=workdir)
+    config = MCPServerConfig(workdir=workdir, read_only=bool(ns.read_only))
     run_stdio_server(config)
     return 0
 

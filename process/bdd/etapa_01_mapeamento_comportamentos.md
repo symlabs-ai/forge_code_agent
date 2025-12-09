@@ -15,7 +15,7 @@ Esta é a **tradução** mais importante do BDD: passar de "valor de negócio" p
 | **Entrada** | `project/docs/visao.md` | ValueTracks e proposta de valor |
 | **Entrada** | `project/docs/sumario_executivo.md` | Contexto estratégico e diferencial |
 | **Entrada** | `project/docs/aprovacao_mvp.md` | Decisão de avanço (se houver) |
-| **Saída** | `process/bdd/docs/behavior_mapping.md` | Mapeamento Track → Behaviors |
+| **Saída** | `process/bdd/docs/product/behavior_mapping.md` | Mapeamento Track → Behaviors |
 
 ---
 

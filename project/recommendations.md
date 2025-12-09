@@ -50,7 +50,7 @@ Cada recomendação deve ser registrada com:
 
 - `id`: R-003
 - `source`: sprint-4/mcp-review (Jorge + bill_review)
-- `description`: Implementar o `ContextSessionManager` e o `CodeManager` conforme `docs/CODE_MANAGER_PLAN.md`, centralizando o gerenciamento de contexto (histórico + resumo + sessões) e orquestração de providers/multi-sessão.
+- `description`: Implementar o `ContextSessionManager` e o `CodeManager` conforme `docs/product/CODE_MANAGER_PLAN.md`, centralizando o gerenciamento de contexto (histórico + resumo + sessões) e orquestração de providers/multi-sessão.
 - `owner_symbiota`: sprint_coach (coordena), forge_coder (implementa), tdd_coder (testes)
 - `status`: done
 - `notes`:

@@ -5,9 +5,9 @@ Exporta Markdown (.md) para HTML.
 Uso:
   python symbiotas/mdd_publisher/scripts/export_html.py \
          --input project/docs/sumario_executivo.md \
-         [--output project/output/docs/sumario_executivo.html]
+         [--output project/output/docs/product/sumario_executivo.html]
 
-Se --output não for informado, salvará em `project/output/docs/` replicando a estrutura
+Se --output não for informado, salvará em `project/output/docs/product/` replicando a estrutura
 de `project/docs/` e trocando a extensão para .html.
 """
 from __future__ import annotations
@@ -21,7 +21,7 @@ UTILS_DIR = SCRIPT_DIR / "utils"
 if str(UTILS_DIR) not in sys.path:
     sys.path.insert(0, str(UTILS_DIR))
 
-from helpers import (
+from helpers import (  # noqa: E402
     ExportError,
     default_output_for_md,
     log_export,

@@ -2,11 +2,11 @@
 
 ## 1. Contexto e Decisão
 O forgeCodeAgent passou pela fase de MDD com:
-- hipótese inicial registrada em `docs/hipotese.md`;
-- visão consolidada em `docs/visao.md`;
-- síntese estratégica em `docs/sumario_executivo.md`;
-- pitch de valor em `docs/pitch_deck.md`;
-- três variações de site de validação (`site_A`, `site_B`, `site_C`) e resultados consolidados em `docs/resultados_validacao.md`.
+- hipótese inicial registrada em `docs/product/hipotese.md`;
+- visão consolidada em `docs/product/visao.md`;
+- síntese estratégica em `docs/product/sumario_executivo.md`;
+- pitch de valor em `docs/product/pitch_deck.md`;
+- três variações de site de validação (`site_A`, `site_B`, `site_C`) e resultados consolidados em `docs/product/resultados_validacao.md`.
 
 Os experimentos indicaram tração clara para a proposta de um **runtime Python unificado para engines de código via CLI**, em especial na narrativa que enfatiza:
 - API única para múltiplos providers;

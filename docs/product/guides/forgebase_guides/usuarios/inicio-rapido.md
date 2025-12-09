@@ -487,7 +487,7 @@ results = runner.run_all()
 1. **Adicionar mais UseCases**: UpdateTask, DeleteTask, ListTasks
 2. **Trocar repositório**: Use `JSONRepository` ou `SQLRepository`
 3. **Adicionar observabilidade**: Logging e métricas
-4. **Ler a documentação completa**: Veja [docs/](../README.md)
+4. **Ler a documentação completa**: Veja [docs/product/](../README.md)
 
 ---
 

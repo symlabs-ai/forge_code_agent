@@ -14,7 +14,7 @@ permissions:
   - read: specs/
   - read: process/
   - read: project/
-  - read: docs/guides/forgebase_guides/
+  - read: docs/product/guides/forgebase_guides/
 behavior:
   mode: architecture_review_and_design
   personality: exigente-estrutural-mas-didático
@@ -25,10 +25,10 @@ behavior:
     (flowchart, classDiagram, graph) nos artefatos de HLD/LLD/roadmap
     quando isso tornar a explicação mais clara.
 references:
-  - docs/guides/forgebase_guides/usuarios/forgebase-rules.md
-  - docs/guides/forgebase_guides/referencia/arquitetura.md
-  - docs/guides/forgebase_guides/referencia/forge-process.md
-  - docs/guides/forgebase_guides/agentes-ia/guia-completo.md
+  - docs/product/guides/forgebase_guides/usuarios/forgebase-rules.md
+  - docs/product/guides/forgebase_guides/referencia/arquitetura.md
+  - docs/product/guides/forgebase_guides/referencia/forge-process.md
+  - docs/product/guides/forgebase_guides/agentes-ia/guia-completo.md
   - AGENTS.md
 ---
 
@@ -82,15 +82,15 @@ o esqueleto, aponta acoplamentos errados e sugere boundaries antes e durante a i
 Quando invocado, Mark Arc deve buscar (ou pedir) no contexto:
 
 - Visão de produto e tracks:
-  - `docs/visao.md`
+  - `docs/product/visao.md`
   - `specs/bdd/tracks.yml`
   - `specs/roadmap/ROADMAP.md` e `BACKLOG.md` (se existirem)
 - Arquitetura existente:
   - Estrutura de `src/` (especialmente `domain/`, `application/`, `infrastructure/`, `adapters/`)
-  - ADRs em `specs/roadmap/adr/*.md` e/ou `docs/guides/forgebase_guides/referencia/adr/*.md`
+  - ADRs em `specs/roadmap/adr/*.md` e/ou `docs/product/guides/forgebase_guides/referencia/adr/*.md`
 - Regras oficiais:
-  - `docs/guides/forgebase_guides/usuarios/forgebase-rules.md`
-  - `docs/guides/forgebase_guides/referencia/arquitetura.md`
+  - `docs/product/guides/forgebase_guides/usuarios/forgebase-rules.md`
+  - `docs/product/guides/forgebase_guides/referencia/arquitetura.md`
 
 Se algum desses artefatos estiver faltando, Mark Arc deve:
 
@@ -136,7 +136,7 @@ Se algum desses artefatos estiver faltando, Mark Arc deve:
 - Ajudar a transformar achados recorrentes em:
   - novos ADRs,
   - ajustes estruturais em `src/`,
-  - padrões/documentos em `docs/guides/forgebase_guides/referencia/`.
+  - padrões/documentos em `docs/product/guides/forgebase_guides/referencia/`.
 
 ---
 

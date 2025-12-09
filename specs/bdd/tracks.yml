@@ -46,3 +46,26 @@ tracks:
       - specs/bdd/40_mcp/40_mcp_tools.feature
       - specs/bdd/41_context/41_code_manager_sessions.feature
     notes: "ValueTrack para orquestração de contexto (ContextSessionManager + CodeManager) e uso de MCP/tools em múltiplos providers."
+
+  - id: value_pr_assist_cli_mcp
+    type: VALUE
+    name: "PR-assisted review via CLI + CodeManager + MCP"
+    owner: "forgeCodeAgent / forge_core"
+    metrics:
+      - pr_assist_runs_e2e          # number of successful PR-assist demo runs
+      - pr_files_covered_per_run    # avg number of files analysed per run
+      - multi_provider_pr_assist    # count of PR-assist flows executed with multiple providers
+    features:
+      - specs/bdd/42_pr_assist/42_pr_assist.feature
+    notes: "ValueTrack focado em fluxo de PR assistido via CLI oficial, usando CodeManager e MCP/tools para ler arquivos e gerar sugestões."
+
+  - id: value_module_and_tests_cli
+    type: VALUE
+    name: "Module + tests generation via CLI"
+    owner: "forgeCodeAgent / forge_core"
+    metrics:
+      - module_generation_success_rate   # % of runs where module+tests are created successfully
+      - providers_used_for_generation    # number of providers used in module+tests demos
+    features:
+      - specs/bdd/43_module_and_tests/43_module_and_tests.feature
+    notes: "ValueTrack para geração de módulo + testes em workspaces reais via CLI, com suporte multi-provider."

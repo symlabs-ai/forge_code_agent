@@ -12,7 +12,7 @@ Esta é a etapa onde a **comunicação universal** acontece: todos — stakehold
 
 | Tipo | Artefato | Descrição |
 |------|----------|-----------|
-| **Entrada** | `process/bdd/docs/behavior_mapping.md` | Mapeamento Track → Behaviors |
+| **Entrada** | `process/bdd/docs/product/behavior_mapping.md` | Mapeamento Track → Behaviors |
 | **Saída** | `specs/bdd/**/*.feature` | Features Gherkin PT-BR |
 | **Apoio** | `process/bdd/templates/template_feature.md` | Template de feature |
 

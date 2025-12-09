@@ -17,10 +17,10 @@ Elas seguem uma estrutura narrativa modular, inspirada em sites de storytelling 
 
 | Tipo         | Artefato                                                               | Descrição                                                                                                                                                                                   |
 | ------------ | ---------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Entradas** | `docs/visao.md`, `docs/sumario_executivo.md`, `docs/pitch_deck.md`     | Fornecem o conteúdo base (propósito, valor e diferenciais) para compor as narrativas públicas.                                                                                              |
-| **Saídas**   | `docs/sites/site_A.md`, `docs/sites/site_B.md`, `docs/sites/site_C.md` | Três variações narrativas da proposta de valor (emocional, funcional, social). |
-| **Saídas (HTML)** | `output/docs/sites/site_A.html`, `.../site_B.html`, `.../site_C.html` | Renderizações HTML geradas automaticamente pelo **MDD Publisher** a partir dos `.md` (opcionais, não bloqueiam o fluxo). |
-| **Entregas** | `docs/sites/site_A_gamma_prompt.md` (e B/C)                             | Prompt texto para Gamma.app gerar a landing (sem tags XML/HTML; sem inventar números/conteúdos além do script). |
+| **Entradas** | `docs/product/visao.md`, `docs/product/sumario_executivo.md`, `docs/product/pitch_deck.md`     | Fornecem o conteúdo base (propósito, valor e diferenciais) para compor as narrativas públicas.                                                                                              |
+| **Saídas**   | `docs/product/sites/site_A.md`, `docs/product/sites/site_B.md`, `docs/product/sites/site_C.md` | Três variações narrativas da proposta de valor (emocional, funcional, social). |
+| **Saídas (HTML)** | `output/docs/product/sites/site_A.html`, `.../site_B.html`, `.../site_C.html` | Renderizações HTML geradas automaticamente pelo **MDD Publisher** a partir dos `.md` (opcionais, não bloqueiam o fluxo). |
+| **Entregas** | `docs/product/sites/site_A_gamma_prompt.md` (e B/C)                             | Prompt texto para Gamma.app gerar a landing (sem tags XML/HTML; sem inventar números/conteúdos além do script). |
 
 📁 **Templates:**
 
@@ -127,7 +127,7 @@ Após o MDD Coach concluir as três versões (`site_A.md`, `site_B.md`, `site_C.
    * `project/output/sites/site_01/`
    * `project/output/sites/site_02/`
    * `project/output/sites/site_03/`
-   * (equivalente a outputs opcionais `project/output/docs/sites/site_A.html`, `.../site_B.html`, `.../site_C.html`)
+   * (equivalente a outputs opcionais `project/output/docs/product/sites/site_A.html`, `.../site_B.html`, `.../site_C.html`)
 5. Gera também prompts Gamma por variação: `project/docs/sites/site_A_gamma_prompt.md` (e B/C), incluindo:
    - Proibição de tags XML/HTML no prompt (ex.: sem <title>, <h1>, etc.);
    - Uso estrito do conteúdo do `.md` correspondente (sem inventar números, métricas, depoimentos ou seções extra);
@@ -173,11 +173,11 @@ Um bom site de validação deve:
 O projeto deve conter:
 
 * `project/docs/sites/site_A.md` → narrativa de valor (benefício emocional).
-* `project/output/docs/sites/site_A.html` → versão HTML opcional (gerada pelo Publisher).
+* `project/output/docs/product/sites/site_A.html` → versão HTML opcional (gerada pelo Publisher).
 * `project/docs/sites/site_B.md` → narrativa de valor (benefício funcional).
-* `project/output/docs/sites/site_B.html` → versão HTML opcional (gerada pelo Publisher).
+* `project/output/docs/product/sites/site_B.html` → versão HTML opcional (gerada pelo Publisher).
 * `project/docs/sites/site_C.md` → narrativa de valor (benefício social).
-* `project/output/docs/sites/site_C.html` → versão HTML opcional (gerada pelo Publisher).
+* `project/output/docs/product/sites/site_C.html` → versão HTML opcional (gerada pelo Publisher).
 * `project/output/sites/site_01–03/` → versões HTML publicadas e rastreáveis.
 
 Essas páginas representam o **primeiro contato real entre o produto e o mercado**, permitindo validar se a mensagem desperta atenção, confiança e engajamento.

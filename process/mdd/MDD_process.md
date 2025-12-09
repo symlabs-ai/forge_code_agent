@@ -14,8 +14,8 @@ O processo completo é composto por **seis macroetapas** e um conjunto padroniza
 
 ### 1) Concepção da Visão
 
-📥 *Entrada:* `docs/hipotese.md`
-📤 *Saída:* `docs/visao.md`
+📥 *Entrada:* `docs/product/hipotese.md`
+📤 *Saída:* `docs/product/visao.md`
 
 A partir de uma hipótese inicial, cria-se uma **visão clara e inspiradora** do produto.
 É o momento de formular **propósito**, **problema de mercado**, **proposta de valor** e a **métrica inicial de validação**.
@@ -23,51 +23,51 @@ A visão é breve — normalmente um ou dois parágrafos — e segue o formato *
 
 > 🧩 Artefatos:
 >
-> * `docs/hipotese.md`
-> * `docs/visao.md`
+> * `docs/product/hipotese.md`
+> * `docs/product/visao.md`
 > * Templates em: `process/templates/template_hipotese.md` e `process/templates/template_visao.md`
 
 ---
 
 ### 2) Síntese Executiva
 
-📥 *Entrada:* `docs/visao.md`
-📤 *Saída:* `docs/sumario_executivo.md`
-🗂️ *Exportável:* `output/docs/sumario_executivo.pdf`
+📥 *Entrada:* `docs/product/visao.md`
+📤 *Saída:* `docs/product/sumario_executivo.md`
+🗂️ *Exportável:* `output/docs/product/sumario_executivo.pdf`
 
 Transforma a visão em um **plano estratégico conciso**, articulando **oportunidade**, **tamanho/potência de mercado**, **modelo de negócio** e **roadmap inicial**.
 Base para discussão com fundadores, diretoria e investidores.
 
 > 🧩 Artefatos:
 >
-> * `docs/sumario_executivo.md`
+> * `docs/product/sumario_executivo.md`
 > * Template: `process/templates/template_sumario_executivo.md`
-> * Renderização: `output/docs/sumario_executivo.pdf`
+> * Renderização: `output/docs/product/sumario_executivo.pdf`
 
 ---
 
 ### 3) Pitch de Valor
 
-📥 *Entrada:* `docs/visao.md` + `docs/sumario_executivo.md`
-📤 *Saída:* `docs/pitch_deck.md`
-🗂️ *Exportável:* `output/docs/pitch_deck.pptx`
+📥 *Entrada:* `docs/product/visao.md` + `docs/product/sumario_executivo.md`
+📤 *Saída:* `docs/product/pitch_deck.md`
+🗂️ *Exportável:* `output/docs/product/pitch_deck.pptx`
 
 Converte o sumário em **narrativa visual e emocional** para investidores/parceiros.
 O original permanece em Markdown; o `.pptx` é gerado por ferramenta externa.
 
 > 🧩 Artefatos:
 >
-> * `docs/pitch_deck.md`
+> * `docs/product/pitch_deck.md`
 > * Template: `process/templates/template_pitch_deck.md`
-> * Renderização: `output/docs/pitch_deck.pptx`
+> * Renderização: `output/docs/product/pitch_deck.pptx`
 
 ---
 
 ### 4) Validação Pública Inicial (Landing Tests)
 
-📥 *Entrada:* `docs/visao.md` + `docs/sumario_executivo.md` + `docs/pitch_deck.md`
-📤 *Saídas:* `docs/sites/site_A.md`, `docs/sites/site_B.md`, `docs/sites/site_C.md`
-🗂️ *Exportáveis:* `output/docs/sites_renderizados/`
+📥 *Entrada:* `docs/product/visao.md` + `docs/product/sumario_executivo.md` + `docs/product/pitch_deck.md`
+📤 *Saídas:* `docs/product/sites/site_A.md`, `docs/product/sites/site_B.md`, `docs/product/sites/site_C.md`
+🗂️ *Exportáveis:* `output/docs/product/sites_renderizados/`
 
 Criação de **landing pages experimentais** para validar interesse real do público.
 Cada variação (A/B/C) ajusta narrativa, promessa e CTA.
@@ -75,33 +75,33 @@ Páginas são convertidas em HTML (ex.: **Gama**, **Next.js**, **Jekyll**).
 
 > 🧩 Artefatos:
 >
-> * `docs/sites/site_A.md`, `docs/sites/site_B.md`, `docs/sites/site_C.md`
+> * `docs/product/sites/site_A.md`, `docs/product/sites/site_B.md`, `docs/product/sites/site_C.md`
 > * Template: `process/templates/template_site.md`
-> * Renderização: `output/docs/sites_renderizados/`
+> * Renderização: `output/docs/product/sites_renderizados/`
 
 ---
 
 ### 5) Avaliação e Retroalimentação Estratégica
 
-📥 *Entrada:* `docs/resultados_validacao.md`
-📤 *Saídas possíveis:* `docs/revisao_estrategica.md` **ou** `docs/aprovacao_mvp.md` **ou** `docs/rejeicao_projeto.md`
+📥 *Entrada:* `docs/product/resultados_validacao.md`
+📤 *Saídas possíveis:* `docs/product/revisao_estrategica.md` **ou** `docs/product/aprovacao_mvp.md` **ou** `docs/product/rejeicao_projeto.md`
 
 Etapa de **reflexão simbiótica**: análise de dados dos sites/formulários e decisão sobre próximo passo: **aprovar**, **revisar**, **encerrar**.
 Fecha o ciclo atual e pode iniciar um novo.
 
 > 🧩 Artefatos:
 >
-> * `docs/resultados_validacao.md`
-> * `docs/revisao_estrategica.md`
-> * `docs/aprovacao_mvp.md`
-> * `docs/rejeicao_projeto.md`
+> * `docs/product/resultados_validacao.md`
+> * `docs/product/revisao_estrategica.md`
+> * `docs/product/aprovacao_mvp.md`
+> * `docs/product/rejeicao_projeto.md`
 > * Templates: `process/templates/template_resultados_validacao.md`, `template_revisao_estrategica.md`, `template_aprovacao_mvp.md`, `template_rejeicao_projeto.md`
 
 ---
 
 ### 6) Handoff para Especificação de Comportamento
 
-📥 *Entrada:* `docs/aprovacao_mvp.md` (A decisão final da etapa anterior)
+📥 *Entrada:* `docs/product/aprovacao_mvp.md` (A decisão final da etapa anterior)
 📤 *Saída Formal:* Início do **BDD Process**
 
 Com a validação de mercado e a aprovação do MVP, o ciclo MDD é concluído. O controle é formalmente transferido para o **BDD Process**, que usará a visão e a aprovação como base para detalhar os comportamentos do sistema. O MDD não cria especificações BDD; ele autoriza sua criação.
@@ -111,18 +111,18 @@ Com a validação de mercado e a aprovação do MVP, o ciclo MDD é concluído. 
 ## 🗂️ Estrutura de Pastas Alvo (projetos ForgeProcess)
 
 > **Nota sobre este repositório**
-> Este repositório **não** cria diretórios de projeto como `project/`, `process/`, `docs/` ou `output/`.
+> Este repositório **não** cria diretórios de projeto como `project/`, `process/`, `docs/product/` ou `output/`.
 > Ele apenas define a **estrutura padrão** que será criada em projetos reais por ferramentas como
 > `symforge init -p forgeprocess myproject`.
 >
 > - **Templates** ficam em `process/templates/` (no projeto alvo).
-> - **Artefatos entregues** ficam em `docs/`.
-> - **Renderizações** ficam em `output/docs/`.
+> - **Artefatos entregues** ficam em `docs/product/`.
+> - **Renderizações** ficam em `output/docs/product/`.
 
 ```plaintext
 project/
  +-- process/
- ¦    +-- docs/
+ ¦    +-- docs/product/
  ¦    ¦     +-- templates/
  ¦    ¦     ¦     +-- template_hipotese.md
  ¦    ¦     ¦     +-- template_visao.md
@@ -138,7 +138,7 @@ project/
  ¦          +-- mdd_coach/
  ¦                +-- prompt.md
  ¦
- +-- docs/
+ +-- docs/product/
  ¦    +-- hipotese.md
  ¦    +-- visao.md
  ¦    +-- sumario_executivo.md
@@ -153,7 +153,7 @@ project/
  ¦    +-- rejeicao_projeto.md
  ¦
  +-- output/
- ¦    +-- docs/
+ ¦    +-- docs/product/
  ¦    ¦     +-- sumario_executivo.pdf
  ¦    ¦     +-- pitch_deck.pptx
  ¦    ¦     +-- sites_renderizados/
@@ -209,7 +209,7 @@ skinparam legend {
 }
 
 'tags principais
-node "Etapa 1\n**Concepção da Visão**\n\nEntrada: docs/hipotese.md\nSaída: docs/visao.md" as E1
+node "Etapa 1\n**Concepção da Visão**\n\nEntrada: docs/product/hipotese.md\nSaída: docs/product/visao.md" as E1
 note right of E1
 Cria a visão clara e inspiradora
 com base na hipótese do mercado.
@@ -217,26 +217,26 @@ Define propósito, problema,
 público e métrica inicial.
 end note
 
-node "Etapa 2\n**Síntese Executiva**\n\nEntrada: docs/visao.md\nSaída: docs/sumario_executivo.md" as E2
+node "Etapa 2\n**Síntese Executiva**\n\nEntrada: docs/product/visao.md\nSaída: docs/product/sumario_executivo.md" as E2
 note right of E2
 Transforma a visão em plano estratégico:
 mercado, modelo de negócio, roadmap.
 end note
 
-node "Etapa 3\n**Pitch de Valor**\n\nEntrada: visao.md + sumario_executivo.md\nSaída: docs/pitch_deck.md" as E3
+node "Etapa 3\n**Pitch de Valor**\n\nEntrada: visao.md + sumario_executivo.md\nSaída: docs/product/pitch_deck.md" as E3
 note right of E3
 Converte o sumário em narrativa visual
 para investidores e parceiros.
 end note
 
-node "Etapa 4\n**Validação Pública Inicial**\n\nEntrada: visao.md + sumario_executivo.md + pitch_deck.md\nSaída: docs/sites A/B/C (.md)" as E4
+node "Etapa 4\n**Validação Pública Inicial**\n\nEntrada: visao.md + sumario_executivo.md + pitch_deck.md\nSaída: docs/product/sites A/B/C (.md)" as E4
 note right of E4
 Cria variações de landing pages (.md)
 para testar interesse real do mercado.
 Coleta conversões e feedbacks.
 end note
 
-node "Etapa 5\n**Avaliação Estratégica**\n\nEntrada: docs/resultados_validacao.md\nSaídas: revisao_estrategica.md / aprovacao_mvp.md / rejeicao_projeto.md" as E5
+node "Etapa 5\n**Avaliação Estratégica**\n\nEntrada: docs/product/resultados_validacao.md\nSaídas: revisao_estrategica.md / aprovacao_mvp.md / rejeicao_projeto.md" as E5
 note right of E5
 Analisa resultados de validação e decide:
 Aprovar, Revisar ou Encerrar o ciclo.
@@ -247,11 +247,11 @@ E2 --> E3 : Gera narrativa de pitch
 E3 --> E4 : Gera sites de teste (A/B/C)
 E4 --> E5 : Coleta dados e feedback
 
-node "Etapa 6\n**Handoff para BDD**\n\nEntrada: docs/aprovacao_mvp.md\nSaída: Início do BDD Process" as E6
+node "Etapa 6\n**Handoff para BDD**\n\nEntrada: docs/product/aprovacao_mvp.md\nSaída: Início do BDD Process" as E6
 
-node "docs/aprovacao_mvp.md\n🚀 Avançar para MVP" as OK
-node "docs/revisao_estrategica.md\n🔁 Reavaliar proposta" as REV
-node "docs/rejeicao_projeto.md\n🛑 Encerrar ciclo" as REJ
+node "docs/product/aprovacao_mvp.md\n🚀 Avançar para MVP" as OK
+node "docs/product/revisao_estrategica.md\n🔁 Reavaliar proposta" as REV
+node "docs/product/rejeicao_projeto.md\n🛑 Encerrar ciclo" as REJ
 
 E5 --> OK : Aprovação
 E5 --> REV : Revisão

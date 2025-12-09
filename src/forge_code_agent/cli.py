@@ -59,18 +59,24 @@ def _build_parser() -> argparse.ArgumentParser:
     run_parser.add_argument(
         "--session-id",
         type=str,
-        help="Optional session identifier to enable context persistence via CodeManager.",
+        help=(
+            "Optional session identifier to enable context persistence via CodeManager. "
+            "When provided, CodeManager is used automatically."
+        ),
     )
     run_parser.add_argument(
         "--use-code-manager",
         action="store_true",
-        help="Use the CodeManager to manage sessions/context instead of a one-off CodeAgent.",
+        help=(
+            "Use the CodeManager to manage sessions/context instead of a one-off CodeAgent. "
+            "If --session-id is provided, this flag is implied."
+        ),
     )
     run_parser.add_argument(
         "--auto-summarize",
         action="store_true",
         help=(
-            "When used with --use-code-manager, enable automatic context summarization "
+            "When used with --session-id/--use-code-manager, enable automatic context summarization "
             "based on an internal prompt using the current provider."
         ),
     )
@@ -137,6 +143,10 @@ def main(argv: list[str] | None = None) -> int:
             session_id: str | None = getattr(ns, "session_id", None)
             auto_summarize: bool = getattr(ns, "auto_summarize", False)
 
+            # Sessões sempre usam CodeManager; se houver session-id, implicamos use_code_manager.
+            if session_id and not use_code_manager:
+                use_code_manager = True
+
             if use_code_manager:
                 workdir_path = Path(ns.workdir)
                 if auto_summarize:
@@ -167,6 +177,8 @@ def main(argv: list[str] | None = None) -> int:
             return 0 if result.status == "success" else 1
 
         if ns.command == "stream":
+            # Para stream, mantemos CodeAgent direto por enquanto; CodeManager/Context
+            # podem ser adicionados em sprints futuras se necessário.
             events = agent.stream(prompt, timeout=timeout)
             if not events_json:
                 print(f"[forge-code-agent] streaming provider={agent.provider}")

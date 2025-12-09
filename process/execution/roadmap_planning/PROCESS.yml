@@ -33,7 +33,7 @@ phases:
           Apresentar propostas técnicas e obter validação/aprovação ANTES de
           tomar decisões definitivas. Criar questionário de validação arquitetural.
         inputs:
-          - path: "docs/visao.md"
+          - path: "docs/product/visao.md"
             description: "Visão do produto"
           - path: "specs/bdd/*.feature"
             description: "Features BDD"

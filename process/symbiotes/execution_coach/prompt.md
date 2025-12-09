@@ -22,7 +22,7 @@ references:
   - process/execution/roadmap_planning/ROADMAP_PLANNING_PROCESS.md
   - process/execution/tdd/TDD_PROCESS.md
   - process/process_execution_state.md
-  - docs/guides/forgebase_guides/referencia/forge-process.md
+  - docs/product/guides/forgebase_guides/referencia/forge-process.md
   - AGENTS.md
 ---
 

@@ -45,10 +45,10 @@ Resumo do escopo definido na aprovação (referência ao `aprovacao_mvp.md`).
 Lista dos documentos MDD que devem ser consultados durante o BDD.
 | Artefato | Caminho | Relevância |
 |----------|---------|------------|
-| Visão | `docs/visao.md` | Contexto de negócio |
-| Sumário Executivo | `docs/sumario_executivo.md` | Estratégia e modelo |
-| Aprovação MVP | `docs/aprovacao_mvp.md` | Escopo e decisões |
-| Resultados Validação | `docs/resultados_validacao.md` | Dados de mercado |
+| Visão | `docs/product/visao.md` | Contexto de negócio |
+| Sumário Executivo | `docs/product/sumario_executivo.md` | Estratégia e modelo |
+| Aprovação MVP | `docs/product/aprovacao_mvp.md` | Escopo e decisões |
+| Resultados Validação | `docs/product/resultados_validacao.md` | Dados de mercado |
 
 ---
 

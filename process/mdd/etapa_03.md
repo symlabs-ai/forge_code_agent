@@ -16,9 +16,9 @@ O resultado é um **documento de apresentação (.md)** renderizado em **HTML in
 
 | Tipo         | Artefato                                     | Descrição                                                                                                                                                                           |
 | ------------ | -------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Entradas** | `docs/visao.md`, `docs/sumario_executivo.md` | Documentos base que contêm a essência da visão e o plano estratégico.                                                                                                               |
-| **Saída**    | `docs/pitch_deck.md`                         | Documento que organiza o conteúdo da visão e do sumário em formato narrativo e visual. O MDD Publisher gera automaticamente a versão HTML em `project/output/docs/pitch_deck.html`. |
-| **Entrega**  | `docs/pitch_deck_gamma_prompt.md`            | Prompt texto para geração de slides no Gamma.app (sem tags XML/HTML; não inventar números/seções além do script). |
+| **Entradas** | `docs/product/visao.md`, `docs/product/sumario_executivo.md` | Documentos base que contêm a essência da visão e o plano estratégico.                                                                                                               |
+| **Saída**    | `docs/product/pitch_deck.md`                         | Documento que organiza o conteúdo da visão e do sumário em formato narrativo e visual. O MDD Publisher gera automaticamente a versão HTML em `project/output/docs/product/pitch_deck.html`. |
+| **Entrega**  | `docs/product/pitch_deck_gamma_prompt.md`            | Prompt texto para geração de slides no Gamma.app (sem tags XML/HTML; não inventar números/seções além do script). |
 
 📁 **Template:** `process/templates/template_pitch_deck.md`
 
@@ -70,7 +70,7 @@ O conteúdo do `pitch_deck.md` é estruturado em blocos narrativos:
 
 ---
 
-*Documento gerado pelo symbiota MDD Coach a partir de `docs/visao.md` e `docs/sumario_executivo.md`.*
+*Documento gerado pelo symbiota MDD Coach a partir de `docs/product/visao.md` e `docs/product/sumario_executivo.md`.*
 ```
 
 ---
@@ -82,7 +82,7 @@ Após a validação do documento pelo MDD Coach, o **MDD Publisher** entra em a�
 1. Detecta o arquivo `project/docs/pitch_deck.md`.
 2. Identifica o tipo de documento e aplica o template `process/templates/style_pitch.json` e `style_pitch.css`.
 3. Executa o script `export_pitch_html.py` localizado em `symbiotas/mdd_publisher/scripts/`.
-4. Gera a saída `project/output/docs/pitch_deck.html`.
+4. Gera a saída `project/output/docs/product/pitch_deck.html`.
 5. Gera também `project/docs/pitch_deck_gamma_prompt.md` com instruções para o Gamma.app:
    - Não usar tags XML/HTML no prompt (ex.: sem <title>, <h1>, etc.);
    - Usar apenas o conteúdo do `pitch_deck.md` (sem inventar números, nomes de terceiros ou seções não previstas);
@@ -115,10 +115,10 @@ Um bom pitch deve:
 
 ## 🔁 Fluxo Simbiótico Simplificado
 
-1. O MDD Coach importa conteúdo de `docs/visao.md` e `docs/sumario_executivo.md`.
-2. Conduz a criação do `docs/pitch_deck.md` com estrutura narrativa.
+1. O MDD Coach importa conteúdo de `docs/product/visao.md` e `docs/product/sumario_executivo.md`.
+2. Conduz a criação do `docs/product/pitch_deck.md` com estrutura narrativa.
 3. O MDD Publisher detecta o arquivo, aplica o template e executa o script `export_pitch_html.py`.
-4. O resultado é salvo em `project/output/docs/pitch_deck.html`.
+4. O resultado é salvo em `project/output/docs/product/pitch_deck.html`.
 5. Ambos registram logs das ações executadas.
 
 ---
@@ -128,7 +128,7 @@ Um bom pitch deve:
 O projeto deve conter:
 
 * `project/docs/pitch_deck.md` → narrativa textual do pitch;
-* `project/output/docs/pitch_deck.html` → versão visual web do pitch.
+* `project/output/docs/product/pitch_deck.html` → versão visual web do pitch.
 
 Esses arquivos compõem o material de **comunicação de valor** do produto, servindo como ponte entre a estratégia interna e a validação de mercado (Etapa 4).
 

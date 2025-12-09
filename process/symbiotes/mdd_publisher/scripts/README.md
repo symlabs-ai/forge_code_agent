@@ -3,7 +3,7 @@
 Este diretório contém os scripts que convertem artefatos Markdown (`project/docs/*.md`) em formatos publicáveis (HTML, PDF, DOCX) e geram sites A/B/C.
 
 - Logs: `project/output/logs/export_history.log`
-- Saídas: `project/output/docs/` e `project/output/sites/`
+- Saídas: `project/output/docs/product/` e `project/output/sites/`
 - Templates (quando aplicável): `process/templates/`
 
 ---
@@ -36,7 +36,7 @@ HTML (genérico):
 python symbiotas/mdd_publisher/scripts/export_html.py \
   --input project/docs/sumario_executivo.md
 ```
-Saída padrão: `project/output/docs/sumario_executivo.html`
+Saída padrão: `project/output/docs/product/sumario_executivo.html`
 
 PDF:
 ```
@@ -44,7 +44,7 @@ python symbiotas/mdd_publisher/scripts/export_pdf.py \
   --input project/docs/sumario_executivo.md
 ```
 - Tenta `weasyprint`; se indisponível, tenta `pdfkit`; se nenhuma disponível, falha com mensagem.
-- Saída: `project/output/docs/sumario_executivo.pdf`
+- Saída: `project/output/docs/product/sumario_executivo.pdf`
 
 DOCX:
 ```
@@ -52,14 +52,14 @@ python symbiotas/mdd_publisher/scripts/export_docx.py \
   --input project/docs/sumario_executivo.md
 ```
 - Requer `python-docx`.
-- Saída: `project/output/docs/sumario_executivo.docx`
+- Saída: `project/output/docs/product/sumario_executivo.docx`
 
 Pitch (HTML):
 ```
 python symbiotas/mdd_publisher/scripts/export_pitch_html.py \
   --input project/docs/pitch_deck.md
 ```
-- Saída: `project/output/docs/pitch_deck.html`
+- Saída: `project/output/docs/product/pitch_deck.html`
 
 Sites A/B/C (HTML):
 ```
@@ -94,4 +94,4 @@ python symbiotas/mdd_publisher/scripts/export_site_html.py
 python symbiotas/mdd_publisher/scripts/export_html.py --input project/docs/sumario_executivo.md
 python symbiotas/mdd_publisher/scripts/export_pdf.py  --input project/docs/sumario_executivo.md
 ```
-3) Verifique saídas em `project/output/docs/` e o log em `project/output/logs/export_history.log`.
+3) Verifique saídas em `project/output/docs/product/` e o log em `project/output/logs/export_history.log`.

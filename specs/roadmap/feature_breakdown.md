@@ -14,6 +14,14 @@
   - Feature BDD: `specs/bdd/10_forge_core/11_code_agent_tools_and_files.feature`
 - SUPPORT Track: `support_observability_code_agent_resilience`
   - Feature BDD: `specs/bdd/50_observabilidade/50_code_agent_resilience.feature`
+- VALUE Track 3: `value_context_manager_codeagent`
+  - Features BDD:
+    - `specs/bdd/40_mcp/40_mcp_tools.feature`
+    - `specs/bdd/41_context/41_code_manager_sessions.feature`
+- VALUE Track 4: `value_pr_assist_cli_mcp`
+  - Feature BDD: `specs/bdd/42_pr_assist/42_pr_assist.feature`
+- VALUE Track 5: `value_module_and_tests_cli`
+  - Feature BDD: `specs/bdd/43_module_and_tests/43_module_and_tests.feature`
 
 ---
 
@@ -220,19 +228,27 @@ Estes IDs (T1...T15) devem ser reutilizados em `specs/roadmap/estimates.yml` e `
   - demos iniciais em `examples/mcp/claude_tools_demo.sh` e `gemini_tools_demo.sh` mostrando leitura de arquivo via tools;
   - dependem de configuração específica de MCP nas CLIs (fora deste repo).
 
-#### T23. ValueTrack — PR assistido (FUTURO)
+#### T23. ValueTrack — PR assistido (EM ANDAMENTO / PRÓXIMO CICLO)
 
-- Definir feature BDD futura (ex.: `specs/bdd/42_pr_assist/42_pr_assist.feature`) para:
-  - ler arquivos/diffs de PR (via MCP `read_file` / tools futuras);
-  - gerar comentários ou resumo de mudanças;
-  - rodar via script CLI (`examples/sprintX_pr_assist_demo.sh`) usando `forge-code-agent`.
+- `specs/bdd/42_pr_assist/42_pr_assist.feature` já definido, cobrindo:
+  - fluxo de PR assistido via CLI + MCP usando Codex;
+  - cenários de troca de provider (Codex → Claude/Gemini) sem mudar o script de automação.
+- Demos atuais:
+  - `examples/sprint5_pr_assist_demo.sh`.
+- Próximos passos (próximo ciclo):
+  - estender cenários para múltiplos arquivos e casos de falha de testes;
+  - consolidar cenários `@e2e @mcp` adicionais.
 
-#### T25. ValueTrack — Geração de módulo + testes (FUTURO)
+#### T25. ValueTrack — Geração de módulo + testes (EM ANDAMENTO / PRÓXIMO CICLO)
 
-- Definir feature BDD futura (ex.: `specs/bdd/43_module_and_tests/43_module_and_tests.feature`) para:
-  - gerar módulo Python + testes em um workspace;
-  - persistir arquivos com segurança (workspace adapter);
-  - (futuramente) rodar testes via MCP (`run_tests`).
+- `specs/bdd/43_module_and_tests/43_module_and_tests.feature` já definido, cobrindo:
+  - geração de módulo + testes via CLI com Codex;
+  - troca de provider para Claude/Gemini sem alterar o script.
+- Demos atuais:
+  - `examples/sprint5_module_and_tests_demo.sh`.
+- Próximos passos (próximo ciclo):
+  - estender cenários para módulos com dependências internas e casos de teste parametrizados;
+  - planejar integração com futura tool MCP `run_tests`.
 
 #### T26. Hardening de MCP (FUTURO)
 

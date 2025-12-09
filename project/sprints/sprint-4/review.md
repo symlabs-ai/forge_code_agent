@@ -168,7 +168,7 @@
 - Claridade no papel de cada componente: CodeManager como control-plane de contexto + MCP; CodeAgent como adapter de provider.
 - Demos MCP e de sessões deixaram tangível a proposta de valor de contexto persistente e integração multi-provider.
 
-**Sugestões / Próximos Passos** (já refletidos em `project/recommendations.md` e `docs/current_plan.md`):
+**Sugestões / Próximos Passos** (já refletidos em `project/recommendations.md` e `docs/product/current_plan.md`):
 - Estender MCP para Claude e Gemini, com demos e cenários BDD `@mcp @e2e`.
 - Adicionar uma feature BDD específica para sessões/contexto (CodeManager + summaries).
 - Fortalecer hardening de MCP (modos read-only, timeouts e regras explícitas de fallback).

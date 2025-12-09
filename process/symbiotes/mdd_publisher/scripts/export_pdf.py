@@ -12,7 +12,7 @@ registra no log.
 Uso:
   python symbiotas/mdd_publisher/scripts/export_pdf.py \
          --input project/docs/sumario_executivo.md \
-         [--output project/output/docs/sumario_executivo.pdf]
+         [--output project/output/docs/product/sumario_executivo.pdf]
 """
 from __future__ import annotations
 
@@ -21,6 +21,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+from contextlib import suppress
 from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).parent
@@ -28,7 +29,7 @@ UTILS_DIR = SCRIPT_DIR / "utils"
 if str(UTILS_DIR) not in sys.path:
     sys.path.insert(0, str(UTILS_DIR))
 
-from helpers import (
+from helpers import (  # noqa: E402
     ExportError,
     MissingDependencyError,
     default_output_for_md,
@@ -80,10 +81,8 @@ def _html_to_pdf_wkhtmltopdf_cli(html: str, output_pdf: Path) -> None:
     try:
         subprocess.run([exe, tmp_path, str(output_pdf)], check=True, capture_output=True)
     finally:
-        try:
+        with suppress(Exception):
             Path(tmp_path).unlink(missing_ok=True)
-        except Exception:
-            pass
 
 
 def export_pdf(input_md: Path, output_pdf: Path | None = None) -> Path:

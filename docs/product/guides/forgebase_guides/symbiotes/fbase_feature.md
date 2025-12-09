@@ -577,7 +577,7 @@ python src/cli.py exec cancel_order --json '{"order_id": "ord-123", "reason": "C
 
 ## Referências
 
-- [ForgeBase Rules](/docs/usuarios/forgebase-rules.md)
-- [CLI First](/docs/usuarios/cli-first.md)
-- [Arquitetura](/docs/referencia/arquitetura.md)
-- [Guia de Testes](/docs/usuarios/guia-de-testes.md)
+- [ForgeBase Rules](/docs/product/usuarios/forgebase-rules.md)
+- [CLI First](/docs/product/usuarios/cli-first.md)
+- [Arquitetura](/docs/product/referencia/arquitetura.md)
+- [Guia de Testes](/docs/product/usuarios/guia-de-testes.md)

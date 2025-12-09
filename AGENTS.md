@@ -10,10 +10,10 @@ O modulo python forgeCodeAgent encapsula as CLIs de motores locais (Codex-like, 
 
 ## Referências Obrigatórias
 
-- Guia de agentes do ForgeBase: `docs/guides/forgebase_guides/agentes-ia/` (início rápido, descoberta, ecossistema).
-- Regras do ForgeBase: `docs/guides/forgebase_guides/usuarios/forgebase-rules.md` (Clean/Hex, CLI-first, offline, persistência YAML + auto-commit Git).
+- Guia de agentes do ForgeBase: `docs/product/guides/forgebase_guides/agentes-ia/` (início rápido, descoberta, ecossistema).
+- Regras do ForgeBase: `docs/product/guides/forgebase_guides/usuarios/forgebase-rules.md` (Clean/Hex, CLI-first, offline, persistência YAML + auto-commit Git).
 - Prompts de cada symbiota: `process/symbiotes/<nome>/prompt.md`.
-- Contexto MDD/BDD: `docs/`, `specs/bdd/`, `specs/adr/`. #pode ainda não existir
+- Contexto MDD/BDD: `docs/product/`, `specs/bdd/`, `specs/adr/`. #pode ainda não existir
 - Execucao do processo: `/process/process_execution_state.md`
 
 ## Defaults para qualquer symbiota
@@ -26,7 +26,7 @@ O modulo python forgeCodeAgent encapsula as CLIs de motores locais (Codex-like, 
 
 ## Symbiotas de Código/Tests (TDD)
 
-- Consultar: `docs/guides/forgebase_guides/agentes-ia/guia-completo.md`, `docs/guides/forgebase_guides/usuarios/forgebase-rules.md`, prompts em `process/symbiotes/tdd_coder/` e `process/symbiotes/test_writer/`.
+- Consultar: `docs/product/guides/forgebase_guides/agentes-ia/guia-completo.md`, `docs/product/guides/forgebase_guides/usuarios/forgebase-rules.md`, prompts em `process/symbiotes/tdd_coder/` e `process/symbiotes/test_writer/`.
 - Seguir BDD → TDD: features em `specs/bdd/`, steps em `tests/bdd/`, código em `src/` seguindo camadas ForgeBase.
 - Usar exceções específicas, logging/métricas do ForgeBase; Rich apenas para UX em CLI.
 

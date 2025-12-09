@@ -41,11 +41,11 @@ phases:
           e a métrica inicial de validação.
         spec_file: "etapa_01.md"
         inputs:
-          - path: "docs/hipotese.md"
+          - path: "docs/product/hipotese.md"
             description: "Hipótese inicial do produto"
             template: "templates/template_hipotese.md"
         outputs:
-          - path: "docs/visao.md"
+          - path: "docs/product/visao.md"
             description: "Documento de visão do produto"
             template: "templates/template_visao.md"
         actors:
@@ -64,17 +64,17 @@ phases:
           Base para discussão com fundadores, diretoria e investidores.
         spec_file: "etapa_02.md"
         inputs:
-          - path: "docs/visao.md"
+          - path: "docs/product/visao.md"
             description: "Documento de visão aprovado"
             template: "templates/template_visao.md"
         outputs:
-          - path: "docs/sumario_executivo.md"
+          - path: "docs/product/sumario_executivo.md"
             description: "Sumário executivo do produto"
             template: "templates/template_sumario_executivo.md"
-          - path: "output/docs/sumario_executivo.pdf"
+          - path: "output/docs/product/sumario_executivo.pdf"
             description: "PDF renderizado do sumário"
             required: false
-            source: "docs/sumario_executivo.md"
+            source: "docs/product/sumario_executivo.md"
             producer:
               type: symbiote
               name: mdd_publisher
@@ -93,20 +93,20 @@ phases:
           O original permanece em Markdown; o .pptx é gerado por ferramenta externa.
         spec_file: "etapa_03.md"
         inputs:
-          - path: "docs/visao.md"
+          - path: "docs/product/visao.md"
             description: "Documento de visão"
             template: "templates/template_visao.md"
-          - path: "docs/sumario_executivo.md"
+          - path: "docs/product/sumario_executivo.md"
             description: "Sumário executivo"
             template: "templates/template_sumario_executivo.md"
         outputs:
-          - path: "docs/pitch_deck.md"
+          - path: "docs/product/pitch_deck.md"
             description: "Pitch deck em Markdown"
             template: "templates/template_pitch_deck.md"
-          - path: "output/docs/pitch_deck.pptx"
+          - path: "output/docs/product/pitch_deck.pptx"
             description: "Apresentação renderizada"
             required: false
-            source: "docs/pitch_deck.md"
+            source: "docs/product/pitch_deck.md"
             producer:
               type: symbiote
               name: mdd_publisher
@@ -126,53 +126,53 @@ phases:
           Páginas são convertidas em HTML para testes.
         spec_file: "etapa_04.md"
         inputs:
-          - path: "docs/visao.md"
+          - path: "docs/product/visao.md"
             description: "Documento de visão"
             template: "templates/template_visao.md"
-          - path: "docs/sumario_executivo.md"
+          - path: "docs/product/sumario_executivo.md"
             description: "Sumário executivo"
             template: "templates/template_sumario_executivo.md"
-          - path: "docs/pitch_deck.md"
+          - path: "docs/product/pitch_deck.md"
             description: "Pitch deck"
             template: "templates/template_pitch_deck.md"
         outputs:
-          - path: "docs/sites/site_A.md"
+          - path: "docs/product/sites/site_A.md"
             description: "Landing page variação A"
             template: "templates/template_site.md"
-          - path: "output/docs/sites/site_A.html"
+          - path: "output/docs/product/sites/site_A.html"
             description: "Landing page A renderizada em HTML"
             required: false
-            source: "docs/sites/site_A.md"
+            source: "docs/product/sites/site_A.md"
             producer:
               type: symbiote
               name: mdd_publisher
-          - path: "docs/sites/site_B.md"
+          - path: "docs/product/sites/site_B.md"
             description: "Landing page variação B"
             template: "templates/template_site.md"
-          - path: "output/docs/sites/site_B.html"
+          - path: "output/docs/product/sites/site_B.html"
             description: "Landing page B renderizada em HTML"
             required: false
-            source: "docs/sites/site_B.md"
+            source: "docs/product/sites/site_B.md"
             producer:
               type: symbiote
               name: mdd_publisher
-          - path: "docs/sites/site_C.md"
+          - path: "docs/product/sites/site_C.md"
             description: "Landing page variação C"
             template: "templates/template_site.md"
-          - path: "output/docs/sites/site_C.html"
+          - path: "output/docs/product/sites/site_C.html"
             description: "Landing page C renderizada em HTML"
             required: false
-            source: "docs/sites/site_C.md"
+            source: "docs/product/sites/site_C.md"
             producer:
               type: symbiote
               name: mdd_publisher
-          - path: "docs/resultados_validacao.md"
+          - path: "docs/product/resultados_validacao.md"
             description: "Resultados coletados dos testes"
             template: "templates/template_resultados_validacao.md"
-          - path: "output/docs/resultados_validacao.html"
+          - path: "output/docs/product/resultados_validacao.html"
             description: "Resultados de validação renderizados em HTML"
             required: false
-            source: "docs/resultados_validacao.md"
+            source: "docs/product/resultados_validacao.md"
             producer:
               type: symbiote
               name: mdd_publisher
@@ -192,19 +192,19 @@ phases:
           Fecha o ciclo atual e pode iniciar um novo.
         spec_file: "etapa_05.md"
         inputs:
-          - path: "docs/resultados_validacao.md"
+          - path: "docs/product/resultados_validacao.md"
             description: "Resultados da validação pública"
             template: "templates/template_resultados_validacao.md"
         outputs:
-          - path: "docs/aprovacao_mvp.md"
+          - path: "docs/product/aprovacao_mvp.md"
             description: "Documento de aprovação (se aprovado)"
             template: "templates/template_aprovacao_mvp.md"
             required: false
-          - path: "docs/revisao_estrategica.md"
+          - path: "docs/product/revisao_estrategica.md"
             description: "Documento de revisão (se precisa ajustes)"
             template: "templates/template_revisao_estrategica.md"
             required: false
-          - path: "docs/rejeicao_projeto.md"
+          - path: "docs/product/rejeicao_projeto.md"
             description: "Documento de rejeição (se encerrado)"
             template: "templates/template_rejeicao_projeto.md"
             required: false
@@ -225,11 +225,11 @@ phases:
           O MDD não cria especificações BDD; ele autoriza sua criação.
         spec_file: "etapa_06.md"
         inputs:
-          - path: "docs/aprovacao_mvp.md"
+          - path: "docs/product/aprovacao_mvp.md"
             description: "Documento de aprovação do MVP"
             template: "templates/template_aprovacao_mvp.md"
         outputs:
-          - path: "docs/handoff_bdd.md"
+          - path: "docs/product/handoff_bdd.md"
             description: "Documento formal de handoff para BDD"
             template: "templates/template_handoff_bdd.md"
             required: false
@@ -255,7 +255,7 @@ flow:
   - id: validar_visao
     type: decision
     decision:
-      question: "A visão do produto (docs/visao.md) está aprovada?"
+      question: "A visão do produto (docs/product/visao.md) está aprovada?"
       decider:
         type: hil
         actor: stakeholder
@@ -274,7 +274,7 @@ flow:
   - id: validar_sintese
     type: decision
     decision:
-      question: "A síntese executiva (docs/sumario_executivo.md) está aprovada?"
+      question: "A síntese executiva (docs/product/sumario_executivo.md) está aprovada?"
       decider:
         type: hil
         actor: stakeholder
@@ -293,7 +293,7 @@ flow:
   - id: validar_pitch
     type: decision
     decision:
-      question: "O pitch deck (docs/pitch_deck.md) está aprovado?"
+      question: "O pitch deck (docs/product/pitch_deck.md) está aprovado?"
       decider:
         type: hil
         actor: stakeholder
@@ -359,37 +359,37 @@ flow:
 
 artifacts:
   - id: hipotese
-    path: "docs/hipotese.md"
+    path: "docs/product/hipotese.md"
     phase: mdd_main
     description: "Hipótese inicial do produto"
 
   - id: visao
-    path: "docs/visao.md"
+    path: "docs/product/visao.md"
     phase: mdd_main
     description: "Documento de visão do produto"
 
   - id: sumario_executivo
-    path: "docs/sumario_executivo.md"
+    path: "docs/product/sumario_executivo.md"
     phase: mdd_main
     description: "Síntese executiva estratégica"
 
   - id: pitch_deck
-    path: "docs/pitch_deck.md"
+    path: "docs/product/pitch_deck.md"
     phase: mdd_main
     description: "Pitch de valor para investidores"
 
   - id: resultados_validacao
-    path: "docs/resultados_validacao.md"
+    path: "docs/product/resultados_validacao.md"
     phase: mdd_main
     description: "Resultados da validação pública"
 
   - id: aprovacao_mvp
-    path: "docs/aprovacao_mvp.md"
+    path: "docs/product/aprovacao_mvp.md"
     phase: mdd_main
     description: "Documento de aprovação do MVP"
 
   - id: handoff_bdd
-    path: "docs/handoff_bdd.md"
+    path: "docs/product/handoff_bdd.md"
     phase: mdd_main
     description: "Documento formal de handoff para BDD Process"
 

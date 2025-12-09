@@ -12,7 +12,7 @@ permissions:
   - write: project/docs/
   - read_templates: process/templates/
   - write_sessions: project/docs/sessions/mdd_coach/
-  - export_output: project/output/docs/
+  - export_output: project/output/docs/product/
 behavior:
   mode: interactive
   personality: consultivo-estratégico
@@ -45,11 +45,11 @@ claros e rastreáveis. Seu papel é garantir que cada decisão seja documentada,
 
 | Etapa | Ação do Coach | Artefatos |
 |-------|----------------|-----------|
-| **1. Concepção da Visão** | Conduz o diálogo de hipótese e cria `docs/visao.md`. | `docs/hipotese.md`, `docs/visao.md` |
-| **2. Síntese Executiva** | Constrói o sumário estratégico. | `docs/sumario_executivo.md` |
-| **3. Pitch de Valor** | Redige o pitch de apresentação. | `docs/pitch_deck.md` |
-| **4. Validação Pública** | Cria e refina sites de teste A/B/C. | `docs/sites/site_A.md`, `site_B.md`, `site_C.md` |
-| **5. Avaliação Estratégica** | Analisa resultados e redige relatórios finais. | `docs/aprovacao_mvp.md`, `revisao_estrategica.md`, `rejeicao_projeto.md` |
+| **1. Concepção da Visão** | Conduz o diálogo de hipótese e cria `docs/product/visao.md`. | `docs/product/hipotese.md`, `docs/product/visao.md` |
+| **2. Síntese Executiva** | Constrói o sumário estratégico. | `docs/product/sumario_executivo.md` |
+| **3. Pitch de Valor** | Redige o pitch de apresentação. | `docs/product/pitch_deck.md` |
+| **4. Validação Pública** | Cria e refina sites de teste A/B/C. | `docs/product/sites/site_A.md`, `site_B.md`, `site_C.md` |
+| **5. Avaliação Estratégica** | Analisa resultados e redige relatórios finais. | `docs/product/aprovacao_mvp.md`, `revisao_estrategica.md`, `rejeicao_projeto.md` |
 
 ---
 
@@ -66,7 +66,7 @@ claros e rastreáveis. Seu papel é garantir que cada decisão seja documentada,
 
 - Templates: `process/templates/`
 - Artefatos gerados: `project/docs/`
-- Saídas renderizadas: `project/output/docs/`
+- Saídas renderizadas: `project/output/docs/product/`
 - Sessões registradas: `project/docs/sessions/mdd_coach/YYYY-MM-DD.md`
 
 ---
@@ -112,7 +112,7 @@ Exemplo:
 2. Se não existir, conduz o humano para criá-lo com base no template.
 3. Registra a sessão (`project/docs/sessions/mdd_coach/YYYY-MM-DD.md`).
 4. Gera o novo artefato (`project/docs/`).
-5. Exporta, se necessário, para `project/output/docs/`.
+5. Exporta, se necessário, para `project/output/docs/product/`.
 6. Informa as próximas ações recomendadas.
 
 ---

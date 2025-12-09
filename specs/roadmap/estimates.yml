@@ -174,3 +174,31 @@ estimates:
       - T18
       - T20
     description: "Integração MCP multi-provider (Claude/Gemini) centralizada via CodeManager"
+
+  # VALUE Track: value_pr_assist_cli_mcp
+  - id: T23
+    track: value_pr_assist_cli_mcp
+    size: M
+    depends_on:
+      - T20
+      - T22
+    description: "ValueTrack de PR assistido via CLI + MCP (features 42_pr_assist/*, demos em examples/sprint5_pr_assist_demo.sh e sucessores)"
+
+  # VALUE Track: value_module_and_tests_cli
+  - id: T25
+    track: value_module_and_tests_cli
+    size: M
+    depends_on:
+      - T20
+      - T18
+    description: "ValueTrack de geração de módulo + testes via CLI (features 43_module_and_tests/*, demos em examples/sprint5_module_and_tests_demo.sh e sucessores)"
+
+  # Hardening de MCP (após multi-provider e flows principais)
+  - id: T26
+    track: support_observability_code_agent_resilience
+    size: L
+    depends_on:
+      - T22
+      - T23
+      - T25
+    description: "Hardening do servidor MCP (modularização, limites, segurança de workspace) conforme docs/product/current_plan.md"

@@ -315,7 +315,7 @@ Não valida email/name antes de persistir.
 
 ## Referências
 
-- [ForgeBase Rules](/docs/usuarios/forgebase-rules.md)
-- [CLI First](/docs/usuarios/cli-first.md)
-- [Arquitetura](/docs/referencia/arquitetura.md)
-- [Exceções de Domínio](/docs/usuarios/forgebase-rules.md#3-exceções-de-domínio)
+- [ForgeBase Rules](/docs/product/usuarios/forgebase-rules.md)
+- [CLI First](/docs/product/usuarios/cli-first.md)
+- [Arquitetura](/docs/product/referencia/arquitetura.md)
+- [Exceções de Domínio](/docs/product/usuarios/forgebase-rules.md#3-exceções-de-domínio)

@@ -14,7 +14,7 @@ description: >
 permissions:
 
 * read: project/docs/
-* write: project/output/docs/
+* write: project/output/docs/product/
 * read_templates: process/templates/
 * write_logs: project/output/logs/
 * execute_scripts: symbiotas/mdd_publisher/scripts/
@@ -41,10 +41,10 @@ Seu papel é converter documentos Markdown em **formatos legíveis, distribuíve
 
 | Etapa do MDD                        | Ação do Publisher                                                                  | Formato de Saída                          |
 | ----------------------------------- | ---------------------------------------------------------------------------------- | ----------------------------------------- |
-| **Etapa 2 — Síntese Executiva**     | Gera versão PDF do `sumario_executivo.md`.                                         | `output/docs/sumario_executivo.pdf`       |
-| **Etapa 3 — Pitch de Valor**        | Converte `pitch_deck.md` em `.pptx` (via integração com conversor externo).        | `output/docs/pitch_deck.pptx`             |
-| **Etapa 4 — Validação Pública**     | Gera páginas HTML+JSS baseadas nos sites A/B/C.                                    | `output/docs/sites_renderizados/`         |
-| **Etapa 5 — Avaliação Estratégica** | Gera relatórios em PDF e DOCX para decisões de aprovação, revisão ou encerramento. | `output/docs/*.pdf`, `output/docs/*.docx` |
+| **Etapa 2 — Síntese Executiva**     | Gera versão PDF do `sumario_executivo.md`.                                         | `output/docs/product/sumario_executivo.pdf`       |
+| **Etapa 3 — Pitch de Valor**        | Converte `pitch_deck.md` em `.pptx` (via integração com conversor externo).        | `output/docs/product/pitch_deck.pptx`             |
+| **Etapa 4 — Validação Pública**     | Gera páginas HTML+JSS baseadas nos sites A/B/C.                                    | `output/docs/product/sites_renderizados/`         |
+| **Etapa 5 — Avaliação Estratégica** | Gera relatórios em PDF e DOCX para decisões de aprovação, revisão ou encerramento. | `output/docs/product/*.pdf`, `output/docs/product/*.docx` |
 
 ---
 
@@ -85,7 +85,7 @@ process/
 2. **Identificação do Tipo de Documento:** determina qual conversão aplicar com base no nome e template.
 3. **Execução do Script Correto:** executa o script Python correspondente em `scripts/` (ex.: `export_pdf.py`).
 4. **Aplicação de Template Visual:** utiliza arquivos de estilo de `process/templates/`.
-5. **Geração da Saída:** grava o arquivo convertido em `project/output/docs/`.
+5. **Geração da Saída:** grava o arquivo convertido em `project/output/docs/product/`.
 6. **Registro do Evento:** adiciona entrada no log `project/output/logs/export_history.log`.
 
 ---
@@ -105,7 +105,7 @@ process/
 2. Identifica tipo de documento (visão, sumário, site, etc.).
 3. Escolhe e executa o script Python apropriado em `symbiotas/mdd_publisher/scripts/`.
 4. Aplica estilos e templates visuais.
-5. Exporta o arquivo final para `project/output/docs/`.
+5. Exporta o arquivo final para `project/output/docs/product/`.
 6. Registra log em `project/output/logs/export_history.log`.
 
 ---

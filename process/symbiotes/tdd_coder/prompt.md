@@ -23,8 +23,8 @@ behavior:
   personality: metódico-rigoroso-defensivo
   tone: técnico, focado em qualidade e robustez
 references:
-  - docs/guides/forgebase_guides/agentes-ia/guia-completo.md
-  - docs/guides/forgebase_guides/usuarios/forgebase-rules.md
+  - docs/product/guides/forgebase_guides/agentes-ia/guia-completo.md
+  - docs/product/guides/forgebase_guides/usuarios/forgebase-rules.md
   - AGENTS.md
 ---
 
@@ -67,7 +67,7 @@ Trabalha em **loop de feedback automático** com `bill_review`:
 - Usar exceções específicas (sem Exception genérico) e logging/métricas do ForgeBase quando disponível.
 - Sem rede externa por padrão (modo offline); plugins/commands devem respeitar manifesto/permissões.
 - CLI-first: nada de HTTP/TUI antes de validar via CLI.
-- Consulte `docs/guides/forgebase_guides/agentes-ia/` e `AGENTS.md` para comportamento padrão de agents/symbiotas.
+- Consulte `docs/product/guides/forgebase_guides/agentes-ia/` e `AGENTS.md` para comportamento padrão de agents/symbiotas.
 
 ## 🔄 Ciclo TDD Autônomo
 

@@ -24,7 +24,7 @@ forgebase/
 ├── MANIFEST.in                      # ← Criado: inclui docs no sdist
 │
 └── src/forgebase/
-    ├── _docs/                       # ← Novo: docs embutidos no package
+    ├── _docs/product/                       # ← Novo: docs embutidos no package
     │   ├── __init__.py
     │   ├── AI_AGENT_QUICK_START.md  # ← Cópia para distribuição
     │   └── README.md                # ← Cópia para distribuição
@@ -104,7 +104,7 @@ recursive-include examples *.json
 ```toml
 [tool.setuptools.package-data]
 forgebase = [
-    "_docs/*.md",     # Embedded documentation
+    "_docs/product/*.md",     # Embedded documentation
 ]
 ```
 
@@ -115,7 +115,7 @@ forgebase = [
 ### Durante o Build
 
 1. **MANIFEST.in** garante que markdown files vão para o `.tar.gz`
-2. **package-data** garante que `_docs/*.md` vão para o `.whl`
+2. **package-data** garante que `_docs/product/*.md` vão para o `.whl`
 3. Ambos são necessários para cobertura completa
 
 ### Durante a Instalação
@@ -123,7 +123,7 @@ forgebase = [
 Quando usuário faz `pip install forgebase`:
 
 ```python
-# Em site-packages/forgebase/_docs/
+# Em site-packages/forgebase/_docs/product/
 AI_AGENT_QUICK_START.md  # ✅ Incluído
 README.md                 # ✅ Incluído
 ```
@@ -134,7 +134,7 @@ README.md                 # ✅ Incluído
 from forgebase.dev import get_agent_quickstart
 
 # Função tenta (em ordem):
-# 1. Ler de forgebase._docs/ (package data) - pip install
+# 1. Ler de forgebase._docs/product/ (package data) - pip install
 # 2. Ler de raiz do projeto - development mode
 # 3. Retornar fallback com link para GitHub
 ```
@@ -229,10 +229,10 @@ Quando atualizar `AI_AGENT_QUICK_START.md`:
 vim AI_AGENT_QUICK_START.md
 
 # 2. Copiar para package
-cp AI_AGENT_QUICK_START.md src/forgebase/_docs/
+cp AI_AGENT_QUICK_START.md src/forgebase/_docs/product/
 
 # 3. Commit ambos
-git add AI_AGENT_QUICK_START.md src/forgebase/_docs/AI_AGENT_QUICK_START.md
+git add AI_AGENT_QUICK_START.md src/forgebase/_docs/product/AI_AGENT_QUICK_START.md
 git commit -m "docs: Update AI Agent Quick Start"
 ```
 
@@ -243,8 +243,8 @@ Criar `scripts/sync_docs.sh`:
 #!/bin/bash
 # Sync root docs to embedded _docs
 
-cp AI_AGENT_QUICK_START.md src/forgebase/_docs/
-cp README.md src/forgebase/_docs/
+cp AI_AGENT_QUICK_START.md src/forgebase/_docs/product/
+cp README.md src/forgebase/_docs/product/
 
 echo "✅ Docs synced"
 ```
@@ -277,7 +277,7 @@ guide = get_agent_quickstart()
 **Causas possíveis:**
 1. Package foi buildado antes de adicionar MANIFEST.in
 2. package-data não está no pyproject.toml
-3. `_docs/` folder vazio
+3. `_docs/product/` folder vazio
 
 **Solução:**
 ```bash
@@ -287,12 +287,12 @@ python -m build
 
 # Verify contents
 unzip -l dist/forgebase-*.whl | grep _docs
-# Should show: forgebase/_docs/AI_AGENT_QUICK_START.md
+# Should show: forgebase/_docs/product/AI_AGENT_QUICK_START.md
 ```
 
 ### Docs desincronizados
 
-**Sintoma:** Docs na raiz diferem de `_docs/`
+**Sintoma:** Docs na raiz diferem de `_docs/product/`
 
 **Solução:**
 ```bash
@@ -300,7 +300,7 @@ unzip -l dist/forgebase-*.whl | grep _docs
 ./scripts/sync_docs.sh
 
 # Ou manual
-cp AI_AGENT_QUICK_START.md src/forgebase/_docs/
+cp AI_AGENT_QUICK_START.md src/forgebase/_docs/product/
 ```
 
 ## 📚 Referências
@@ -323,7 +323,7 @@ cp AI_AGENT_QUICK_START.md src/forgebase/_docs/
 
 1. **Don't embed large files** - Images, videos → keep on GitHub
 2. **Don't duplicate everything** - Only critical docs
-3. **Don't forget to sync** - Root and `_docs/` must match
+3. **Don't forget to sync** - Root and `_docs/product/` must match
 4. **Don't hardcode paths** - Use `get_agent_quickstart()` API
 
 ---

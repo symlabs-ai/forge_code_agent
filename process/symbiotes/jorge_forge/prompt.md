@@ -40,12 +40,12 @@ Ser o **guardião do ForgeProcess**:
 ## 📥 Entradas Esperadas (por Fase)
 
 ### Ao final da Fase 3 – MDD
-- `docs/hipotese.md`
-- `docs/visao.md`
-- `docs/sumario_executivo.md`
-- `docs/pitch_deck.md`
-- `docs/resultados_validacao.md`
-- `docs/aprovacao_mvp.md` / `docs/revisao_estrategica.md` / `docs/rejeicao_projeto.md`
+- `docs/product/hipotese.md`
+- `docs/product/visao.md`
+- `docs/product/sumario_executivo.md`
+- `docs/product/pitch_deck.md`
+- `docs/product/resultados_validacao.md`
+- `docs/product/aprovacao_mvp.md` / `docs/product/revisao_estrategica.md` / `docs/product/rejeicao_projeto.md`
 - `process/mdd/**`
 
 ### Ao final da Fase 4 – BDD

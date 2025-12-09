@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from contextlib import suppress
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
 from pathlib import Path
@@ -196,14 +197,36 @@ class ContextSessionManager:
         """
         Persistir o snapshot da sessão em logs/codeagent.
         """
+        import glob
         import json
 
         base = self._base_dir()
+
+        # Mantém um arquivo "atual" por sessão e, opcionalmente, alguns snapshots
+        # históricos com timestamp. Isso reduz crescimento descontrolado de logs.
+        current_name = f"session_{self.session_id}_current.json"
+        current_path = base / current_name
+        current_path.write_text(json.dumps(self.to_dict(), ensure_ascii=False, indent=2), encoding="utf-8")
+
+        # Snapshots históricos (opcional, mantemos poucos para debug).
         timestamp = datetime.now(UTC).strftime("%Y%m%d_%H%M%S")
-        filename = f"session_{self.session_id}_{timestamp}.json"
-        path = base / filename
-        path.write_text(json.dumps(self.to_dict(), ensure_ascii=False, indent=2), encoding="utf-8")
-        return path
+        snapshot_name = f"session_{self.session_id}_{timestamp}.json"
+        snapshot_path = base / snapshot_name
+        snapshot_path.write_text(json.dumps(self.to_dict(), ensure_ascii=False, indent=2), encoding="utf-8")
+
+        # Política simples de retenção: manter no máximo 5 snapshots históricos por sessão.
+        pattern = str(base / f"session_{self.session_id}_*.json")
+        matches = sorted(glob.glob(pattern))
+        # Garante que o arquivo _current não seja contado como snapshot histórico.
+        matches = [m for m in matches if not m.endswith("_current.json")]
+        excess = len(matches) - 5
+        if excess > 0:
+            for old in matches[:excess]:
+                # Melhor esforço: falhas de remoção não impedem a execução.
+                with suppress(OSError):
+                    Path(old).unlink()
+
+        return current_path
 
     @classmethod
     def load(cls, path: Path) -> ContextSessionManager:

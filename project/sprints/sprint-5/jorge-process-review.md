@@ -8,7 +8,7 @@
 ## 1. Aderência ao ForgeProcess
 
 - Planejamento:
-  - [x] Seguiu `docs/current_plan.md` e `specs/roadmap/*` (T23/T25 para PR assistido e módulo+testes).
+  - [x] Seguiu `docs/product/current_plan.md` e `specs/roadmap/*` (T23/T25 para PR assistido e módulo+testes).
   - [x] ValueTracks registrados em `specs/bdd/tracks.yml` (context/MCP + novos tracks BDD).
 - Sequência de fases:
   - [x] BDD (features 42/43) → TDD (steps em `tests/bdd/`) → Implementação (CLI + context/MCP) respeitada.

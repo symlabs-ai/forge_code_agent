@@ -6,6 +6,11 @@ from pathlib import Path
 from typing import Any
 
 from forge_code_agent.adapters.workspace import FilesystemWorkspaceAdapter
+from forge_code_agent.mcp_server.protocol import (
+    MCPFramingState,
+    read_next_json_line,
+    write_json_response,
+)
 
 
 @dataclass(slots=True)
@@ -13,10 +18,12 @@ class MCPServerConfig:
     """
     Configuração mínima para o servidor MCP local.
 
-    Fase 1: apenas modo stdio, um workspace e um loop simples JSON‑RPC.
+    Fase 1: apenas modo stdio, um workspace e um loop simples JSON‑RPC,
+    com opção de modo read-only para ferramentas que escrevem em disco.
     """
 
     workdir: Path
+    read_only: bool = False
 
 
 @dataclass(slots=True)
@@ -122,21 +129,23 @@ def list_dir_tool(ctx: MCPRequestContext, params: JsonLike) -> JsonLike:
     }
 
 
-def get_builtin_tools() -> dict[str, ToolFunc]:
+def get_builtin_tools(read_only: bool = False) -> dict[str, ToolFunc]:
     """
     Registro de tools MCP disponíveis na Fase 1.
 
     Mantido simples para permitir evolução futura sem quebrar contratos.
     """
 
-    return {
+    tools: dict[str, ToolFunc] = {
         "read_file": read_file_tool,
-        "write_file": write_file_tool,
         "list_dir": list_dir_tool,
     }
+    if not read_only:
+        tools["write_file"] = write_file_tool
+    return tools
 
 
-def _mcp_tool_descriptors() -> list[dict[str, Any]]:
+def _mcp_tool_descriptors(read_only: bool = False) -> list[dict[str, Any]]:
     """
     Descritores das tools no formato aproximado do protocolo MCP.
 
@@ -163,26 +172,33 @@ def _mcp_tool_descriptors() -> list[dict[str, Any]]:
                 "required": ["path", "content"],
             },
         },
-        {
-            "name": "write_file",
-            "description": "Write a UTF-8 text file into the workspace.",
-            "inputSchema": {
-                "type": "object",
-                "properties": {
-                    "path": {"type": "string"},
-                    "content": {"type": "string"},
-                },
-                "required": ["path", "content"],
-            },
-            "outputSchema": {
-                "type": "object",
-                "properties": {
-                    "path": {"type": "string"},
-                    "relative_path": {"type": "string"},
-                },
-                "required": ["path", "relative_path"],
-            },
-        },
+        # write_file só é exposto quando o servidor não está em modo read-only.
+        *(
+            []
+            if read_only
+            else [
+                {
+                    "name": "write_file",
+                    "description": "Write a UTF-8 text file into the workspace.",
+                    "inputSchema": {
+                        "type": "object",
+                        "properties": {
+                            "path": {"type": "string"},
+                            "content": {"type": "string"},
+                        },
+                        "required": ["path", "content"],
+                    },
+                    "outputSchema": {
+                        "type": "object",
+                        "properties": {
+                            "path": {"type": "string"},
+                            "relative_path": {"type": "string"},
+                        },
+                        "required": ["path", "relative_path"],
+                    },
+                }
+            ]
+        ),
         {
             "name": "list_dir",
             "description": "List files and directories inside the workspace.",
@@ -235,97 +251,22 @@ def run_stdio_server(config: MCPServerConfig) -> None:
 
     workspace = _make_workspace(config.workdir)
     ctx = MCPRequestContext(workspace=workspace)
-    tools = get_builtin_tools()
-
-    # Detecta dinamicamente se estamos falando no modo MCP (Content-Length)
-    # ou em modo newline JSON simples (usado pelos testes internos).
-    mcp_mode = False
-
-    def send_response(payload: JsonLike) -> None:
-        encoded = json.dumps(payload)
-        if mcp_mode:
-            data = encoded.encode("utf-8")
-            sys.stdout.write(f"Content-Length: {len(data)}\r\n\r\n")
-            sys.stdout.write(encoded)
-        else:
-            sys.stdout.write(encoded + "\n")
-        sys.stdout.flush()
+    tools = get_builtin_tools(read_only=config.read_only)
 
     stdin_buffer = sys.stdin.buffer
-    log_path = config.workdir / ".mcp_debug.log"
+    framing_state = MCPFramingState(mcp_mode=False, log_path=config.workdir / ".mcp_debug.log")
 
     while True:
-        first_line = stdin_buffer.readline()
-        if not first_line:
+        raw_line = read_next_json_line(stdin_buffer, framing_state)
+        if raw_line is None:
+            # EOF ou framing inválido → encerramos o loop.
             break
-
-        if not first_line.strip():
-            # Linha em branco isolada; ignoramos e seguimos.
-            continue
-
-        # Heurística: se a linha começar com "{" ou "[", tratamos como JSON puro
-        # (modo newline usado nos testes internos).
-        stripped_first = first_line.lstrip()
-        if stripped_first.startswith(b"{") or stripped_first.startswith(b"["):
-            try:
-                line = first_line.decode("utf-8").strip()
-            except UnicodeDecodeError:
-                continue
-            # Log request bruto para debug sem interferir na saída MCP.
-            try:
-                with log_path.open("a", encoding="utf-8") as log_file:
-                    log_file.write(f"RAW-JSON: {line}\n")
-            except Exception:
-                pass
-        else:
-            # Caso contrário, assumimos framing estilo MCP:
-            # um bloco de headers (incluindo Content-Length) seguido de uma
-            # linha em branco e do corpo JSON.
-            headers: list[bytes] = [first_line.rstrip(b"\r\n")]
-            while True:
-                header = stdin_buffer.readline()
-                if not header:
-                    break
-                if header in (b"\r\n", b"\n", b""):
-                    break
-                headers.append(header.rstrip(b"\r\n"))
-
-            content_length: int | None = None
-            for h in headers:
-                lower = h.lower()
-                if lower.startswith(b"content-length:"):
-                    try:
-                        _, value = lower.split(b":", 1)
-                        content_length = int(value.strip())
-                    except Exception:
-                        content_length = None
-                    break
-
-            if content_length is None or content_length < 0:
-                # Framing inválido; encerramos.
-                break
-
-            mcp_mode = True
-            body = stdin_buffer.read(content_length)
-            if not body:
-                break
-            try:
-                line = body.decode("utf-8").strip()
-            except UnicodeDecodeError:
-                break
-
-            # Log request MCP bruto.
-            try:
-                with log_path.open("a", encoding="utf-8") as log_file:
-                    log_file.write(f"RAW-MCP: {line}\n")
-            except Exception:
-                pass
-
-        if not line:
+        if not raw_line:
+            # Linha em branco / ignorada; seguimos para próxima.
             continue
 
         try:
-            request = json.loads(line)
+            request = json.loads(raw_line)
         except Exception as exc:  # pragma: no cover - erro de parsing simples
             response = {
                 "jsonrpc": "2.0",
@@ -334,7 +275,7 @@ def run_stdio_server(config: MCPServerConfig) -> None:
                     "message": f"Invalid JSON: {exc}",
                 },
             }
-            send_response(response)
+            write_json_response(response, framing_state, sys.stdout)
             continue
 
         req_id = request.get("id")
@@ -349,7 +290,7 @@ def run_stdio_server(config: MCPServerConfig) -> None:
                 "id": req_id,
                 "result": {"status": "ok"},
             }
-            send_response(response)
+            write_json_response(response, framing_state, sys.stdout)
             continue
 
         # Notificações MCP que não exigem resposta.
@@ -376,19 +317,19 @@ def run_stdio_server(config: MCPServerConfig) -> None:
                 "id": req_id,
                 "result": result,
             }
-            send_response(response)
+            write_json_response(response, framing_state, sys.stdout)
             continue
 
         if method in {"tools/list", "tools.list"}:
             result = {
-                "tools": _mcp_tool_descriptors(),
+                "tools": _mcp_tool_descriptors(read_only=config.read_only),
             }
             response = {
                 "jsonrpc": jsonrpc,
                 "id": req_id,
                 "result": result,
             }
-            send_response(response)
+            write_json_response(response, framing_state, sys.stdout)
             continue
 
         if method in {"tools/call", "tools.call"}:
@@ -403,7 +344,7 @@ def run_stdio_server(config: MCPServerConfig) -> None:
                         "message": f"Unknown tool: {name}",
                     },
                 }
-                send_response(response)
+                write_json_response(response, framing_state, sys.stdout)
                 continue
 
             try:
@@ -416,7 +357,7 @@ def run_stdio_server(config: MCPServerConfig) -> None:
                         "message": str(exc),
                     },
                 }
-                send_response(response)
+                write_json_response(response, framing_state, sys.stdout)
                 continue
 
             # Resposta em formato MCP: conteúdo textual simples.
@@ -436,7 +377,7 @@ def run_stdio_server(config: MCPServerConfig) -> None:
                 "id": req_id,
                 "result": result,
             }
-            send_response(response)
+            write_json_response(response, framing_state, sys.stdout)
             continue
 
         # Fallback: tentar despachar para tools internas usando o nome do método.
@@ -449,7 +390,7 @@ def run_stdio_server(config: MCPServerConfig) -> None:
                     "message": f"Unknown method: {method}",
                 },
             }
-            send_response(response)
+            write_json_response(response, framing_state, sys.stdout)
             continue
 
         try:
@@ -462,7 +403,7 @@ def run_stdio_server(config: MCPServerConfig) -> None:
                     "message": str(exc),
                 },
             }
-            send_response(response)
+            write_json_response(response, framing_state, sys.stdout)
             continue
 
         response = {
@@ -470,4 +411,4 @@ def run_stdio_server(config: MCPServerConfig) -> None:
             "id": req_id,
             "result": result,
         }
-        send_response(response)
+        write_json_response(response, framing_state, sys.stdout)

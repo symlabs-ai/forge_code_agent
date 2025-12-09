@@ -12,7 +12,7 @@ Este documento formaliza a transferência para o BDD Process, autorizando a espe
 ---
 
 ## 2. Visão do Produto
-Resumo derivado de `docs/visao.md`.
+Resumo derivado de `docs/product/visao.md`.
 
 | Aspecto | Descrição |
 |---------|-----------|
@@ -24,7 +24,7 @@ Resumo derivado de `docs/visao.md`.
 ---
 
 ## 3. Escopo Aprovado do MVP
-Resumo derivado de `docs/aprovacao_mvp.md`.
+Resumo derivado de `docs/product/aprovacao_mvp.md`.
 
 | Funcionalidade | Prioridade | Observações |
 |----------------|-----------|-------------|
@@ -41,11 +41,11 @@ Resumo derivado de `docs/aprovacao_mvp.md`.
 
 | Artefato | Caminho | Relevância |
 |----------|--------|-----------|
-| Visão | `docs/visao.md` | Contexto de negócio e intenção central. |
-| Sumário Executivo | `docs/sumario_executivo.md` | Estratégia, modelo de negócio e roadmap macro. |
-| Pitch de Valor | `docs/pitch_deck.md` | Narrativa de valor para stakeholders. |
-| Resultados da Validação | `docs/resultados_validacao.md` | Dados e interpretação dos testes A/B/C. |
-| Aprovação de MVP | `docs/aprovacao_mvp.md` | Decisão formal de avançar para MVP. |
+| Visão | `docs/product/visao.md` | Contexto de negócio e intenção central. |
+| Sumário Executivo | `docs/product/sumario_executivo.md` | Estratégia, modelo de negócio e roadmap macro. |
+| Pitch de Valor | `docs/product/pitch_deck.md` | Narrativa de valor para stakeholders. |
+| Resultados da Validação | `docs/product/resultados_validacao.md` | Dados e interpretação dos testes A/B/C. |
+| Aprovação de MVP | `docs/product/aprovacao_mvp.md` | Decisão formal de avançar para MVP. |
 
 ---
 

@@ -42,9 +42,9 @@ phases:
           Agrupar comportamentos por domínio.
         spec_file: "etapa_01_mapeamento_comportamentos.md"
         inputs:
-          - path: "docs/visao.md"
+          - path: "docs/product/visao.md"
             description: "Visão do produto (do MDD)"
-          - path: "docs/aprovacao_mvp.md"
+          - path: "docs/product/aprovacao_mvp.md"
             description: "Aprovação formal do MVP"
         outputs:
           - path: "specs/bdd/drafts/behavior_mapping.md"
@@ -108,7 +108,7 @@ phases:
         inputs:
           - path: "specs/bdd/**/*.feature"
             description: "Features organizadas"
-          - path: "docs/visao.md"
+          - path: "docs/product/visao.md"
             description: "ValueTracks originais"
         outputs:
           - path: "specs/bdd/tracks.yml"

@@ -26,7 +26,7 @@ behavior:
 references:
   - process/delivery/sprint/SPRINT_PROCESS.md
   - process/process_execution_state.md
-  - docs/guides/forgebase_guides/referencia/forge-process.md
+  - docs/product/guides/forgebase_guides/referencia/forge-process.md
   - AGENTS.md
 ---
 

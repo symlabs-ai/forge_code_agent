@@ -11,7 +11,7 @@ Use este guia sempre que for iniciar o trabalho em uma máquina nova ou preparar
 
 ## 1. Instalar o ForgeBase
 
-Referência: `docs/guides/forgebase_guides/forgebase_install.md`
+Referência: `docs/product/guides/forgebase_guides/forgebase_install.md`
 
 ### 1.1 Instalação rápida (uso como biblioteca)
 

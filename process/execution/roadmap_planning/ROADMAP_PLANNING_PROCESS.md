@@ -254,7 +254,7 @@ Após aprovação, criar `specs/roadmap/ARCHITECTURAL_DECISIONS_APPROVED.md` com
 > Para runtimes e módulos que se apoiam no ForgeBase (como o forgeCodeAgent),
 > esta subetapa também deve registrar a versão alvo do pacote `forgebase` e
 > garantir que o núcleo esteja instalado e importável no ambiente de
-> desenvolvimento (ver `docs/guides/forgebase_guides/forgebase_install.md`).
+> desenvolvimento (ver `docs/product/guides/forgebase_guides/forgebase_install.md`).
 > Isso evita que a fase de TDD seja iniciada sem as bases `EntityBase`,
 > `UseCaseBase`, `PortBase` e `AdapterBase` disponíveis.
 

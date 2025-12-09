@@ -8,7 +8,7 @@ Esta pasta contém templates para todas as subetapas do **BDD Process**.
 
 | Template | Subetapa | Uso | Saída Esperada |
 |----------|----------|-----|----------------|
-| `template_behavior_mapping.md` | Etapa 1 | Mapear ValueTracks → Comportamentos | `process/bdd/docs/behavior_mapping.md` |
+| `template_behavior_mapping.md` | Etapa 1 | Mapear ValueTracks → Comportamentos | `process/bdd/docs/product/behavior_mapping.md` |
 | `template_feature.md` | Etapa 2 | Escrever features Gherkin | `specs/bdd/**/*.feature` |
 | `template_tracks.yml` | Etapa 4 | Criar rastreabilidade | `specs/bdd/tracks.yml` |
 | `template_step_skeleton.py` | Etapa 5 | Criar step definitions vazias | `tests/bdd/test_*_steps.py` |
@@ -29,12 +29,12 @@ Transformar ValueTracks do MDD em comportamentos concretos que serão especifica
    - Identificar casos de erro
    - Agrupar por domínio técnico
 3. Revisar com PO/Stakeholder
-4. Salvar em `process/bdd/docs/behavior_mapping.md`
+4. Salvar em `process/bdd/docs/product/behavior_mapping.md`
 
 **Exemplo de uso:**
 ```bash
 cp process/bdd/templates/template_behavior_mapping.md \
-   process/bdd/docs/behavior_mapping.md
+   process/bdd/docs/product/behavior_mapping.md
 
 # Editar behavior_mapping.md com comportamentos do projeto
 ```
@@ -144,7 +144,7 @@ tests/bdd/
 
 ```mermaid
 flowchart TD
-    S1["Subetapa 1: Mapeamento\n→ template_behavior_mapping.md\n→ process/bdd/docs/behavior_mapping.md"]
+    S1["Subetapa 1: Mapeamento\n→ template_behavior_mapping.md\n→ process/bdd/docs/product/behavior_mapping.md"]
     S2["Subetapa 2: Features Gherkin\n→ template_feature.md (guia)\n→ specs/bdd/**/*.feature"]
     S3["Subetapa 3: Organização\n→ mover arquivos e pastas"]
     S4["Subetapa 4: Tracks\n→ template_tracks.yml\n→ specs/bdd/tracks.yml"]

@@ -41,7 +41,7 @@ process/                       # Diretório alvo em um projeto que usa o ForgePr
 │   └── review/
 │       └── REVIEW_PROCESS.md
 │
-├── docs/                      # Documentação complementar
+├── docs/product/                      # Documentação complementar
 │   ├── diagrams/              # Diagramas (Mermaid)
 │   └── policies/              # Políticas de processo (ex.: MVP)
 │
@@ -104,7 +104,7 @@ process/                       # Diretório alvo em um projeto que usa o ForgePr
 
 **Artefatos (estrutura alvo)**:
 - `specs/roadmap/` (TECH_STACK.md, ADRs, HLD.md, LLD.md, ROADMAP.md, BACKLOG.md, dependency_graph.md, estimates.yml)
-- `src/`, `tests/`, `docs/`, `examples/` (código e testes)
+- `src/`, `tests/`, `docs/product/`, `examples/` (código e testes)
 
 **Público**: Tech Leads, Arquitetos, Desenvolvedores
 
@@ -262,7 +262,7 @@ flowchart TD
 - **Ports**: `/src/forgellmclient/ports/` - Interfaces
 
 ### Layout do Projeto (estrutura alvo)
-- **Project Layout**: `process/docs/layout/PROJECT_LAYOUT.md` – contrato de estrutura usado por `symforge init -p forgeprocess myproject`
+- **Project Layout**: `process/docs/product/layout/PROJECT_LAYOUT.md` – contrato de estrutura usado por `symforge init -p forgeprocess myproject`
 
 ---
 

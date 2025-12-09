@@ -17,7 +17,7 @@
 
 ### 2.1 ForgeBase (núcleo)
 
-O forgeCodeAgent se acopla explicitamente ao núcleo do ForgeBase, seguindo a arquitetura descrita em `docs/guides/forgebase_guides/referencia/arquitetura.md`:
+O forgeCodeAgent se acopla explicitamente ao núcleo do ForgeBase, seguindo a arquitetura descrita em `docs/product/guides/forgebase_guides/referencia/arquitetura.md`:
 
 - Dependência obrigatória:
   - `forgebase` (versão compatível com este projeto).
@@ -50,28 +50,34 @@ Além do ForgeBase, o runtime usa apenas stdlib na sua lógica específica:
 
 ---
 
-## 4. Organização de Módulos (proposta)
+## 4. Organização de Módulos (atual)
 
-Estrutura lógica para o pacote `forge_code_agent`:
+Estrutura lógica atual para o pacote `forge_code_agent`:
 
 - `forge_code_agent/domain/`
-  - `providers.py` — `ProviderId`, abstrações de provider (entidades/VOs especializados sobre `forgebase.domain`).
-  - `models.py` — `ExecutionRequest`, `ExecutionResult`, `ToolDefinition`, `ToolCall`, erros de domínio (baseados em `forgebase.domain.exceptions`).
-  - `tool_calling.py` — `ToolCallingEngine`.
-  - `errors.py` — tipos de erro (`ProviderNotSupportedError`, etc.).
+  - `providers.py` — `ProviderId` e abstrações de provider (entidades/VOs especializados sobre `forgebase.domain`).
+  - `models.py` — `ExecutionRequest`, `ExecutionResult` e tipos auxiliares de domínio.
+  - `errors.py` — tipos de erro (`ProviderNotSupportedError`, `ProviderExecutionError`, etc.).
 - `forge_code_agent/adapters/`
   - `cli/`
     - `base.py` — `ProviderAdapter` protocol.
-    - `codex.py`, `claude.py`, `gemini.py` — providers concretos.
+    - `codex.py`, `claude.py`, `gemini.py` — adapters concretos para cada CLI de provider.
     - `registry.py` — registry `ProviderId -> ProviderAdapter`.
-  - `workspace.py` — `FilesystemWorkspaceAdapter`.
+  - `workspace.py` — `FilesystemWorkspaceAdapter` e helpers de sandbox de workspace.
   - `logging.py` — `LoggerPort` + implementação padrão (delegando para `forgebase.infrastructure.logging` quando presente).
-  - `metrics.py` — `MetricsPort` + no-op (ou integração com `forgebase.observability`).
+  - `metrics.py` — `MetricsPort` + implementação no-op (ou integração com `forgebase.observability`).
 - `forge_code_agent/runtime/`
-  - `agent.py` — implementação de `CodeAgent` (API pública).
+  - `agent.py` — implementação de `CodeAgent` (API pública de execução unitária).
   - `streaming.py` — helpers para execução em streaming.
-- `forge_code_agent/cli/`
-  - `main.py` — comandos `forge-code-agent run/stream`.
+- `forge_code_agent/context/`
+  - `session_manager.py` — `ContextSessionManager`, responsável por persistir histórico/summaries de sessões em `logs/codeagent/`.
+  - `manager.py` — `CodeManager`, orquestra sessões, providers e integrações com MCP.
+  - `summarizer.py` — `AgentSummarizer` e contratos de sumarização de contexto.
+- `forge_code_agent/mcp_server/`
+  - `__init__.py` — servidor MCP stdio mínimo, expondo tools como `read_file`, `write_file`, `list_dir`.
+  - (futuro) módulos separados de protocolo/dispatcher/tools conforme plano de hardening.
+- `forge_code_agent/cli.py`
+  - ponto de entrada da CLI oficial (`python -m forge_code_agent.cli`), com comandos `run`/`stream` e flags de sessão (`--session-id`, `--use-code-manager`, `--auto-summarize`).
 
 ---
 

@@ -13,7 +13,7 @@ Após inicializar seu projeto com `symforge init -p forgeprocess <nome-projeto>`
 O ForgeProcess começa com uma **hipótese de mercado**. Antes de qualquer código,
 você precisa documentar a oportunidade que pretende explorar.
 
-1. Abra o arquivo `docs/hipotese.md` (criado automaticamente a partir do template)
+1. Abra o arquivo `docs/product/hipotese.md` (criado automaticamente a partir do template)
 2. Preencha as seções seguindo o guia do template
 3. Execute `symforge start` para iniciar o processo
 
@@ -30,7 +30,7 @@ symforge decide <opcao> # Registra decisão
 ### Fluxo do Processo
 
 ```
-docs/hipotese.md → MDD (validação) → BDD (comportamentos) → Execution (código) → Delivery
+docs/product/hipotese.md → MDD (validação) → BDD (comportamentos) → Execution (código) → Delivery
 ```
 
 ### Documentação
@@ -105,7 +105,7 @@ O ForgeProcess opera em **fases integradas**, cada uma representando um nível d
 >   - **Execution**: `process/execution/PROCESS.md` (Roadmap Planning + TDD)
 >   - **Delivery**: `process/delivery/PROCESS.md` (Sprints + Review & Feedback)
 > - A estrutura completa de pastas alvo está descrita em:
->   - **Project Layout**: `process/docs/layout/PROJECT_LAYOUT.md`
+>   - **Project Layout**: `process/docs/product/layout/PROJECT_LAYOUT.md`
 
 ```
 ┌─────────────────────────────────────────────────────┐
@@ -359,7 +359,7 @@ O BDD é a **ponte entre valor validado (MDD) e código testado (TDD)**. Ele tra
 - ✅ Full Implementation planned in future sprint (tracked in BACKLOG.md)
 - ✅ MVP status clearly documented ("incomplete" label)
 
-**Full Guidelines**: See `process/docs/policies/MVP_GUIDELINES.md` para critérios completos, template de proposta e workflow.
+**Full Guidelines**: See `process/docs/product/policies/MVP_GUIDELINES.md` para critérios completos, template de proposta e workflow.
 
 **Why This Exists**: Sprint 1 (2025-11-06) validated that MVP strategy works for fast value delivery (F11_MVP, F12A_MVP) but needs formal policy to maintain process compliance (Jorge's recommendation 7.8/10).
 
@@ -1038,7 +1038,7 @@ process/
 
 ```
 project/                          ← Artefatos do projeto
-└── docs/
+└── docs/product/
     ├── hipotese.md               ← MDD Etapa 1 (entrada)
     ├── visao.md                  ← MDD Etapa 1 (saída)
     ├── sumario_executivo.md      ← MDD Etapa 2

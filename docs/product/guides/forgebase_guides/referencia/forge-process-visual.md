@@ -786,8 +786,8 @@ S10+  │                           ████ Ciclo 2
 
 ## 📚 Próximos Passos
 
-1. **Leia o documento completo**: [docs/FORGE_PROCESS.md](FORGE_PROCESS.md)
-2. **Veja a integração técnica**: [docs/adr/006-forgeprocess-integration.md](adr/006-forgeprocess-integration.md)
+1. **Leia o documento completo**: [docs/product/FORGE_PROCESS.md](FORGE_PROCESS.md)
+2. **Veja a integração técnica**: [docs/product/adr/006-forgeprocess-integration.md](adr/006-forgeprocess-integration.md)
 3. **Experimente**: Crie seu primeiro forge.yaml
 4. **Pratique**: Escreva uma .feature para um ValueTrack
 5. **Implemente**: Use TDD para desenvolver

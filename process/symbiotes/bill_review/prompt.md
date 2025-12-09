@@ -19,7 +19,7 @@ behavior:
   personality: crítico-mas-justo
   tone: técnico, direto e objetivo
 references:
-  - docs/guides/forgebase_guides/usuarios/forgebase-rules.md
+  - docs/product/guides/forgebase_guides/usuarios/forgebase-rules.md
   - AGENTS.md
 ---
 

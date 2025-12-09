@@ -309,7 +309,7 @@ Usar um **MCP server local** como backend de tools para os coding agents é, hoj
 - mantém o controle de automação e segurança do lado do forgeCodeAgent;
 - permite que Codex/Claude/Gemini decidam quando chamar ferramentas, afetando o raciocínio em tempo real;
 - evita dependência direta de APIs HTTP proprietárias, usando um protocolo aberto (MCP);
-- encaixa bem com a arquitetura atual (Clean/Hex, adapters, ValueTracks) e com a visão de longo prazo registrada em `docs/hipotese.md` e nos Roadmaps.
+- encaixa bem com a arquitetura atual (Clean/Hex, adapters, ValueTracks) e com a visão de longo prazo registrada em `docs/product/hipotese.md` e nos Roadmaps.
 
 Os próximos passos práticos são iniciar um spike de MCP server mínimo e ancorar essa evolução em um novo ValueTrack + BDD específico, garantindo que tool calling via MCP se torne critério explícito de encerramento de ciclo nos processos do projeto. +
 

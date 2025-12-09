@@ -15,8 +15,8 @@ O objetivo é traduzir a visão conceitual em um **plano de entendimento de merc
 
 | Tipo        | Artefato                    | Descrição                                                                                                                                                                                                                                         |
 | ----------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Entrada** | `docs/visao.md`             | Documento de visão desenvolvido na Etapa 1.                                                                                                                                                                                                       |
-| **Saída**   | `docs/sumario_executivo.md` | Documento estratégico que estrutura a visão em formato executivo. É salvo em `project/docs/sumario_executivo.md`. Após validação, o **MDD Publisher** gera automaticamente versões publicáveis em PDF e HTML no diretório `project/output/docs/`. |
+| **Entrada** | `docs/product/visao.md`             | Documento de visão desenvolvido na Etapa 1.                                                                                                                                                                                                       |
+| **Saída**   | `docs/product/sumario_executivo.md` | Documento estratégico que estrutura a visão em formato executivo. É salvo em `project/docs/sumario_executivo.md`. Após validação, o **MDD Publisher** gera automaticamente versões publicáveis em PDF e HTML no diretório `project/output/docs/product/`. |
 
 📁 **Template:** `process/templates/template_sumario_executivo.md`
 
@@ -29,7 +29,7 @@ Após a redação e validação do arquivo, o **MDD Publisher** entra em ação 
 
 ### 1. Revisão da Visão
 
-O MDD Coach lê o conteúdo de `docs/visao.md` e confirma com o stakeholder se a visão está consolidada.
+O MDD Coach lê o conteúdo de `docs/product/visao.md` e confirma com o stakeholder se a visão está consolidada.
 Perguntas de alinhamento ajudam a garantir consistência e clareza:
 
 * “A visão reflete o propósito real do produto?”
@@ -46,7 +46,7 @@ O MDD Coach conduz o stakeholder em uma entrevista de estruturação para preenc
 
 ### 3. Redação e Montagem do Documento
 
-Com base nas respostas, o MDD Coach redige o `docs/sumario_executivo.md` segundo o modelo do template.
+Com base nas respostas, o MDD Coach redige o `docs/product/sumario_executivo.md` segundo o modelo do template.
 
 O arquivo é salvo em `project/docs/` e validado com o stakeholder antes da publicação.
 
@@ -60,8 +60,8 @@ Após a validação do `sumario_executivo.md`, o **MDD Publisher** executa o seg
 2. Identifica o tipo de documento e o template visual adequado (`process/templates/style_pdf.json` ou `style_html.json`).
 3. Executa os scripts de conversão localizados em `symbiotas/mdd_publisher/scripts/`:
 
-   * `export_pdf.py` → gera `project/output/docs/sumario_executivo.pdf`
-   * `export_html.py` → gera `project/output/docs/sumario_executivo.html`
+   * `export_pdf.py` → gera `project/output/docs/product/sumario_executivo.pdf`
+   * `export_html.py` → gera `project/output/docs/product/sumario_executivo.html`
 4. Registra o evento no log `project/output/logs/export_history.log`.
 
 ---
@@ -89,7 +89,7 @@ O sumário executivo deve:
 ## 🔁 Fluxo Simbiótico Simplificado
 
 1. O MDD Coach cria e valida o `project/docs/sumario_executivo.md` usando o template.
-2. O MDD Publisher detecta o arquivo finalizado e gera automaticamente as versões publicáveis (`project/output/docs/sumario_executivo.pdf` e `.html`).
+2. O MDD Publisher detecta o arquivo finalizado e gera automaticamente as versões publicáveis (`project/output/docs/product/sumario_executivo.pdf` e `.html`).
 3. Ambos registram logs de execução e revisão.
 
 ---
@@ -99,10 +99,10 @@ O sumário executivo deve:
 O projeto deve conter:
 
 * `project/docs/sumario_executivo.md` → versão simbiótica textual;
-* `project/output/docs/sumario_executivo.pdf` → versão formal executiva;
-* `project/output/docs/sumario_executivo.html` → versão web interativa.
+* `project/output/docs/product/sumario_executivo.pdf` → versão formal executiva;
+* `project/output/docs/product/sumario_executivo.html` → versão web interativa.
 
-Esses arquivos consolidam a transição entre a visão e o plano estratégico, servindo como base para a construção do `docs/pitch_deck.md` e as próximas etapas do MDD.
+Esses arquivos consolidam a transição entre a visão e o plano estratégico, servindo como base para a construção do `docs/product/pitch_deck.md` e as próximas etapas do MDD.
 
 ---
 

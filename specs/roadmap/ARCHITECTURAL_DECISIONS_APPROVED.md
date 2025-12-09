@@ -35,7 +35,7 @@ Domínio nunca usa diretamente `subprocess`, `os` ou filesystem; tudo passa por 
 ### 1.2 Borda de integração com ForgeBase
 
 - forgeCodeAgent assume o **ForgeBase como base arquitetural explícita**:
-  - reusa `EntityBase`, `UseCaseBase`, `PortBase`, `AdapterBase` conforme `docs/guides/forgebase_guides/referencia/arquitetura.md`;
+  - reusa `EntityBase`, `UseCaseBase`, `PortBase`, `AdapterBase` conforme `docs/product/guides/forgebase_guides/referencia/arquitetura.md`;
   - organiza pastas e imports de forma compatível com `from forgebase.[module] import ...`.
 - Integração com ForgeBase ocorre via:
   - reuso das classes base do ForgeBase no domínio/aplicação/adapters;

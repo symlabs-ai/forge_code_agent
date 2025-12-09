@@ -47,11 +47,11 @@
 > Campo de **estado vivo** para ser atualizado pelos agentes/symbiotas.
 > Pode ser usado pelo orquestrador para saber onde o projeto está.
 
-- [x] `current_phase`: `delivery.sprint`
-- [x] `current_cycle`: `cycle-03`
-- [x] `current_sprint`: `sprint-05`
-- [x] `last_completed_step`: `execution.tdd.phase_3_minimal_implementation`
-- [x] `next_recommended_step`: `delivery.sprint.sprint_planning`
+- [x] `current_phase`: `feedback`
+- [x] `current_cycle`: `cycle-04`
+- [x] `current_sprint`: `sprint-06`
+- [x] `last_completed_step`: `feedback.decisoes_ciclo`
+- [x] `next_recommended_step`: `bdd.etapa_01_mapeamento`
 
 > Convenção sugerida: atualizar este bloco ao final de cada etapa significativa
 > (pelo menos por fase) para facilitar handoffs entre agentes.
@@ -64,7 +64,7 @@
   - [x] Diretórios: `process/`, `specs/`, `project/`, `src/`, `tests/`
   - [x] Arquivos: `process/PROCESS.yml`, `process/README.md`
 - [x] Criar hipótese inicial (se não existir):
-  - [x] `docs/hipotese.md` (template: `process/mdd/templates/template_hipotese.md`)
+  - [x] `docs/product/hipotese.md` (template: `process/mdd/templates/template_hipotese.md`)
 - [x] Atualizar estado:
   - [x] `current_phase = mdd`
   - [x] `last_completed_step = mdd.etapa_01_concepcao`
@@ -82,9 +82,9 @@ Referência: `process/mdd/PROCESS.yml`
 ### 3.1 Etapa 01 — Concepção da Visão
 
 - Entradas:
-  - [x] `docs/hipotese.md`
+  - [x] `docs/product/hipotese.md`
 - Saídas (criar/preencher):
-  - [x] `docs/visao.md` (template: `process/mdd/templates/template_visao.md`)
+  - [x] `docs/product/visao.md` (template: `process/mdd/templates/template_visao.md`)
 - Critério de conclusão:
   - [x] Visão aprovada pelo stakeholder (decisão `validar_visao = approved`)
   - Atualizar estado:
@@ -94,10 +94,10 @@ Referência: `process/mdd/PROCESS.yml`
 ### 3.2 Etapa 02 — Síntese Executiva
 
 - Entradas:
-  - [x] `docs/visao.md`
+  - [x] `docs/product/visao.md`
 - Saídas:
-  - [x] `docs/sumario_executivo.md` (template: `process/mdd/templates/template_sumario_executivo.md`)
-  - [ ] (opcional) `output/docs/sumario_executivo.pdf` — gerado por `mdd_publisher`
+  - [x] `docs/product/sumario_executivo.md` (template: `process/mdd/templates/template_sumario_executivo.md`)
+  - [ ] (opcional) `output/docs/product/sumario_executivo.pdf` — gerado por `mdd_publisher`
 - Critério de conclusão:
   - [x] Síntese aprovada (`validar_sintese = approved`)
   - Atualizar estado:
@@ -107,11 +107,11 @@ Referência: `process/mdd/PROCESS.yml`
 ### 3.3 Etapa 03 — Pitch de Valor
 
 - Entradas:
-  - [x] `docs/visao.md`
-  - [x] `docs/sumario_executivo.md`
+  - [x] `docs/product/visao.md`
+  - [x] `docs/product/sumario_executivo.md`
 - Saídas:
-  - [x] `docs/pitch_deck.md` (template: `process/mdd/templates/template_pitch_deck.md`)
-  - [ ] (opcional) `output/docs/pitch_deck.pptx` — gerado por `mdd_publisher`
+  - [x] `docs/product/pitch_deck.md` (template: `process/mdd/templates/template_pitch_deck.md`)
+  - [ ] (opcional) `output/docs/product/pitch_deck.pptx` — gerado por `mdd_publisher`
 - Critério de conclusão:
   - [x] Pitch aprovado (`validar_pitch = approved`)
   - Atualizar estado:
@@ -121,16 +121,16 @@ Referência: `process/mdd/PROCESS.yml`
 ### 3.4 Etapa 04 — Validação Pública Inicial
 
 - Entradas:
-  - [x] `docs/visao.md`
-  - [x] `docs/sumario_executivo.md`
-  - [x] `docs/pitch_deck.md`
+  - [x] `docs/product/visao.md`
+  - [x] `docs/product/sumario_executivo.md`
+  - [x] `docs/product/pitch_deck.md`
 - Saídas:
-  - [x] `docs/sites/site_A.md` (template: `process/mdd/templates/template_site.md`)
-  - [x] `docs/sites/site_B.md` (template: `process/mdd/templates/template_site.md`)
-  - [x] `docs/sites/site_C.md` (template: `process/mdd/templates/template_site.md`)
-  - [ ] (opcionais) `output/docs/sites/site_*.html` — por `mdd_publisher`
-  - [x] `docs/resultados_validacao.md` (template: `process/mdd/templates/template_resultados_validacao.md`)
-  - [ ] (opcional) `output/docs/resultados_validacao.html`
+  - [x] `docs/product/sites/site_A.md` (template: `process/mdd/templates/template_site.md`)
+  - [x] `docs/product/sites/site_B.md` (template: `process/mdd/templates/template_site.md`)
+  - [x] `docs/product/sites/site_C.md` (template: `process/mdd/templates/template_site.md`)
+  - [ ] (opcionais) `output/docs/product/sites/site_*.html` — por `mdd_publisher`
+  - [x] `docs/product/resultados_validacao.md` (template: `process/mdd/templates/template_resultados_validacao.md`)
+  - [ ] (opcional) `output/docs/product/resultados_validacao.html`
 - Critério de conclusão:
   - [x] Stakeholder confirma que dados de validação estão prontos (`validar_landing_pages = approved`)
   - Atualizar estado:
@@ -140,11 +140,11 @@ Referência: `process/mdd/PROCESS.yml`
 ### 3.5 Etapa 05 — Avaliação Estratégica
 
 - Entradas:
-  - [x] `docs/resultados_validacao.md`
+  - [x] `docs/product/resultados_validacao.md`
 - Saídas (uma ou mais, dependendo da decisão):
-  - [x] `docs/aprovacao_mvp.md` (template: `process/mdd/templates/template_aprovacao_mvp.md`)
-  - [ ] `docs/revisao_estrategica.md` (template: `process/mdd/templates/template_revisao_estrategica.md`)
-  - [ ] `docs/rejeicao_projeto.md` (template: `process/mdd/templates/template_rejeicao_projeto.md`)
+  - [x] `docs/product/aprovacao_mvp.md` (template: `process/mdd/templates/template_aprovacao_mvp.md`)
+  - [ ] `docs/product/revisao_estrategica.md` (template: `process/mdd/templates/template_revisao_estrategica.md`)
+  - [ ] `docs/product/rejeicao_projeto.md` (template: `process/mdd/templates/template_rejeicao_projeto.md`)
 - Critério de conclusão:
   - [x] Decisão do stakeholder (`decisao_mvp` = `approved` | `needs_revision` | `rejected`)
   - Se `needs_revision`: voltar para Etapa 01 e atualizar estado.
@@ -155,9 +155,9 @@ Referência: `process/mdd/PROCESS.yml`
 ### 3.6 Etapa 06 — Handoff para BDD
 
 - Entradas:
-  - [x] `docs/aprovacao_mvp.md`
+  - [x] `docs/product/aprovacao_mvp.md`
 - Saídas:
-  - [x] `docs/handoff_bdd.md` (template: `process/mdd/templates/template_handoff_bdd.md`)
+  - [x] `docs/product/handoff_bdd.md` (template: `process/mdd/templates/template_handoff_bdd.md`)
 - Critério de conclusão:
   - [x] Handoff concluído (`return_approved`)
   - Atualizar estado:
@@ -177,8 +177,8 @@ Referência: `process/bdd/PROCESS.yml`
 ### 4.1 Etapa 01 — Mapeamento de Comportamentos
 
 - Entradas:
-  - [x] `docs/visao.md`
-  - [x] `docs/aprovacao_mvp.md`
+  - [x] `docs/product/visao.md`
+  - [x] `docs/product/aprovacao_mvp.md`
 - Saídas:
   - [x] `specs/bdd/drafts/behavior_mapping.md`
 - Critério de conclusão:
@@ -217,7 +217,7 @@ Referência: `process/bdd/PROCESS.yml`
 
 - Entradas:
   - [x] `specs/bdd/**/*.feature`
-  - [x] `docs/visao.md`
+  - [x] `docs/product/visao.md`
 - Saídas:
   - [x] `specs/bdd/tracks.yml`
 - Critério de conclusão:
@@ -270,7 +270,7 @@ Referência: `process/execution/PROCESS.yml`
 - TDD só começa se:
   - [ ] `specs/roadmap/ROADMAP.md` existir
   - [ ] `specs/roadmap/BACKLOG.md` existir
-  - [ ] O núcleo do ForgeBase estiver instalado e importável no ambiente (ver `docs/guides/forgebase_guides/forgebase_install.md`)
+  - [ ] O núcleo do ForgeBase estiver instalado e importável no ambiente (ver `docs/product/guides/forgebase_guides/forgebase_install.md`)
   - [ ] Ambiente de testes e hooks de pre-commit estiverem configurados (virtualenv, pytest/pytest-bdd, pre-commit + ruff conforme `temp/setup-git.txt`)
 
 ### 5.1 Roadmap Planning (execution.roadmap_planning)
@@ -284,7 +284,7 @@ Referência: `process/execution/roadmap_planning/PROCESS.yml`
 #### 5.1.1 Etapa 00 — Validação Arquitetural com Stakeholders
 
 - Entradas:
-  - [x] `docs/visao.md`
+  - [x] `docs/product/visao.md`
   - [x] `specs/bdd/*.feature`
   - [x] `specs/bdd/tracks.yml`
 - Saídas:

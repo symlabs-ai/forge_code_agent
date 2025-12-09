@@ -12,7 +12,7 @@
 
 **Tipo:** VALUE
 **Domínio:** 10_forge_core
-**Referência MDD:** `docs/visao.md`
+**Referência MDD:** `docs/product/visao.md`
 
 ---
 
@@ -173,7 +173,7 @@ SCENARIO: Persist generated files in the workspace
 
 **Tipo:** SUPPORT
 **Domínio:** 50_observabilidade
-**Referência MDD:** `docs/visao.md`
+**Referência MDD:** `docs/product/visao.md`
 
 ---
 

@@ -18,5 +18,5 @@ pip install -e ".[dev]"
 
 ## Documentação Completa
 
-- **[Início Rápido](docs/usuarios/inicio-rapido.md)** — Instalação, primeiro uso e exemplos
-- **[Ambiente e Scripts](docs/usuarios/ambiente_e_scripts.md)** — Setup de venv, lint (Ruff), pre-commit hooks
+- **[Início Rápido](docs/product/usuarios/inicio-rapido.md)** — Instalação, primeiro uso e exemplos
+- **[Ambiente e Scripts](docs/product/usuarios/ambiente_e_scripts.md)** — Setup de venv, lint (Ruff), pre-commit hooks

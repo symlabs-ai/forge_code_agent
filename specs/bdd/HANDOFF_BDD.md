@@ -14,7 +14,7 @@ Este handoff formaliza a transição da fase **BDD** para **Execution / Roadmap 
 ---
 
 ## 2. Visão do Produto
-Resumo derivado de `docs/visao.md`.
+Resumo derivado de `docs/product/visao.md`.
 
 | Aspecto | Descrição |
 |---------|-----------|
@@ -26,7 +26,7 @@ Resumo derivado de `docs/visao.md`.
 ---
 
 ## 3. Escopo Aprovado do MVP (perspectiva BDD)
-Resumo derivado de `docs/aprovacao_mvp.md` e dos tracks em `specs/bdd/tracks.yml`.
+Resumo derivado de `docs/product/aprovacao_mvp.md` e dos tracks em `specs/bdd/tracks.yml`.
 
 | Funcionalidade | Prioridade | Observações |
 |----------------|-----------|-------------|
@@ -43,10 +43,10 @@ Resumo derivado de `docs/aprovacao_mvp.md` e dos tracks em `specs/bdd/tracks.yml
 
 | Artefato | Caminho | Relevância |
 |----------|--------|-----------|
-| Visão | `docs/visao.md` | Contexto de negócio e intenção central. |
-| Sumário Executivo | `docs/sumario_executivo.md` | Estratégia e modelo de valor. |
-| Resultados da Validação | `docs/resultados_validacao.md` | Dados e interpretação da validação de narrativa. |
-| Aprovação de MVP | `docs/aprovacao_mvp.md` | Escopo aprovado de MVP. |
+| Visão | `docs/product/visao.md` | Contexto de negócio e intenção central. |
+| Sumário Executivo | `docs/product/sumario_executivo.md` | Estratégia e modelo de valor. |
+| Resultados da Validação | `docs/product/resultados_validacao.md` | Dados e interpretação da validação de narrativa. |
+| Aprovação de MVP | `docs/product/aprovacao_mvp.md` | Escopo aprovado de MVP. |
 | Mapeamento de Comportamentos | `specs/bdd/drafts/behavior_mapping.md` | Base comportamental (VALUE e SUPPORT). |
 | Tracks BDD | `specs/bdd/tracks.yml` | Ligação entre ValueTracks e features BDD. |
 | Features BDD | `specs/bdd/10_forge_core/*.feature`, `specs/bdd/50_observabilidade/*.feature` | Especificações Given/When/Then de execução, tools/files e resiliência. |

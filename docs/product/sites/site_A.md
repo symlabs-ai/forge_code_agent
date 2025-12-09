@@ -100,4 +100,4 @@ Quer transformar suas CLIs de IA de código em infraestrutura de automação?
 ---
 
 ## 📎 Rodapé / Créditos
-_Visão e hipótese derivadas de `docs/hipotese.md` e `docs/visao.md` do projeto forgeCodeAgent, dentro do ForgeProcess (MDD)._
+_Visão e hipótese derivadas de `docs/product/hipotese.md` e `docs/product/visao.md` do projeto forgeCodeAgent, dentro do ForgeProcess (MDD)._

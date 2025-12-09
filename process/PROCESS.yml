@@ -30,7 +30,7 @@ project_layout:
     - "src/"
     - "tests/"
   optional_dirs:
-    - "docs/"
+    - "docs/product/"
     - "examples/"
   required_files:
     - "process/PROCESS.md"
@@ -46,7 +46,7 @@ getting_started:
     medindo progresso em valor de negócio, não em tempo ou tarefas.
   first_file:
     template: "process/mdd/templates/template_hipotese.md"
-    destination: "docs/hipotese.md"
+    destination: "docs/product/hipotese.md"
     description: "Hipótese de mercado - ponto de partida do processo"
   next_steps:
     - "Execute 'symforge start' ou 'symforge tui' para começar"

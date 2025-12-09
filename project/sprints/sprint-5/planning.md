@@ -13,7 +13,7 @@
   - MCP centralizado no `CodeManager` com demos multi-provider (Codex, Claude, Gemini).
   - CLI-first para sessões (`--use-code-manager`, `--session-id`, `--auto-summarize`).
 - Referências:
-  - `docs/current_plan.md`
+  - `docs/product/current_plan.md`
   - `specs/roadmap/feature_breakdown.md`
   - `specs/roadmap/BACKLOG.md`
   - `project/recommendations.md`
@@ -24,7 +24,7 @@
 
 ### Goal 1 — PR assistido via CLI + MCP
 
-- ValueTrack: **PR Assistido via CLI + MCP** (planejado em `docs/current_plan.md` e `specs/roadmap/feature_breakdown.md`).
+- ValueTrack: **PR Assistido via CLI + MCP** (planejado em `docs/product/current_plan.md` e `specs/roadmap/feature_breakdown.md`).
 - Resultado esperado:
   - Feature BDD `specs/bdd/42_pr_assist/42_pr_assist.feature` detalhada e com steps implementados.
   - Pelo menos um cenário `@pr_assist @cli @mcp @e2e` verde usando `CodeManager` + MCP (provider dummy ou codex, conforme ambiente de CI).
@@ -88,7 +88,7 @@
 - [ ] Garantir que os steps BDD de T23/T25:
   - [ ] usem `CodeManager` com `session_id` explícito;
   - [ ] validem que `logs/codeagent/session_*.json` é criado durante os testes.
-- [ ] Atualizar `docs/sites/cli_sessions_and_context.md` com exemplos:
+- [ ] Atualizar `docs/product/sites/cli_sessions_and_context.md` com exemplos:
   - [ ] PR assistido com `--use-code-manager --session-id`;
   - [ ] módulo+testes com reuso de sessão.
 

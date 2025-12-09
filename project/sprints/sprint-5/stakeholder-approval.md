@@ -27,7 +27,7 @@
 
 - [x] Demos executados com sucesso em ambiente local preparado.
 - [x] Testes automatizados (`pytest -q`) verdes.
-- [x] Documentação atualizada (`docs/current_plan.md`, `docs/sites/cli_sessions_and_context.md`).
+- [x] Documentação atualizada (`docs/product/current_plan.md`, `docs/product/sites/cli_sessions_and_context.md`).
 - [x] Processos de sprint/review registrados (`project/sprints/sprint-5/*.md`).
 
 ---

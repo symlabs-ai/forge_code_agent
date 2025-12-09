@@ -8,7 +8,7 @@ Requer a biblioteca opcional:
 Uso:
   python symbiotas/mdd_publisher/scripts/export_docx.py \
          --input project/docs/sumario_executivo.md \
-         [--output project/output/docs/sumario_executivo.docx]
+         [--output project/output/docs/product/sumario_executivo.docx]
 """
 from __future__ import annotations
 
@@ -21,7 +21,7 @@ UTILS_DIR = SCRIPT_DIR / "utils"
 if str(UTILS_DIR) not in sys.path:
     sys.path.insert(0, str(UTILS_DIR))
 
-from helpers import (
+from helpers import (  # noqa: E402
     MissingDependencyError,
     default_output_for_md,
     log_export,
@@ -50,6 +50,11 @@ def export_docx(input_md: Path, output_docx: Path | None = None) -> Path:
     """
     try:
         from docx import Document  # type: ignore
+        from docx.shared import Pt as _Pt  # type: ignore
+
+        # Expõe Pt em nível de módulo para uso em _add_formatted_paragraph
+        global Pt
+        Pt = _Pt
     except Exception as e:  # pragma: no cover
         raise MissingDependencyError("Biblioteca 'python-docx' não disponível.") from e
 

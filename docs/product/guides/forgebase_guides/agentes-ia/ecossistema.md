@@ -62,7 +62,7 @@ ForgeBase fornece a **camada de execução** onde:
 ForgeBase fornece **4 níveis** de documentação para diferentes necessidades:
 
 ### 1. Início Rápido
-**Arquivo**: `docs/agentes-ia/inicio-rapido.md`
+**Arquivo**: `docs/product/agentes-ia/inicio-rapido.md`
 **Público**: Agentes de IA precisando de referência rápida
 **Conteúdo**:
 - Imports e assinaturas de API
@@ -74,7 +74,7 @@ ForgeBase fornece **4 níveis** de documentação para diferentes necessidades:
 **Use quando**: Adicionar à janela de contexto, lookup rápido
 
 ### 2. Guia Completo
-**Arquivo**: `docs/agentes-ia/guia-completo.md`
+**Arquivo**: `docs/product/agentes-ia/guia-completo.md`
 **Público**: Agentes de IA precisando de docs detalhados
 **Conteúdo**:
 - Documentação completa de API
@@ -106,7 +106,7 @@ ForgeBase fornece **4 níveis** de documentação para diferentes necessidades:
 ```
 Requisição do Usuário
     ↓
-Agente IA lê instruções (docs/agentes-ia/)
+Agente IA lê instruções (docs/product/agentes-ia/)
     ↓
 Agente importa APIs (from forgebase.dev.api import *)
     ↓
@@ -413,9 +413,9 @@ Um agente de IA está **usando ForgeBase APIs com sucesso** quando:
 
 | Recurso | Localização | Use Para |
 |---------|-------------|----------|
-| Início Rápido | `docs/agentes-ia/inicio-rapido.md` | Lookup rápido de API |
-| Guia Completo | `docs/agentes-ia/guia-completo.md` | Referência detalhada |
-| Descoberta | `docs/agentes-ia/descoberta.md` | Como descobrir APIs |
+| Início Rápido | `docs/product/agentes-ia/inicio-rapido.md` | Lookup rápido de API |
+| Guia Completo | `docs/product/agentes-ia/guia-completo.md` | Referência detalhada |
+| Descoberta | `docs/product/agentes-ia/descoberta.md` | Como descobrir APIs |
 | Exemplos Python | `examples/ai_agent_usage.py` | Aprender por exemplo |
 | Código Fonte API | `src/forgebase/dev/api/*.py` | Entendimento profundo |
 

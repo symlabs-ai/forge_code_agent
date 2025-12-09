@@ -131,8 +131,8 @@ tests/
 ### 🔹 Subetapa 1: Mapeamento de Comportamentos
 
 **📥 Entrada:**
-- `docs/visao.md` (A visão do produto)
-- `docs/aprovacao_mvp.md` (Aprovação formal do MVP e aprendizados)
+- `docs/product/visao.md` (A visão do produto)
+- `docs/product/aprovacao_mvp.md` (Aprovação formal do MVP e aprendizados)
 
 **📤 Saída:**
 - `specs/bdd/drafts/behavior_mapping.md` (rascunho)
@@ -162,7 +162,7 @@ Derivar comportamentos concretos dos ValueTracks definidos no MDD.
 ### 🔹 Subetapa 2: Escrita de Features Gherkin
 
 **📥 Entrada:**
-- `process/bdd/docs/behavior_mapping.md`
+- `process/bdd/docs/product/behavior_mapping.md`
 
 **📤 Saída:**
 - `specs/bdd/**/*.feature` (arquivos Gherkin)
@@ -421,8 +421,8 @@ Empacotar e documentar formalmente a especificação de comportamento completa, 
 ┌─────────────────────────────────────────────────────────┐
 │ MDD: Market Driven Development                          │
 ├─────────────────────────────────────────────────────────┤
-│ Saída: docs/visao.md                                    │
-│        docs/aprovacao_mvp.md                            │
+│ Saída: docs/product/visao.md                                    │
+│        docs/product/aprovacao_mvp.md                            │
 └────────────────┬────────────────────────────────────────┘
                  │
                  ▼ Handoff MDD → BDD

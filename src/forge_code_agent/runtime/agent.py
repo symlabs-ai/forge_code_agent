@@ -166,7 +166,7 @@ class CodeAgent:
     # --- Tool calling API -------------------------------------------------
 
     # Mantido vazio por enquanto; o suporte futuro a tool calling real
-    # será implementado via MCP, conforme descrito em docs/TOOL_CALLING_MCP_PROPOSAL.md.
+    # será implementado via MCP, conforme descrito em docs/product/TOOL_CALLING_MCP_PROPOSAL.md.
 
     # --- before_run / after_run hooks -----------------------------------
 

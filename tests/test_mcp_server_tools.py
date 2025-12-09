@@ -199,3 +199,84 @@ def test_mcp_stdio_server_initialize_and_tools(tmp_path: Path) -> None:
         assert "hello from mcp" in text_item.get("text", "")
     finally:
         proc.wait(timeout=5)
+
+
+def test_mcp_stdio_server_read_only_mode_blocks_write(tmp_path: Path) -> None:
+    """
+    Quando iniciado com --read-only, o servidor MCP não deve expor write_file
+    nem permitir sua invocação via tools/call.
+    """
+    repo_root = Path(__file__).resolve().parents[1]
+
+    env = os.environ.copy()
+    env["PYTHONPATH"] = os.pathsep.join(
+        [env.get("PYTHONPATH", ""), str(repo_root / "src")]
+    )
+
+    cmd = [
+        sys.executable,
+        "-m",
+        "forge_code_agent.mcp_server",
+        "--workdir",
+        str(tmp_path),
+        "--read-only",
+    ]
+
+    proc = subprocess.Popen(
+        cmd,
+        stdin=subprocess.PIPE,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        cwd=str(repo_root),
+        env=env,
+    )
+
+    try:
+        assert proc.stdin is not None
+        assert proc.stdout is not None
+
+        requests = [
+            {"jsonrpc": "2.0", "id": "1", "method": "initialize", "params": {}},
+            {"jsonrpc": "2.0", "id": "2", "method": "tools/list", "params": {}},
+            {
+                "jsonrpc": "2.0",
+                "id": "3",
+                "method": "tools/call",
+                "params": {
+                    "name": "write_file",
+                    "arguments": {"path": "demo.txt", "content": "x"},
+                },
+            },
+        ]
+
+        for req in requests:
+            proc.stdin.write(json.dumps(req) + "\n")
+        proc.stdin.flush()
+        proc.stdin.close()
+
+        responses: dict[str, dict[str, object]] = {}
+        for line in proc.stdout:
+            stripped = line.strip()
+            if not stripped:
+                continue
+            data = json.loads(stripped)
+            resp_id = str(data.get("id"))
+            responses[resp_id] = data
+
+        # tools/list não deve listar write_file em modo read-only.
+        list_resp = responses.get("2")
+        assert list_resp is not None
+        tools_result = list_resp.get("result") or {}
+        tools = tools_result.get("tools") or []
+        tool_names = {t.get("name") for t in tools}
+        assert "write_file" not in tool_names
+
+        # tools/call write_file deve retornar erro de método desconhecido.
+        call_resp = responses.get("3")
+        assert call_resp is not None
+        assert call_resp.get("error") is not None
+        msg = str((call_resp.get("error") or {}).get("message", "")).lower()
+        assert "unknown" in msg and "write_file" in msg
+    finally:
+        proc.wait(timeout=5)
