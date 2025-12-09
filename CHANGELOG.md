@@ -5,6 +5,16 @@ Todas as mudanças relevantes deste projeto são documentadas aqui.
 
 Formato inspirado em [Keep a Changelog](https://keepachangelog.com/), com versionamento semântico simplificado.
 
+## [0.3.1]
+
+### Changed
+
+- Bump de versão para `0.3.1` em `forge_code_agent.__version__` sem mudanças funcionais.
+- Documentação atualizada para refletir:
+  - novo nome do repositório GitHub `symlabs-ai/forge_code_agent`
+  - pacote Python `forge_code_agent`
+  - entrada oficial de CLI `python -m forge_code_agent.cli`.
+
 ## [0.3.0] – Cycle 04 / Sprint 6
 
 ### Added
